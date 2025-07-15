@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import { types as staticTypes } from "./data";
 
 function Main() {
   const [type, setType] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const currentType = staticTypes.find((t) => t.id === id);
     if (currentType) {
       setType(currentType);
+    } else {
+      navigate("/constructor");
     }
-  }, [id]);
+  }, [id, navigate]);
 
   useTitle(type?.title);
 
