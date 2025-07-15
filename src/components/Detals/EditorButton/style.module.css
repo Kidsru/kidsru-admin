@@ -26,36 +26,83 @@
   border-color: #F0F2F6;
   background-color: #F0F2F6;
   color: #C7C7C7;
+  outline: 0;
 }
 
 .edit {
   border-color: #E3EEFC;
   background-color: #E3EEFC;
   color: #396AFF;
+  transition: all 0.2s ease;
 }
 
 .edit > svg > path {
   fill: #396AFF;
   color: #396AFF;
+  transition: all 0.2s ease;
 }
+
+.edit:hover,
+.edit:focus {
+  border-color: #c8dcfb;
+  background-color: #d9e8ff;
+  color: #2d57d4;
+}
+
+.edit:hover > svg > path,
+.edit:focus > svg > path {
+  fill: #2d57d4;
+  color: #2d57d4;
+}
+
 
 .download {
   border-color: #E3EEFC;
   background-color: #E3EEFC;
   color: #396AFF;
+  transition: all 0.2s ease;
 }
 
 .download > svg > path {
   fill: #396AFF;
   color: #396AFF;
+  transition: all 0.2s ease;
 }
+
+.download:hover,
+.download:focus {
+  border-color: #c8dcfb;
+  background-color: #d9e8ff;
+  color: #2d57d4;
+}
+
+.download:hover > svg > path,
+.download:focus > svg > path {
+  fill: #2d57d4;
+  color: #2d57d4;
+}
+
 
 .delete {
   border-color: #FCEBE9;
   background-color: #FCEBE9;
   color: #E33326;
+  transition: all 0.2s ease;
 }
 
 .delete > svg > path {
   stroke: #e33326;
+  transition: all 0.2s ease;
+}
+
+.delete:hover,
+.delete:focus {
+  border-color: #f8cfc9;
+  background-color: #f9d9d6;
+  color: #c62820;
+}
+
+.delete:hover > svg > path,
+.delete:focus > svg > path {
+  stroke: #c62820;
 }
