@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./index.module.css";
-import Button from "../../../Detals/SubmitButton/button.jsx";
-import EditorButton from "../../../Detals/EditorButton/editorButton.jsx";
+import Button from "../../SubmitButton/button.jsx";
+import EditorButton from "../../EditorButton/editorButton.jsx";
 import { ReactComponent as UploadIcon } from "../../../../assets/icon/upload.svg";
 
 function LoadImg({ onImageChange }) {

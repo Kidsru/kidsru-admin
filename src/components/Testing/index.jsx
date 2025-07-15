@@ -1,13 +1,14 @@
-import React from 'react'
-// import CardImgBtn from "../Detals/CardImgBtn";
-import CardImgBtns from "../Detals/CardImgBtns/CardImgBtns";
+import React from "react";
+import Index1 from "../Detals/LoadMedia/index1/index";
+import Index2 from "../Detals/LoadMedia/index2/index";
 function Testing() {
   return (
     <div>
-
-        <CardImgBtns></CardImgBtns>
+      <Index1 />
+      <br />
+      <Index2 />
     </div>
-  )
+  );
 }
 
-export default Testing
+export default Testing;
