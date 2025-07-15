@@ -1,0 +1,14 @@
+.dNone{
+    display: none;
+}
+
+.dictionaryTitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333333;
+}
+
+textarea {
+    height: 111px;
+    resize: none !important;
+}

@@ -1,0 +1,31 @@
+.wrpCheckBoxAnswer{
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 10px;
+  border: 1px solid #DEDEDE;
+
+}
+
+.checkGreen{
+    border: 1px solid #0D7D0B;
+    background-color: #C8FFC7;
+} 
+
+.checkGreen>input{
+    accent-color: #0D7D0B;
+}
+.wrpCheckBoxAnswer>input{
+    min-width: 18px ;
+}
+
+.wrpCheckBoxAnswer>div>h4{
+font-weight: 400;
+font-size: 14px;
+}
+
+.wrpCheckBoxAnswer>div>p{
+    font-size: 12px;
+    color: #6B7280;
+    margin-top: 10px;
+}

@@ -1,0 +1,62 @@
+.MentorProfilText {
+  min-width: 810px;
+  max-width: 810px;
+  height: 303px;
+  border: 1px solid #d4d4d4;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.wrpContent{
+    width: 95%;
+    height: 48px;
+}
+
+.wrpContent>h4>span{
+    color: #838383;
+    
+}
+
+.wrpContent>button{
+    color: white;
+    background-color: #396AFF;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transform: all 0.4s
+}
+
+.wrpContent>button:hover{
+    opacity: 0.9;
+}
+
+.MentorProfilText>.wrpBtn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wrpContent>h4{
+    max-width: 415px;
+   
+    display:flex;
+    justify-content: space-between;
+    font-size: 20px;
+
+}
+
+.wrpContent>h4>span{
+    width: 190px;
+    font-weight: 400;
+    font-size: 20px;
+
+}
+

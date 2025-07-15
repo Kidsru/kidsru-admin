@@ -1,0 +1,39 @@
+.pagination {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.pageBtn,
+.arrowBtn,
+.dropdown {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #CED4DA;
+  border-radius: 8px;
+  display: flex;justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
+
+
+.active {
+  border-color: #396AFF;
+  color: #396AFF;
+}
+
+.dropdown {
+  width: 137px;
+  outline: none;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #343A40;
+}

@@ -1,0 +1,16 @@
+.AnswerTextarea {
+  width: 100%;
+  height: 113px;
+  font-weight: 500;
+}
+
+.AnswerTextarea > textarea {
+  resize: vertical !important;
+  width: 100%;
+  height: 85px;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 10px;
+}

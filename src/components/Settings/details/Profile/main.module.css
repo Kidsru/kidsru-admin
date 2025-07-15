@@ -1,0 +1,33 @@
+.form {
+  width: 100%;
+  height: max-content;
+}
+
+.submit_wrapper {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.form_items {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 66px;
+}
+
+.form_img_wrapper {
+  width: max-content;
+  height: max-content;
+}
+.form_input_wrapper {
+  width: 508px;
+  height: 476px;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 36px;
+}

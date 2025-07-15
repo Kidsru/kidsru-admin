@@ -1,0 +1,146 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+}
+
+.table thead th {
+    font-size: 12px;
+    font-weight: 500;
+    font-style: Medium;
+    line-height: 20px;
+    color: #838383;
+    background-color: #E9ECEF;
+    padding: 10px;
+    border: 1px solid #DDDDDD;
+    line-height: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.table td {
+    min-width: 50px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #DDDDDD;
+    background-color: white;
+    color: #333333;
+    font-style: Regular;
+}
+
+.reasonContainer {
+    min-width: 296px;
+    max-width: 296px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.developmentContainer {
+    min-width: 206px;
+    max-width: 206px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.coloredText {
+    padding: 5px 10px;
+    background-color: #EDF7EE;
+    color: #56BA28;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.coloredText.ink {
+    background-color: #E1D4FF;
+    color: #8432E8;
+}
+
+.coloredText.red {
+    background-color: #FDC6C6;
+    color: #FF1F25;
+}
+
+.coloredText.pumpkin {
+    background-color: #FFE4D4;
+    color: #E87E32;
+}
+
+.coloredText.black {
+    background-color: #F5F5F5;
+    color: #000000;
+}
+
+.coloredText.blue {
+    background-color: #E4E4E4;
+    color: #333333;
+}
+
+.coloredText.pink {
+    background-color: #F6CDED;
+    color: #CE3099;
+}
+
+.coloredText.brown {
+    background-color: #F6CCA7;
+    color: #784614;
+}
+
+th input[type=checkbox],
+td input[type=checkbox] {
+    min-width: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0 auto;
+    border: 1px solid red !important;
+    border-radius: 5px;
+}
+
+.expandBtn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.accordionItem{
+    display: flex;
+    align-items: center;
+}
+
+.paginationWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.addButton {
+    border: none;
+    color: #396AFF;
+    background-color: #E3EEFC;
+    padding: 10px;
+    font-weight: 300;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    gap:  10px;
+    cursor: pointer;
+}
+
+.gameCount {
+    width: 27px;
+    height: 28px;
+    background-color: #F6CCA7;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 12px;
+    font-weight: 400;
+    color: #784614;
+}

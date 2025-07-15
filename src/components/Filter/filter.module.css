@@ -1,0 +1,59 @@
+.filter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.filterLeftTop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.filterLeftTop p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #838383;
+}
+
+.filterLeftBottom {
+    display: flex;
+    gap: 5px;
+    border-top: 1px solid #C7C7C7;
+}
+
+.filterLeftBottom p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #838383;
+}
+
+.filterLeftBottom span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.filterRight {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.filterRight svg {
+    position: absolute;
+    left: 10px;
+}
+
+.filterRight input {
+    width: 200px;
+    height: 40px;
+    border: 1px solid #CED4DA;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #C7C7C7;
+    padding-left: 36px;
+}

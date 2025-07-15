@@ -1,0 +1,41 @@
+.switch {
+  width: 40px;
+  height: 24px;
+  border-radius: 36px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.on {
+  background-color: #396AFF;
+  justify-content: flex-end;
+}
+
+.off {
+  background-color: #e0e0e0;
+  justify-content: flex-start;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  color: #2962ff;
+  font-size: 14px;
+}
+
+.check {
+  font-weight: bold;
+}
