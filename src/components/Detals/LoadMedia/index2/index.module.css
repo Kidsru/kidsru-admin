@@ -1,5 +1,5 @@
 .wrapper {
-  width: 466px;
+  width: 489px;
   min-height: 476px;
   padding: 24px;
   border: 1px solid #d9d9d9;
@@ -7,8 +7,8 @@
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  row-gap: 18.5px;
+  overflow: hidden;
+  row-gap: 20px;
 }
 
 .title_wrapper {
@@ -47,84 +47,22 @@
   justify-content: right;
 }
 
-.img_edior {
+.video_wrapper {
   width: 100%;
   height: max-content;
   display: flex;
-  justify-content: space-between;
-}
-
-.img_wrapper {
-  width: 280px;
-  height: 280px;
-  overflow: hidden;
-}
-
-.edior_wrapper {
-  width: 126px;
-  height: 280px;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
 }
 
-.img_pw {
-  width: 280px;
-  height: 280px;
-  border: 1px solid #cdd0dc;
-  border-radius: 8px;
+.video_center_line{
+  width: 1px;
+  height: 439px;
+  background-color: #DEDEDE;
+  margin: 0 22px;
 }
 
-.upload_wrapper {
-  width: 280px;
-  height: 280px;
-  background-color: #f6f7fe;
-  border: 1px solid #396aff;
-  overflow: hidden;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 8px;
-  transition: all 0.1s linear;
-}
-
-.drag_active {
-  border: 3px dashed #007bff;
-  background-color: #e6f0ff;
-}
-
-.upload_icon {
-  width: 90px;
-  height: 90px;
-}
-
-.upload_text {
-  width: 165px;
+.submit_wrapper{
+  width: 100%;
   height: max-content;
-  min-height: 32px;
-  font-weight: 500;
-  font-size: 18.98px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.upload_card {
-  border: 1px solid #396aff;
-  box-sizing: border-box;
-  padding: 10px 15px;
-  color: #396aff;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: center;
-  border-radius: 10px;
 }

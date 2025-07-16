@@ -120,8 +120,6 @@ const data = [
     }
 ]
 
-
-
 const AddWordsPage = () => {
     const location = useLocation();
     const { breadcrumb = "" } = location.state || {};
@@ -155,6 +153,16 @@ const AddWordsPage = () => {
         console.log(`Edit word with id: ${id}`);
     }
 
+
+    const [inputValue, setInputValue] = useState("");
+
+    const filteredData = data.filter((user) => {
+        const lower = inputValue.toLowerCase();
+        return (
+            user.title.toLowerCase().includes(lower) ||
+            user.id.toString().includes(lower)
+        );
+    });
     return (
         <div>
             <h4 className="title2">Словарь</h4>
@@ -209,25 +217,32 @@ const AddWordsPage = () => {
             </div>
             <div style={{ minWidth: "1100px", padding: "30px" }} className="wrapper">
                 <h3 className="title2">Конструктора слов</h3>
-                <div className="wrapper" style={{ padding: "24px" }}>
-                    <h4 className={styles.title}>Напишите название достижения *</h4>
-                    <p className={styles.subtitle}>Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть.</p>
-                    <div>
-                        <h4 className={styles.title}>Text</h4>
-                        <textarea className={styles.textarea} placeholder="Мастер приветствий"></textarea>
-                        <div style={{ textAlign: "right" }}>
-                            <Button text={"Готово"} />
-                        </div>
+                <div className={styles.flex}>
+                    <div style={{ width: "263px", height: "538px" }}>
+                        tlc
                     </div>
-                </div>
-                <div className="wrapper" style={{ padding: "24px", marginTop:"30px" }}>
-                    <h4 className={styles.title}>Напишите описание *</h4>
-                    <p className={styles.subtitle}>Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть.</p>
                     <div>
-                        <h4 className={styles.title}>Text</h4>
-                        <textarea className={styles.textarea} placeholder="Присуждается за прохождение всех игр на первом уроке"></textarea>
-                        <div style={{ textAlign: "right" }}>
-                            <Button text={"Готово"} />
+                        <div className="wrapper" style={{ padding: "24px" }}>
+                            <h4 className={styles.title}>Напишите название достижения *</h4>
+                            <p className={styles.subtitle}>Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть.</p>
+                            <div>
+                                <h4 className={styles.title}>Text</h4>
+                                <textarea className={styles.textarea} placeholder="Мастер приветствий"></textarea>
+                                <div style={{ textAlign: "right" }}>
+                                    <Button text={"Готово"} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="wrapper" style={{ padding: "24px", marginTop: "30px" }}>
+                            <h4 className={styles.title}>Напишите описание *</h4>
+                            <p className={styles.subtitle}>Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть.</p>
+                            <div>
+                                <h4 className={styles.title}>Text</h4>
+                                <textarea className={styles.textarea} placeholder="Присуждается за прохождение всех игр на первом уроке"></textarea>
+                                <div style={{ textAlign: "right" }}>
+                                    <Button text={"Готово"} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -236,8 +251,8 @@ const AddWordsPage = () => {
             <div style={{ marginTop: "45px" }}>
                 <h3 className="title2">{`Модуль ${module}`}</h3>
                 <div style={{ minWidth: "100%" }} className="wrapper">
-                    <Filter />
-                    <Table achievements={true} itemsPerPage={10} thead={["id", "Название", "Описание", "Кол-во игр", "Утвердить", "Дата создания", "Модуль", "Блок", "Урок", "Действия"]} data={data} hideView={true} onDelete={handleDelete} onEdit={handleEdit} />
+                    <Filter onInputChange={setInputValue} number={filteredData.length} />
+                    <Table achievements={true} itemsPerPage={10} thead={["id", "Название", "Описание", "Кол-во игр", "Дата создания", "Утвердить", "Модуль", "Блок", "Урок", "Действия"]} data={filteredData} hideView={true} onDelete={handleDelete} onEdit={handleEdit} />
                 </div>
             </div>
         </div>

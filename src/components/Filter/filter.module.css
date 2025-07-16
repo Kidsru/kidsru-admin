@@ -57,3 +57,35 @@
     color: #C7C7C7;
     padding-left: 36px;
 }
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.tag {
+  background: #f3f3f3;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.close {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filterResult {
+  font-size: 14px;
+  color: #7d7d7d;
+  margin-top: 4px;
+}
+
+select{
+    width: 50px;
+}

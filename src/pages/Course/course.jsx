@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Filter from "../../components/Filter/filter";
 import Table from "../../components/Table/table";
 
@@ -41,7 +42,7 @@ const Course = () => {
                                         {
                                             id: 'G2',
                                             name: 'Игра 2. “Кому какое приветствие?”',
-                                            status: 'Не начат',
+                                            status: 'Создан',
                                             createdAt: '06 апреля 2025',
                                             progress: 0
                                         },
@@ -54,11 +55,52 @@ const Course = () => {
             ]
         }
     ];
+
+    const filterNestedData = (items, search) => {
+        return items
+            .map((item) => {
+                const lower = search.toLowerCase();
+
+                const match =
+                    item.name?.toLowerCase().includes(lower) ||
+                    item.status?.toLowerCase().includes(lower) ||
+                    item.id?.toString().includes(lower);
+
+                let filteredChildren = [];
+                if (item.children) {
+                    filteredChildren = filterNestedData(item.children, search);
+                }
+
+                if (match || filteredChildren.length > 0) {
+                    return {
+                        ...item,
+                        children: filteredChildren.length > 0 ? filteredChildren : item.children,
+                    };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
+    };
+
+    const [inputValue, setInputValue] = useState("");
+
+
+    const filteredData = filterNestedData(data, inputValue);
+
     return (
         <div>
             <h3 className="title">Курс</h3>
             <div className="wrapper">
-                <Filter />
+                <Filter
+                    onInputChange={setInputValue}
+                    number={filteredData.length}
+                    filterField={{
+                        key: "status",
+                        label: "Статус",
+                        options: ["В процессе", "Создан", "Остановлен", "Не начат"],
+                    }}
+                />
                 <Table itemsPerPage={10} thead={["id", "Курс", "Статус", "Дата создания", "Утвердить", "Действия"]} data={data} />
             </div>
         </div>

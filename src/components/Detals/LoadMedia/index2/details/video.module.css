@@ -1,0 +1,154 @@
+.container {
+  min-width: 197px;
+  width: 197px;
+  min-height: 443px;
+  padding: 15px 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  row-gap: 15px;
+  overflow: hidden;
+}
+
+.title {
+  width: 100%;
+  height: 28px;
+  font-family: Helvetica Neue;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.edior_wrapper {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  padding: 0px 18.5px;
+}
+
+.media_wrapper {
+  width: 177px;
+  height: 315px;
+  border-radius: 8px;
+  border: 1px solid #396aff;
+  overflow: hidden;
+    position: relative;
+}
+
+.upload_wrapper {
+  width: 177px;
+  height: 315px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  transition: all 0.1s linear;
+  cursor: pointer;
+}
+
+.upload_icon {
+  width: 85px;
+  height: 85px;
+}
+
+.upload_text {
+  width: 150px;
+  height: max-content;
+  min-height: 32px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.upload_card {
+  border: 1px solid #396aff;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  color: #396aff;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.drag_active {
+  border: 3px dashed #007bff;
+  background-color: #e6f0ff;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+}
+
+.playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.volumeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.menuBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+}
+
+.progress {
+  height: 100%;
+  background-color: red;
+  width: 0%;
+}

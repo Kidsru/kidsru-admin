@@ -17,7 +17,7 @@ const Layout = () => {
       <div className="sideBar">{!isSidebarHidden && <Sidebar />}</div>
       <div className="content">
         <NavBar />
-        <div style={{marginTop:"85px", padding: "30px"}}>
+        <div style={{ marginTop: "85px", padding: "30px" }}>
           <Outlet />
         </div>
       </div>

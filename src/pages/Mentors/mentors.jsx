@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Table from "../../components/Table/table";
 import Filter from "../../components/Filter/filter";
+import { useState } from "react";
 
 const Mentors = () => {
     const users = [
@@ -163,12 +164,23 @@ const Mentors = () => {
     const handleEdit = (user) => {
     };
 
+    const [inputValue, setInputValue] = useState("");
+
+    const filteredData = users.filter((user) => {
+        const lower = inputValue.toLowerCase();
+        return (
+            user.name.toLowerCase().includes(lower) ||
+            user.phone.toLowerCase().includes(lower) ||
+            user.id.toString().includes(lower)
+        );
+    });
+
     return (
         <div>
-            <h1 className="title">Пользователи</h1>
+            <h1 className="title">Менторы</h1>
             <div className="wrapper">
-                <Filter />
-                <Table itemsPerPage={10} thead={["id", "Имя и Фамилия", "Номер телефона", "Дата регистрации", "Успеваемость", "Действия"]} data={users} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
+                <Filter onInputChange={setInputValue} number={filteredData.length} />
+                <Table itemsPerPage={10} thead={["id", "Имя и Фамилия", "Номер телефона", "Дата регистрации", "Успеваемость", "Действия"]} data={filteredData} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
             </div>
         </div>
     )

@@ -1,0 +1,147 @@
+.wrapper {
+    width: 1100px;
+    height: fit-content;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #D4D4D4;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #333333;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.types {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, auto);
+    gap: 16px;
+}
+
+.types .type {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 11px;
+}
+
+.types .type p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+}
+
+.types .type input {
+    min-width: 18px !important;
+    width: 18px !important;
+    height: 18px;
+}
+
+.LessonMapForm h3 {
+    width: 100%;
+    text-align: center;
+}
+
+.Selects {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.Selects>div {
+    width: 242px;
+    font-size: 20px;
+    display: flex;
+    gap: 5px;
+    height: 52px;
+}
+
+.Selects>div>label {
+    border: 1px solid #d4d4d4;
+    padding: 15px 25px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.Selects>div>select {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 40% 100%;
+    padding: 15px 40px 15px 15px;
+    border: 1px solid #d4d4d4;
+    text-align: left;
+    width: 90px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 0px 5px 5px 0px;
+    color: #396AFF;
+    outline: none;
+}
+
+.textareaWrapper {
+    margin-top: 20px;
+}
+
+.nameTextarea {
+    width: 521px;
+    min-height: 118px;
+    max-height: 200px;
+}
+
+textarea {
+    border: 1px solid #CDD0DC;
+    border-radius: 6px;
+    outline: none;
+    padding: 8px 11px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #838383;
+    resize: vertical !important;
+}
+
+.subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.problemTextarea {
+    width: 521px;
+    min-height: 720px;
+    max-height: 750px;
+}
+
+.videoTextarea {
+    width: 489px;
+    min-height: 190px;
+    max-height: 230px;
+}
+
+.questionCount {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid #D4D4D4;
+    overflow: hidden;
+}
+
+.questionCount button {
+    width: 166px;
+    height: 50px;
+    border: 1px solid #D4D4D4;
+    background-color: white;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333333;
+    cursor: pointer;
+}

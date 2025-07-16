@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Filter from "../../Filter/filter";
 import Table from "../../Table/table";
+import { useState } from "react";
 
 const Dictionary = () => {
     const data = [
@@ -97,6 +98,36 @@ const Dictionary = () => {
         }
     ];
 
+    const filterNestedData = (items, search) => {
+        return items
+            .map((item) => {
+                const lower = search.toLowerCase();
+
+                const match =
+                    item.name?.toLowerCase().includes(lower) ||
+                    item.status?.toLowerCase().includes(lower) ||
+                    item.id?.toString().includes(lower);
+
+                let filteredChildren = [];
+                if (item.children) {
+                    filteredChildren = filterNestedData(item.children, search);
+                }
+
+                if (match || filteredChildren.length > 0) {
+                    return {
+                        ...item,
+                        children: filteredChildren.length > 0 ? filteredChildren : item.children,
+                    };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
+    };
+
+    const [inputValue, setInputValue] = useState("");
+    const filteredData = filterNestedData(data, inputValue);
+
     const addParents = (node, parent = null) => {
         node.parent = parent;
         if (node.children) {
@@ -148,11 +179,19 @@ const Dictionary = () => {
         <div>
             <h3 className="title2">Словарь</h3>
             <div className="wrapper">
-                <Filter />
+                <Filter
+                    onInputChange={setInputValue}
+                    number={filteredData.length}
+                    filterField={{
+                        key: "status",
+                        label: "Статус",
+                        options: ["В процессе", "Создан", "Остановлен", "Не начат"],
+                    }}
+                />
                 <Table
                     itemsPerPage={10}
                     thead={["id", "Курс", "Статус", "Дата создания", "Действия"]}
-                    data={data}
+                    data={filteredData}
                     addButton={true}
                     handleClick={handleClick}
                 />

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./index.module.css";
-import Button from "../../SubmitButton/button.jsx";
-import EditorButton from "../../EditorButton/editorButton.jsx";
+import Button from "../../../Detals/SubmitButton/button.jsx";
+import EditorButton from "../../../Detals/EditorButton/editorButton.jsx";
 import { ReactComponent as UploadIcon } from "../../../../assets/icon/upload.svg";
 
 function LoadImg({ onImageChange }) {
@@ -22,7 +22,13 @@ function LoadImg({ onImageChange }) {
   }, [img, confirmed, onImageChange]);
 
   const validateAndSetImage = (file) => {
-    const validTypes = ["image/jpeg", "image/png"];
+    const validTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+      "image/bmp",
+    ];
     const maxSize = 5 * 1024 * 1024;
 
     if (!file) return;
@@ -60,7 +66,7 @@ function LoadImg({ onImageChange }) {
 
           canvas.toBlob((blob) => {
             if (!blob) {
-              alert("Ошибка: Не удалось обработать изображение.");
+                alert("Ошибка: Не удалось обработать изображение.");
               return;
             }
             const resizedFile = new File([blob], file.name, {
@@ -72,7 +78,7 @@ function LoadImg({ onImageChange }) {
             setConfirmed(false);
           }, file.type);
         } catch (err) {
-          alert("Ошибка: Не удалось обработать изображение на холсте.");
+            alert("Ошибка: Не удалось обработать изображение на холсте.");
           console.error(err);
         }
       };
@@ -146,13 +152,13 @@ function LoadImg({ onImageChange }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title_wrapper}>
-        <h4 className={styles.title}>
+        <div className={styles.title}>
           Загрузите фотографию профиля <span>*</span>
-        </h4>
-        <p className={styles.subtitle}>
+        </div>
+        <div className={styles.subtitle}>
           Пожалуйста, загрузите файл в формате jpeg, png и убедитесь, что размер
           файла не превышает 5 МБ.
-        </p>
+        </div>
       </div>
 
       <div className={styles.img_edior}>
@@ -184,7 +190,7 @@ function LoadImg({ onImageChange }) {
           )}
           <input
             type="file"
-            accept="image/jpeg,image/png,"
+            accept="image/jpeg,image/png,image/webp,image/gif,image/bmp"
             ref={fileInputRef}
             onChange={handleFileChange}
             style={{ display: "none" }}

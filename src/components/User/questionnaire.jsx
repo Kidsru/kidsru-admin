@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react"
 import Table from "../Table/table";
 import styles from "./user.module.css"
+import Filter from "../Filter/filter";
 
 function Questionnaire() {
   const users = [
@@ -149,6 +151,17 @@ function Questionnaire() {
     },
   ];
 
+  const [inputValue, setInputValue] = useState("");
+
+  const finalFilteredUsers = users.filter((user) => {
+    const lower = inputValue.toLowerCase();
+    return (
+      user.name?.toLowerCase().includes(lower) ||
+      user.phone?.toLowerCase().includes(lower) ||
+      user.id?.toString().includes(lower)
+    );
+  });
+
   const navigate = useNavigate();
 
   const handleView = (user) => {
@@ -166,7 +179,10 @@ function Questionnaire() {
     <div className={styles.container}>
       <h1 className={styles.title}>Пользователи / Опросник</h1>
       <div className={styles.wrapper}>
-        <Table questionnaire={true} itemsPerPage={10} thead={["id", "Имя и Фамилия", "Ментор", "Зачем изучать русский язык?", "Знание языка", "Навык для развития", "Время на занятия", "Действия"]} data={users} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
+        <Filter onInputChange={setInputValue} number={users.length} filterField={{
+          key: "knowledge", label: "Знание языка", options: ["Не знаю", "Отлично владею", "Знаю хорошо", "Понимаю немного"]
+        }} />
+        <Table filterKey={"knowledge"} questionnaire={true} itemsPerPage={10} thead={["id", "Имя и Фамилия", "Ментор", "Зачем изучать русский язык?", "Знание языка", "Навык для развития", "Время на занятия", "Действия"]} data={finalFilteredUsers} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
       </div>
     </div>
   );

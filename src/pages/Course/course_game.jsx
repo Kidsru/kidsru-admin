@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Filter from "../../components/Filter/filter";
 import Table from "../../components/Table/table";
 
@@ -32,12 +33,31 @@ const Course_game = () => {
             progress: 0
         },
     ];
+
+    const [inputValue, setInputValue] = useState("");
+
+    const filteredData = data.filter((user) => {
+        const lower = inputValue.toLowerCase();
+        return (
+            user.name.toLowerCase().includes(lower) ||
+            user.id.toString().includes(lower)
+        );
+    });
+
     return (
         <div>
             <h3 className="title">Курс / Игра</h3>
             <div className="wrapper">
-                <Filter />
-                <Table itemsPerPage={10} thead={["id", "Игра", "Статус", "Дата создания", "Утвердить", "Действия"]} data={data} />
+                <Filter
+                    onInputChange={setInputValue}
+                    number={filteredData.length}
+                    filterField={{
+                        key: "status",
+                        label: "Статус",
+                        options: ["В процессе", "Создан", "Остановлен", "Не начат"],
+                    }}
+                />
+                <Table itemsPerPage={10} thead={["id", "Игра", "Статус", "Дата создания", "Утвердить", "Действия"]} data={filteredData} />
             </div>
         </div>
     )

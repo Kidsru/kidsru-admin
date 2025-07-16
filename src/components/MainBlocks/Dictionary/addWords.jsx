@@ -171,7 +171,7 @@ const AddWordsPage = () => {
                 <h3 className="title2">{`Модуль ${module} / Блок ${block} / Урок ${lesson}`}</h3>
                 <div className="wrapper">
                     <Filter />
-                    <Table itemsPerPage={10} thead={["id", "На русском", "На узбекском", "Утвердить", "Дата создания", "Действия"]} data={data} hideView={true} onDelete={handleDelete} onEdit={handleEdit} />
+                    <Table itemsPerPage={10} thead={["id", "На русском", "На узбекском", "Дата создания", "Утвердить", "Действия"]} data={data} hideView={true} onDelete={handleDelete} onEdit={handleEdit} />
                 </div>
             </div>
         </div>

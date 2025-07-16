@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./main.module.css";
 import Button from "../../../Detals/SubmitButton/button.jsx";
-import Input from "../Input/input.jsx";
-import LoadImg from "../../../Detals/LoadMedia/index1/index.jsx";
+import Input from "../../details/Input/input.jsx";
+import LoadImg from "../../details/LoadImg/index.jsx";
 
 function Main() {
   const navigate = useNavigate();

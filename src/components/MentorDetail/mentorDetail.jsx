@@ -3,6 +3,7 @@ import MenTorProfil from '../mentorsProfileDetail/MentorProfil/MenTorProfil'
 import MentorProfilText from '../mentorsProfileDetail/MentorProfilText/MentorProfilText'
 import Filter from '../Filter/filter';
 import Table from '../Table/table';
+import { useState } from 'react';
 
 const MentorDetail = () => {
     const users = [
@@ -164,6 +165,17 @@ const MentorDetail = () => {
         },
     ];
 
+    const [inputValue, setInputValue] = useState("");
+
+    const filteredData = users.filter((user) => {
+        const lower = inputValue.toLowerCase();
+        return (
+            user.name.toLowerCase().includes(lower) ||
+            user.phone.toLowerCase().includes(lower) ||
+            user.id.toString().includes(lower)
+        );
+    });
+
     const navigate = useNavigate();
 
     const handleView = (user) => {
@@ -186,8 +198,16 @@ const MentorDetail = () => {
             </div>
             <h4 style={{ marginTop: "41px" }} className='title2'>Обработанные пользователи</h4>
             <div className="wrapper">
-                <Filter />
-                <Table itemsPerPage={10} thead={["id", "Имя и Фамилия", "Номер телефона", "Статус оплаты", "Последний раз заходил", "Последний Урок → Игра", "Осталось уроков в модуле", "Успеваемость пользователя до обработки", "Успеваемость пользователя после обработки", "Действия"]} data={users} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
+                <Filter
+                    onInputChange={setInputValue}
+                    number={filteredData.length}
+                    filterField={{
+                        key: "status",
+                        label: "Статус",
+                        options: ["Оплачен", "В ожидании", "Просрочен", "Задолжен"],
+                    }}
+                />
+                <Table itemsPerPage={10} thead={["id", "Имя и Фамилия", "Номер телефона", "Статус оплаты", "Последний раз заходил", "Последний Урок → Игра", "Осталось уроков в модуле", "Успеваемость пользователя до обработки", "Успеваемость пользователя после обработки", "Действия"]} data={filteredData} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
             </div>
         </div>
     )

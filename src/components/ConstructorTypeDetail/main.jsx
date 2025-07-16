@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import { types as staticTypes } from "./data";
+import MainComponent from "./Details/mainCompnent/mainComponent";
 
 function Main() {
   const [type, setType] = useState(null);
@@ -22,8 +23,7 @@ function Main() {
   return (
     <div>
       <h1>{type?.name}</h1>
-      <br />
-      <p>{type?.id}</p>
+      <MainComponent types={type?.children} />
     </div>
   );
 }

@@ -71,7 +71,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
         return (
             <>
                 <tr key={user.id}>
-                    <td>
+                    <td style={{height: "100%", display: "flex", justifyContent: "center", alignItems: "center",}}>
                         <input
                             type="checkbox"
                             checked={checkedRows[user.id] || false}
@@ -296,7 +296,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th><input type="checkbox" onChange={(e) => toggleCheck(e)} /></th>
+                        <th style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center",}}><input type="checkbox" onChange={(e) => toggleCheck(e)} /></th>
                         {
                             thead.map(item => (
                                 <th key={item}>

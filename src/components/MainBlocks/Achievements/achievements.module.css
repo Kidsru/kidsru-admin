@@ -120,3 +120,8 @@
     font-weight: 400;
     color: #838383;
 }
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}

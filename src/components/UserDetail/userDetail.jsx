@@ -9,6 +9,8 @@ import InternetBtnGood from '../Detals/InternetBtn/InternetBtnGood'
 import Table from "../Table/table";
 import AchievementsCart from "../Detals/AchievementsCart/AchievementsCart";
 import Filter from "../Filter/filter";
+import { useState } from "react";
+import useTitle from "../../hooks/useTitle";
 
 const UserDetail = () => {
     const { id } = useParams()
@@ -89,14 +91,14 @@ const UserDetail = () => {
         },
         {
             id: "1M1",
-            modul: "Модуль 1",
+            modul: "Модуль 2",
             status: "На проверке",
             purchaseDate: "06 апреля 2025",
             sum: "0.000.000",
             Receipt: "",
         },
         {
-            id: "1M1",
+            id: "1M5",
             modul: "Модуль 1",
             status: "Не оплачено",
             purchaseDate: "06 апреля 2025",
@@ -120,6 +122,49 @@ const UserDetail = () => {
             Receipt: "",
         },
     ]
+
+    const [courseInputValue, setCourseInputValue] = useState("");
+    const [paymentInputValue, setPaymentInputValue] = useState("");
+    useTitle("userDetail");
+
+
+    const filterNestedData = (items, search) => {
+        return items
+            .map((item) => {
+                const lower = search.toLowerCase();
+
+                const match =
+                    item.name?.toLowerCase().includes(lower) ||
+                    item.status?.toLowerCase().includes(lower) ||
+                    item.id?.toString().includes(lower);
+
+                let filteredChildren = [];
+                if (item.children) {
+                    filteredChildren = filterNestedData(item.children, search);
+                }
+
+                if (match || filteredChildren.length > 0) {
+                    return {
+                        ...item,
+                        children: filteredChildren.length > 0 ? filteredChildren : item.children,
+                    };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
+    };
+
+    const filteredCourses = filterNestedData(data, courseInputValue);
+
+    const filteredPayments = data2.filter((item) => {
+        const lower = paymentInputValue.toLowerCase();
+        return (
+            item.modul?.toLowerCase().includes(lower) ||
+            item.id?.toString().includes(lower)
+        );
+    });
+
 
 
     return (
@@ -165,9 +210,20 @@ const UserDetail = () => {
             <div style={{ marginTop: "32px" }}>
                 <h3 className="title2">Курсы</h3>
                 <div className={styles.wrapper}>
-                    <Filter />
-                    <Table itemsPerPage={10} thead={["id", "Курс", "Статус", "Дата создания", "Успеваемость", "Действия"]} data={data} />
-                </div>
+                    <Filter
+                        onInputChange={setCourseInputValue}
+                        number={filteredCourses.length}
+                        filterField={{
+                            key: "status",
+                            label: "Статус",
+                            options: ["В процессе", "Создан", "Остановлен", "Не начат"],
+                        }}
+                    />
+                    <Table
+                        itemsPerPage={10}
+                        thead={["id", "Курс", "Статус", "Дата создания", "Успеваемость", "Действия"]}
+                        data={filteredCourses}
+                    /></div>
             </div>
             <div style={{ maxWidth: "1115px", marginTop: "10px", padding: "30px" }} className={styles.wrapper} >
                 <h3 className="title2">Достижения</h3>
@@ -182,9 +238,20 @@ const UserDetail = () => {
             <div style={{ marginTop: "46px" }}>
                 <h3 className="title2">История платежей</h3>
                 <div className={styles.wrapper}>
-                    <Filter />
-                    <Table itemsPerPage={4} thead={["id", "Модуль", "Статус", "Дата покупки", "Сумма", "Квитанция", "Действия"]} data={data2} />
-                </div>
+                    <Filter
+                        onInputChange={setPaymentInputValue}
+                        number={filteredPayments.length}
+                        filterField={{
+                            key: "status",
+                            label: "Статус",
+                            options: ["Оплачен", "На проверке", "Не оплачено", "В ожидании"],
+                        }}
+                    />
+                    <Table
+                        itemsPerPage={4}
+                        thead={["id", "Модуль", "Статус", "Дата покупки", "Сумма", "Квитанция", "Действия"]}
+                        data={filteredPayments}
+                    /></div>
             </div>
         </div>
     )

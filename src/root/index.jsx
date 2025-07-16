@@ -27,6 +27,7 @@ function TitleSetter() {
   return null;
 }
 
+// Suspense wrapper ichida fallback loader bo‘ladi
 function App() {
   return (
     <Router>

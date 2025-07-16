@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styles from "./lessonMap.module.css";
 import Type1 from "./type1";
-import Type2 from "./type2"; 
-import Type3 from "./type3"; 
+import Type2 from "./type2";
+import Type3 from "./type3";
 import Type4 from "./type4";
 
 const LessonMap = () => {
-  const [selectedType, setSelectedType] = useState(1); // boshlanishi 1-tur
+  const [selectedType, setSelectedType] = useState(1);
 
   const renderComponent = () => {
     switch (selectedType) {
