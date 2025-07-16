@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./index.module.css";
 import Video from "./details/video.jsx";
 import SubmitButton from "../../SubmitButton/button.jsx";
+import MediaVideo from "../../../../assets/video/video.mp4";
+import MediaPoster from "../../../../assets/video/poster.png";
 
 function LoadMedia() {
   return (
@@ -16,9 +18,14 @@ function LoadMedia() {
         </p>
       </div>
       <div className={styles.video_wrapper}>
-        <Video title={"Начальное видео"} />
+        <Video
+          title={"Начальное видео"}
+          poster={MediaPoster}
+          load={MediaVideo}
+          format={".mp4"}
+        />
         <div className={styles.video_center_line}>&nbsp;</div>
-        <Video title={"Конечное видео"} />
+        <Video title={"Конечное видео"} poster={MediaPoster} />
       </div>
       <div className={styles.submit_wrapper}>
         <SubmitButton type="button" text="Готово" style={{ width: "100%" }} />

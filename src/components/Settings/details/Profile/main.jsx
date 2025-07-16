@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./main.module.css";
 import Button from "../../../Detals/SubmitButton/button.jsx";
 import Input from "../../details/Input/input.jsx";
-import LoadImg from "../../details/LoadImg/index.jsx";
+import LoadImg from "../../../Detals/LoadMedia/index1/index.jsx";
+import Avatar from "../../../../assets/img/user.jpg";
 
 function Main() {
   const navigate = useNavigate();
@@ -20,56 +21,54 @@ function Main() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const { fullName, phone, password, confirmPassword } = formData;
+    const { fullName, phone, password, confirmPassword } = formData;
 
-  if (
-    !fullName.trim() ||
-    !phone.trim() ||
-    !password.trim() ||
-    !confirmPassword.trim()
-  ) {
-    alert("Пожалуйста, заполните все поля!");
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    alert("Пароли не совпадают!");
-    return;
-  }
-
-  if (!profileImage || !profileImage.file) {
-    alert("Пожалуйста, загрузите изображение профиля!");
-    return;
-  }
-
-  const formDataToSend = new FormData();
-  formDataToSend.append("fullName", fullName);
-  formDataToSend.append("phone", phone);
-  formDataToSend.append("password", password);
-  formDataToSend.append("confirmPassword", confirmPassword);
-  formDataToSend.append("profileImage", profileImage.file);
-
-  try {
-    const response = await fetch("/backand-api", {
-      method: "POST",
-      body: formDataToSend,
-    });
-
-    if (!response.ok) {
-      throw new Error("Произошла ошибка сервера");
+    if (
+      !fullName.trim() ||
+      !phone.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
+      alert("Пожалуйста, заполните все поля!");
+      return;
     }
 
-    const data = await response.json();
-    alert("Успешно отправлено!");
+    if (password !== confirmPassword) {
+      alert("Пароли не совпадают!");
+      return;
+    }
 
-  } catch (error) {
-    alert("Ошибка: " + error.message);
-  }
-};
+    if (!profileImage || !profileImage.file) {
+      alert("Пожалуйста, загрузите изображение профиля!");
+      return;
+    }
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("fullName", fullName);
+    formDataToSend.append("phone", phone);
+    formDataToSend.append("password", password);
+    formDataToSend.append("confirmPassword", confirmPassword);
+    formDataToSend.append("profileImage", profileImage.file);
+
+    try {
+      const response = await fetch("/backand-api", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error("Произошла ошибка сервера");
+      }
+
+      const data = await response.json();
+      alert("Успешно отправлено!");
+    } catch (error) {
+      alert("Ошибка: " + error.message);
+    }
+  };
 
   const inputs = [
     {
@@ -102,7 +101,7 @@ const handleSubmit = async (e) => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.form_items}>
         <div className={styles.form_img_wrapper}>
-          <LoadImg onImageChange={setProfileImage} />
+          <LoadImg onImageChange={setProfileImage} src={Avatar} />
         </div>
         <div className={styles.form_input_wrapper}>
           {inputs.map((input) => (

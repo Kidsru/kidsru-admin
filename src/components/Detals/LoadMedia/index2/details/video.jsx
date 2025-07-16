@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./video.module.css";
 import EditorButton from "../../../EditorButton/editorButton.jsx";
 import { ReactComponent as UploadIcon } from "../../../../../assets/icon/upload.svg";
 import VideoPlayer from "./videoPlayer/videoPlayer.jsx";
 
-function Video({ title }) {
-  const [video, setVideo] = useState(null); // { file, url, formattedName }
+function Video({ title, load, format, poster }) {
+  const [video, setVideo] = useState(null); // { file?, url, formattedName? }
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef();
 
@@ -39,22 +39,32 @@ function Video({ title }) {
     setVideo({ file, url, formattedName });
   };
 
+  const validateUrlAndSetVideo = (url) => {
+    const isValidVideoUrl = url.match(/^https?:.*\.(mp4|webm)(\?.*)?$/i);
+    if (!isValidVideoUrl) return;
+    const formattedDate = getFormattedDate();
+    const extension = url.split(".").pop().split("?")[0];
+    const formattedName = `video-${formattedDate}.${extension}`;
+    setVideo({ url, formattedName });
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     validateAndSetVideo(file);
   };
 
   const handleEdit = () => fileInputRef.current?.click();
+
   const handleDelete = () => {
     setVideo(null);
-    fileInputRef.current.value = "";
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleDownload = () => {
-    if (!video) return;
+    if (!video?.url) return;
     const link = document.createElement("a");
     link.href = video.url;
-    link.download = video.formattedName;
+    link.download = video.formattedName || "video.mp4";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -73,10 +83,19 @@ function Video({ title }) {
   const handleDrop = (e) => {
     e.preventDefault();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      validateAndSetVideo(e.dataTransfer.files[0]);
+
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      validateAndSetVideo(file);
+    } else {
+      const text = e.dataTransfer.getData("text/plain");
+      if (text) validateUrlAndSetVideo(text);
     }
   };
+
+  useEffect(() => {
+    if (load) setVideo({ url: load, formattedName: format });
+  }, [load, format]);
 
   return (
     <div className={styles.container}>
@@ -92,12 +111,11 @@ function Video({ title }) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        {video ? (
+        {video?.url ? (
           <VideoPlayer
             className={styles.video}
             src={video.url}
-            disablePictureInPicture
-            controlsList="nodownload"
+            poster={poster}
           />
         ) : (
           <div className={styles.upload_wrapper} onClick={handleEdit}>
@@ -121,19 +139,19 @@ function Video({ title }) {
       <div className={styles.edior_wrapper}>
         <EditorButton
           type="edit"
-          active={!!video}
+          active={!!video?.url}
           text={false}
           onClick={handleEdit}
         />
         <EditorButton
           type="download"
-          active={!!video}
+          active={!!video?.url}
           text={false}
           onClick={handleDownload}
         />
         <EditorButton
           type="delete"
-          active={!!video}
+          active={!!video?.url}
           text={false}
           onClick={handleDelete}
         />
