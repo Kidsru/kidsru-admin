@@ -1,0 +1,46 @@
+.wrapper {
+    width: 1100px;
+    height: fit-content;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #D4D4D4;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header button {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #838383;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease;
+    background-color: white;
+}
+
+.rotate {
+    border-color: #396AFF !important;
+}
+
+.rotate svg {
+    transform: rotate(90deg);
+    transition: 0.3s ease;
+
+    path {
+        fill: #396AFF;
+    }
+}
+
+.content {
+    margin-top: 20px;
+}

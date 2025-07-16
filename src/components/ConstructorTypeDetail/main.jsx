@@ -6,6 +6,7 @@ import MainComponent from "./Details/mainCompnent/mainComponent";
 
 function Main() {
   const [type, setType] = useState(null);
+  const [questionsNumber, setQuestionsNumber] = useState(1);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ function Main() {
   return (
     <div>
       <h1>{type?.name}</h1>
-      <MainComponent types={type?.children} />
+      <MainComponent setQuestionsNumber={setQuestionsNumber} game={type} types={type?.children} />
     </div>
   );
 }

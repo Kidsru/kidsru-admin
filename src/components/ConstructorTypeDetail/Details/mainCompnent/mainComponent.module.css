@@ -8,6 +8,15 @@
     margin-top: 30px;
 }
 
+.ContentWrapper {
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+}
+
 .title {
     font-size: 20px;
     font-weight: 700;
@@ -129,19 +138,38 @@ textarea {
 }
 
 .questionCount {
+    width: fit-content;
     display: flex;
     border-radius: 10px;
-    border: 1px solid #D4D4D4;
     overflow: hidden;
+    border: 1px solid #D4D4D4;
 }
 
 .questionCount button {
     width: 166px;
     height: 50px;
-    border: 1px solid #D4D4D4;
+    border: none; 
     background-color: white;
     font-size: 24px;
     font-weight: 500;
     color: #333333;
     cursor: pointer;
+    outline: none;
+    border-right: 1px solid #D4D4D4;
+}
+
+.questionCount button:last-child {
+    border-right: none;
+}
+
+.questionCount button.active {
+    background-color: #F6F7FE;
+    outline: 2px solid #396AFF;
+    outline-offset: -2px; 
+}
+
+.saveButton {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
 }

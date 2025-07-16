@@ -27,13 +27,11 @@
   z-index: -1; 
 }
 
-.button:hover::before,
-.button:focus::before {
+.button:hover::before {
   left: 0;
 }
 
-.button:hover,
-.button:focus {
+.button:hover {
   color: #fff;
   outline: none;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
