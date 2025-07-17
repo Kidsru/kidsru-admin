@@ -138,29 +138,35 @@ textarea {
 }
 
 .questionCount {
-    width: fit-content;
+    width: 1000px;
     display: flex;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid #D4D4D4;
 }
 
 .questionCount button {
-    width: 166px;
+    flex: 1; 
     height: 50px;
-    border: none; 
+    border: none;
     background-color: white;
     font-size: 24px;
     font-weight: 500;
     color: #333333;
     cursor: pointer;
     outline: none;
-    border-right: 1px solid #D4D4D4;
+    border: 1px solid #D4D4D4;
+}
+
+.questionCount button:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .questionCount button:last-child {
-    border-right: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
+
 
 .questionCount button.active {
     background-color: #F6F7FE;

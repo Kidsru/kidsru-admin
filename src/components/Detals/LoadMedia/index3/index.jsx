@@ -1,10 +1,23 @@
 import styles from "./index.module.css";
 import Button from "../../SubmitButton/button.jsx";
-import EditorButton from "../../EditorButton/editorButton.jsx";
+import EditorButton from "../../EditorButton/resEditorButton.jsx";
 import { ReactComponent as UploadIcon } from "../../../../assets/icon/upload.svg";
 import { useFastLoadImg } from "./useFastLoadImg.js";
 
-function FastLoadImg({ onImageChange, src = null }) {
+function FastLoadImg({
+  title,
+  subtitle,
+  width,
+  imgWidth,
+  imgheight,
+  gap,
+  textarea,
+  textareaTitle,
+  textareaPlaceholder,
+  textareaValue,
+  onImageChange,
+  src = null,
+}) {
   const {
     img,
     isActive,
@@ -22,23 +35,50 @@ function FastLoadImg({ onImageChange, src = null }) {
   } = useFastLoadImg(src, onImageChange);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{ width: `${width}`, gap: `${gap}` }}
+    >
       <div className={styles.title_wrapper}>
         <h4 className={styles.title}>
-          Загрузите иконку <span>*</span>
+          {title} <span>*</span>
         </h4>
-        <p className={styles.subtitle}>
-          Пожалуйста, загрузите файл в формате jpeg, png и убедитесь, что размер
-          файла не превышает 5 МБ.
-        </p>
+        <p className={styles.subtitle}>{subtitle}</p>
       </div>
 
-      <div className={styles.img_edior}>
+      <div className={styles.img_edior} style={{ gap: `${gap}` }}>
+        <div className={styles.edior_wrapper}>
+          <div className={styles.edior_item}>
+            <EditorButton
+              type="edit"
+              active={isActive}
+              text={true}
+              onClick={handleEdit}
+            />
+          </div>
+          <div className={styles.edior_item}>
+            <EditorButton
+              type="download"
+              active={isActive}
+              text={true}
+              onClick={handleDownload}
+            />
+          </div>
+          <div className={styles.edior_item}>
+            <EditorButton
+              type="delete"
+              active={isActive}
+              text={true}
+              onClick={handleDelete}
+            />
+          </div>
+        </div>
         <div
           className={styles.img_wrapper}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
+          style={{ width: `${imgWidth}`, height: `${imgheight}` }}
         >
           {img?.url ? (
             <img
@@ -47,10 +87,12 @@ function FastLoadImg({ onImageChange, src = null }) {
               }`}
               src={img.url}
               alt="Аватар"
+              style={{ width: `${imgWidth}`, height: `${imgheight}` }}
             />
           ) : (
             <label
               onClick={handleEdit}
+              style={{ width: `${imgWidth}`, height: `${imgheight}` }}
               className={`${styles.upload_wrapper} ${
                 dragActive ? styles.drag_active : ""
               }`}
@@ -68,29 +110,13 @@ function FastLoadImg({ onImageChange, src = null }) {
             style={{ display: "none" }}
           />
         </div>
-
-        <div className={styles.edior_wrapper}>
-          <EditorButton
-            type="edit"
-            active={isActive}
-            text={false}
-            onClick={handleEdit}
-          />
-          <EditorButton
-            type="download"
-            active={isActive}
-            text={false}
-            onClick={handleDownload}
-          />
-          <EditorButton
-            type="delete"
-            active={isActive}
-            text={false}
-            onClick={handleDelete}
-          />
-        </div>
       </div>
-
+      {textarea && (
+        <div className={styles.textarea}>
+          <h4>{textareaTitle}</h4>
+          <textarea placeholder={textareaPlaceholder}>{textareaValue}</textarea>
+        </div>
+      )}
       {showSubmit && (
         <div className={styles.submit_wrapper}>
           <Button type="button" text="Готово" style={{ width: "100%" }} />

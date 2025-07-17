@@ -12,8 +12,6 @@ const MainComponent = ({ types, game }) => {
   const [block, setBlock] = useState(1);
   const [questionCounts, setQuestionCounts] = useState({});
 
-  console.log(selectedType);
-
   useEffect(() => {
     if (types?.length > 0) {
       setSelectedType(types[0].type);
@@ -182,13 +180,12 @@ const MainComponent = ({ types, game }) => {
         <div style={{ marginTop: "30px" }} className={styles.ContentWrapper}>
           <h3 className={styles.subtitle}>Количество вопросов</h3>
           <div className={styles.questionCount}>
-            {[1, 2, 3, 4, 5, 6].map((item) => (
+            {(selectedType === "1.2" ? [2, 4, 6, 8] : [1, 2, 3, 4, 5, 6]).map((item) => (
               <button
                 onClick={() => setQuestionCount(item)}
                 key={item}
-                className={`${
-                  currentQuestionCount === item ? styles.active : ""
-                }`}
+                className={`${currentQuestionCount === item ? styles.active : ""
+                  }`}
               >
                 {item}
               </button>
@@ -199,9 +196,27 @@ const MainComponent = ({ types, game }) => {
           <SaveButton />
         </div>
       </div>
-      {Array.from({ length: currentQuestionCount }).map((item, index) => (
-        <Question type={selectedType} question={index} key={index} />
-      ))}
+      {(selectedType !== "1.2" && selectedType !== "1.3") && (
+        Array.from({ length: currentQuestionCount }).map((_, index) => (
+          <Question type={selectedType} question={index} key={index} />
+        ))
+      )}
+
+      {
+        (selectedType === "1.2") && (
+          <Question type={selectedType} number={currentQuestionCount} />
+        )
+      }
+      {selectedType === "1.3" && (
+        <>
+          <Question key="main-block" isMainBlock={true} type={selectedType} />
+
+          {Array.from({ length: currentQuestionCount }).map((_, index) => (
+            <Question key={index} question={index} type={selectedType} />
+          ))}
+        </>
+      )}
+
     </div>
   );
 };

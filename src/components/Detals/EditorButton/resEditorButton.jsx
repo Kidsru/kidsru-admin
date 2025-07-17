@@ -6,16 +6,15 @@ import { ReactComponent as DeleteIcon } from "../../../assets/icon/delete.svg";
 
 function EditorButton({ type, active, text, onClick }) {
   const baseStyle = {
-    width: text ? "126px" : "max-content",
-    padding: text ? "15px" : "10px",
+    width: text ? "100%" : "100%",
     cursor: active ? "pointer" : "not-allowed",
   };
 
   const getClass = () => {
-    if (!active) return styles.no_active;
-    if (type === "edit") return styles.edit;
-    if (type === "download") return styles.download;
-    if (type === "delete") return styles.delete;
+    if (!active) return styles.res_no_active;
+    if (type === "edit") return styles.res_edit;
+    if (type === "download") return styles.res_download;
+    if (type === "delete") return styles.res_delete;
   };
 
   const getText = () => {
@@ -35,10 +34,11 @@ function EditorButton({ type, active, text, onClick }) {
     <button
       type="button"
       style={baseStyle}
-      className={`${styles.button} ${getClass()}`}
+      className={`${styles.res_button} ${getClass()}`}
       onClick={active ? onClick : undefined}
     >
-      {getText()} {getIcon()}
+      {getIcon()}
+      {getText()}
     </button>
   );
 }

@@ -9,6 +9,7 @@
   width: 280px;
   height: 100vh;
   position: fixed;
+  z-index: 999;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -23,7 +24,7 @@
   padding-bottom: 20px;
 }
 
-.sidebar::-webkit-scrollbar{
+.sidebar::-webkit-scrollbar {
   display: none;
 }
 
@@ -32,7 +33,7 @@
 }
 
 .topMenu {
-  border-bottom: 1px solid  #E6E7EC;
+  border-bottom: 1px solid #e6e7ec;
   padding-bottom: 36px;
 }
 
@@ -65,8 +66,8 @@
 }
 
 .menuItem.active {
-  color: #396AFF;
-  background-color: #EAF2FF;
+  color: #396aff;
+  background-color: #eaf2ff;
 }
 
 .menuItem:hover {
@@ -81,7 +82,8 @@
   height: 20px;
 }
 
-.menuItem:hover .icon, .menuItem:hover .arrowIcon {
+.menuItem:hover .icon,
+.menuItem:hover .arrowIcon {
   path {
     fill: #396aff;
   }
@@ -161,25 +163,24 @@ a {
   background-color: #396aff;
 }
 
-
-.logout{
+.logout {
   margin-top: 50px;
-  color: #E33326;
+  color: #e33326;
 }
 
 .logout .icon {
   path {
-    fill: #E33326;
+    fill: #e33326;
   }
 }
 
 .logout:hover {
   background-color: transparent;
-  color: #E33326;
+  color: #e33326;
 }
 
 .logout:hover .icon {
   path {
-    fill: #E33326;
+    fill: #e33326;
   }
 }
