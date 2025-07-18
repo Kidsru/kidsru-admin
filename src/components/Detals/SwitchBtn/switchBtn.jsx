@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./switchBtn.module.css";
 
-const SwitchButton = ({on}) => {
+const SwitchButton = ({ on = false, isRight, onClick }) => {
   const [isOn, setIsOn] = useState(on);
 
+  useEffect(() => {
+    setIsOn(on);
+  }, [on]);
+
   const handleToggle = () => {
-    setIsOn(prev => !prev);
+    const newState = !isOn;
+    setIsOn(newState);
+    onClick && onClick(newState);
   };
 
   return (
     <div
       className={`${styles.switch} ${isOn ? styles.on : styles.off}`}
+      style={{ margin: !isRight ? "0 auto" : "" }}
       onClick={handleToggle}
     >
       <div className={styles.circle}>

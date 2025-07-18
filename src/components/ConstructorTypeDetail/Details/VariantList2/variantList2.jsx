@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../../Detals/SubmitButton/button";
 import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg";
-import styles from "./variantList.module.css";
+import styles from "./variantList2.module.css";
 
-const VariantList = ({ count = 1, initialCharacters = [], width, height, contentWidth, mainTitle, subtitle, textareaTitle, typeFive }) => {
-
+const VariantList2 = ({ count = 1, initialCharacters = [], width, contentWidth, mainTitle, subtitle, textareaTitle }) => {
     const [variants, setVariants] = useState([]);
+    const [selectedIndex, setSelectedIndex] = useState(null); 
 
     useEffect(() => {
         setVariants(
@@ -29,27 +29,28 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
     };
 
     const handleSubmit = () => {
-        if (typeFive) {
-            const formatted = variants.map(variant => {
-                return {
-                    [variant.character === 1 ? "Левый ряд" : "Правый ряд"]: variant.text
-                };
-            });
-            console.log("Jo‘natiladigan ma’lumotlar:", formatted);
-        } else {
-            console.log("Jo‘natiladigan ma’lumotlar:", variants);
-        }
-    };
+        const updatedVariants = variants.map((variant, index) => ({
+            ...variant,
+            correct: index === selectedIndex,
+        }));
+        setVariants(updatedVariants);
 
+        console.log("Yakuniy variantlar:", updatedVariants);
+    };
 
     const handleRemoveVariant = (index) => {
         const updated = variants.filter((_, i) => i !== index);
         setVariants(updated);
+
+        if (selectedIndex === index) {
+            setSelectedIndex(null);
+        } else if (selectedIndex > index) {
+            setSelectedIndex(selectedIndex - 1);
+        }
     };
 
     const handleAdd = () => {
         if (variants.length >= 6) return;
-
         setVariants(prev => [
             ...prev,
             {
@@ -59,6 +60,10 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
         ]);
     };
 
+    const handleCheckboxChange = (index) => {
+        setSelectedIndex(index === selectedIndex ? null : index);
+    };
+
     return (
         <div style={{ width: width || "460px" }} className={styles.container}>
             <h3 className={styles.mainTitle}>
@@ -66,17 +71,19 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
                     <>
                         Напишите текста реплик для персонажа <span>{initialCharacters[0]}</span>
                     </>
-                )} <p style={{ display: "inline-block" }} className="redText">*</p>
+                )} <span className="redText">*</span>
             </h3>
             <div style={{ display: "flex", marginBottom: "15px", justifyContent: "space-between", alignItems: "center" }}>
                 <p className={styles.subtitle}>{subtitle || "Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть."}</p>
                 <button onClick={handleAdd} className={styles.addButton}><AddIcon /> Добавить</button>
             </div>
+
             <div style={{ width: contentWidth || "424px" }} className={styles.wrapper}>
                 {variants.map((variant, index) => (
                     <div className={styles.card} key={index}>
                         <h4 className={styles.title}>Вариант № {index + 1}</h4>
                         <button className={styles.close} onClick={() => handleRemoveVariant(index)}>×</button>
+
                         <p className={styles.question}>Реплики какого персонажа?</p>
                         <div className={styles.options}>
                             <label className={styles.option}>
@@ -89,10 +96,8 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
                                     />
                                 </div>
                                 <div>
-                                    {
-                                        !typeFive ? <><p>Персонаж 1</p>
-                                            <span>Слева направо</span></> : <p>Левый ряд</p>
-                                    }
+                                    <p>Персонаж 1</p>
+                                    <span>Слева направо</span>
                                 </div>
                             </label>
                             <label className={styles.option}>
@@ -105,24 +110,39 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
                                     />
                                 </div>
                                 <div>
-                                    {
-                                        !typeFive ? <><p>Персонаж 2</p>
-                                            <span>Справа налево</span></> : <p>Правый ряд</p>
-                                    }
+                                    <p>Персонаж 2</p>
+                                    <span>Справа налево</span>
                                 </div>
                             </label>
                         </div>
+
                         <p className={styles.answerLabel}>{textareaTitle || "Текст ответа"}</p>
                         <textarea
                             className={styles.textarea}
                             placeholder="Введите текст"
                             value={variant.text}
                             onChange={(e) => handleTextChange(index, e.target.value)}
-                        ></textarea>
+                        />
+
+                        <div className={`${styles.correctAnswer} ${selectedIndex === index ? styles.active : ""}`}>
+                            <label style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+                                <input
+                                    className={styles.input}
+                                    type="checkbox"
+                                    checked={selectedIndex === index}
+                                    onChange={() => handleCheckboxChange(index)}
+                                    style={{ marginRight: "8px" }}
+                                />
+                                <div>
+                                    <p className={styles.correctAnswerTitle}>Правильный ответ</p>
+                                    <p className={styles.text}>Можно выбрать только один вариант</p>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 ))}
-
             </div>
+
             <div className={styles.button}>
                 <Button onClick={handleSubmit} text={"Готово"} />
             </div>
@@ -130,4 +150,4 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
     );
 };
 
-export default VariantList;
+export default VariantList2;

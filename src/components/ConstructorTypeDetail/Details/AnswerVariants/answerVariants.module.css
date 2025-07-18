@@ -85,3 +85,23 @@
   justify-content: flex-end;
   margin-top: 15px;
 }
+
+.addButton {
+    width: 134px;
+    height: 48px;
+    border: 1px solid #396AFF;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 500;
+    color: #396AFF;
+    cursor: pointer;
+}
+
+.addButton svg {
+    width: 18px;
+}

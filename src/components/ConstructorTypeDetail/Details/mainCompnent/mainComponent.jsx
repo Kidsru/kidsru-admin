@@ -11,13 +11,19 @@ const MainComponent = ({ types, game }) => {
   const [module, setModule] = useState(1);
   const [block, setBlock] = useState(1);
   const [lesson, setLesson] = useState(game?.lesson);
-  const [isImage, setIsImage] = useState([]);
   const [isVideo, setIsVideo] = useState([]);
   const [isVideoFormat, setIsVideoFormat] = useState([]);
   const [gameType, setGameType] = useState(
     Number(selectedType?.split("")[selectedType.length - 1]) + 1
   );
   const [questionCounts, setQuestionCounts] = useState({});
+  const [type3Questions, setType3Questions] = useState(1)
+
+  useEffect(() => {
+    if (game?.lesson !== undefined) {
+      setLesson(game.lesson);
+    }
+  }, [game]);
 
   useEffect(() => {
     if (selectedType) {
@@ -28,7 +34,6 @@ const MainComponent = ({ types, game }) => {
   useEffect(() => {
     if (types?.length > 0) {
       setIsVideo([types[0].video.one, types[0].video.two]);
-      setIsImage([types[0].img, types[0].img]); 
       setIsVideoFormat([types[0].video.formatOne, types[0].video.formatTwo]);
       setSelectedType(types[0].type);
       setSelectedTypeName(types[0].name);
@@ -41,7 +46,6 @@ const MainComponent = ({ types, game }) => {
 
   const handleTypeChange = (type) => {
     setIsVideo([type.video.one, type.video.two]);
-    setIsImage([type.img, type.img]);
     setIsVideoFormat([type.video.formatOne, type.video.formatTwo]);
     setSelectedType(type.type);
     setSelectedTypeName(type.name);
@@ -59,7 +63,6 @@ const MainComponent = ({ types, game }) => {
       [selectedType]: count,
     }));
   };
-  console.log(isVideo[0], isVideo[1]);
   return (
     <div>
       <div className={styles.wrapper}>
@@ -215,9 +218,8 @@ const MainComponent = ({ types, game }) => {
                 <button
                   onClick={() => setQuestionCount(item)}
                   key={item}
-                  className={`${
-                    currentQuestionCount === item ? styles.active : ""
-                  }`}
+                  className={`${currentQuestionCount === item ? styles.active : ""
+                    }`}
                 >
                   {item}
                 </button>
@@ -231,22 +233,64 @@ const MainComponent = ({ types, game }) => {
       </div>
       {selectedType !== "1.2" &&
         selectedType !== "1.3" &&
+        selectedType !== "3.0" &&
+        selectedType !== "3.1" &&
+        selectedType !== "3.2" &&
         Array.from({ length: currentQuestionCount }).map((_, index) => (
-          <Question type={selectedType} question={index} key={index} img={isImage}/>
+          <Question type={selectedType} question={index} key={index} />
         ))}
 
       {selectedType === "1.2" && (
-        <Question type={selectedType} number={currentQuestionCount} img={isImage}/>
+        <Question type={selectedType} number={currentQuestionCount} />
       )}
       {selectedType === "1.3" && (
         <>
-          <Question key="main-block" isMainBlock={true} type={selectedType} img={isImage}/>
-
+          <Question key="main-block" isMainBlock={true} type={selectedType} />
           {Array.from({ length: currentQuestionCount }).map((_, index) => (
-            <Question key={index} question={index} type={selectedType} img={isImage}/>
+            <Question key={index} question={index} type={selectedType} />
           ))}
         </>
       )}
+
+      {selectedType === "3.0" && (
+        <>
+          <Question
+            key="main-block"
+            isMainBlock={true}
+            type={selectedType}
+            setType3Questions={setType3Questions}
+            type3Questions={type3Questions}
+          />
+          {Array.from({ length: currentQuestionCount }).map((_, mainBlockIndex) =>
+            Array.from({ length: type3Questions }).map((_, variantIndex) => (
+              <Question
+                key={`${mainBlockIndex}_${variantIndex}`}
+                type={selectedType}
+                mainBlockIndex={mainBlockIndex + 1}
+                variantIndex={variantIndex + 1}
+              />
+            ))
+          )}
+        </>
+      )}
+
+      {selectedType === "3.1" && (
+        <>
+          <Question key="main-block" isMainBlock={true} type={selectedType} />
+          {Array.from({ length: currentQuestionCount }).map((_, index) => (
+            <Question key={index} question={index} type={selectedType} />
+          ))}
+        </>
+      )}
+      {selectedType === "3.2" && (
+        <>
+          <Question key="main-block" isMainBlock={true} type={selectedType} />
+          {Array.from({ length: currentQuestionCount }).map((_, index) => (
+            <Question key={index} question={index} type={selectedType} />
+          ))}
+        </>
+      )}
+
     </div>
   );
 };

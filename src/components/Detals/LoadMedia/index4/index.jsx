@@ -2,27 +2,56 @@ import styles from "./index.module.css";
 import Button from "../../SubmitButton/button.jsx";
 import Card from "./Details/card/card.jsx";
 import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function FastLoadImg({
   title,
   subtitle,
   content,
   textarea,
-  textareaContent,
+  textareaContent = [],
   checkbox,
   options,
   cardTitle,
   onImageChange,
   src = [],
+  defaultCheck,
 }) {
-  const [cards, setCards] = useState(src.map((item) => ({ src: item, fromProps: true })));
+  const [cards, setCards] = useState(() => {
+    const initial = options ? src : src.slice(0, 2);
+    return initial.map((item, index) => ({
+      src: item,
+      fromProps: true,
+      textareaContent: textareaContent[index] || null,
+    }));
+  });
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  useEffect(() => {
+    if (defaultCheck && Number.isInteger(defaultCheck) && defaultCheck > 0) {
+      setActiveIndex(defaultCheck - 1);
+    }
+  }, [defaultCheck]);
+
   const fileInputRef = useRef();
   const [dragActive, setDragActive] = useState(false);
 
+  const defaultTextarea = {
+    title: "Текст ответа",
+    placeholder: "Текст ответа...",
+    value: "",
+  };
+
   const handleAddCard = () => {
     if (!options && cards.length >= 2) return;
-    setCards((prev) => [...prev, { src: null, fromProps: false }]);
+    setCards((prev) => [
+      ...prev,
+      {
+        src: null,
+        fromProps: false,
+        textareaContent: textarea ? { ...defaultTextarea } : null,
+      },
+    ]);
   };
 
   const handleRemoveCard = (index) => {
@@ -64,11 +93,28 @@ function FastLoadImg({
     }
 
     const url = URL.createObjectURL(file);
-    setCards((prev) => [...prev, { src: url, fromProps: false }]);
+    setCards((prev) => [
+      ...prev,
+      {
+        src: url,
+        fromProps: false,
+        textareaContent: textarea ? { ...defaultTextarea } : null,
+      },
+    ]);
+  };
+
+  const handleTextareaChange = (index, value) => {
+    setCards((prev) => {
+      const updated = [...prev];
+      updated[index].textareaContent = {
+        ...updated[index].textareaContent,
+        value,
+      };
+      return updated;
+    });
   };
 
   const isLimitReached = !options && cards.length >= 2;
-
   const shouldShowSubmit = options ? cards.length > 0 : cards.length > 1;
 
   return (
@@ -82,6 +128,7 @@ function FastLoadImg({
         </h4>
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
+
       <div className={styles.content_wrapper}>
         <div className={styles.content_controls}>
           <button
@@ -109,7 +156,9 @@ function FastLoadImg({
             </p>
           </button>
           <button
-            className={`${styles.control_add} ${isLimitReached ? styles.no_active : ""}`}
+            className={`${styles.control_add} ${
+              isLimitReached ? styles.no_active : ""
+            }`}
             onClick={handleAddCard}
             disabled={isLimitReached}
           >
@@ -117,6 +166,7 @@ function FastLoadImg({
             <p>Добавить</p>
           </button>
         </div>
+
         <div
           className={styles.content_bar}
           style={{ height: `${content[0].content.height}` }}
@@ -126,16 +176,20 @@ function FastLoadImg({
               <Card
                 key={index}
                 src={card.src}
+                textareaContent={card.textareaContent}
                 width={content[0].img.width}
                 card={content[0].card.width}
+                checkbox={checkbox}
                 title={
-                  checkbox
+                  options
                     ? `Вариант №${index + 1}`
                     : cardTitle[index]?.title || `Вариант №${index + 1}`
                 }
                 textarea={textarea}
-                textareaContent={textareaContent}
                 onRemove={() => handleRemoveCard(index)}
+                onTextareaChange={(value) => handleTextareaChange(index, value)}
+                checked={activeIndex === index}
+                onCheckboxChange={() => setActiveIndex(index)}
               />
             ))}
           </div>

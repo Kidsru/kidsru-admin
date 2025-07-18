@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from "react";
-import styles from "./correctAnsweTextarea.module.css";
 import Button from "../../../Detals/SubmitButton/button";
+import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg"
+import SwitchButton from "../../../Detals/SwitchBtn/switchBtn";
+import styles from "./correctAnsweTextarea.module.css";
 
-const CorrectAnsweTextarea = ({ count = 3, initialCharacters = [], width }) => {
-    const [selectedIndex, setSelectedIndex] = useState(null); // faqat bitta variant uchun checkbox
+const CorrectAnsweTextarea = ({ coloredButton, count = 3, setCount, initialCharacters = [], width, height, contentHeight }) => {
+    const [selectedIndex, setSelectedIndex] = useState(null);
     const [variants, setVariants] = useState([]);
+    const [onColoredButton, setOnColoredButton] = useState(false)
 
     useEffect(() => {
-        setVariants(
-            Array.from({ length: count }, (_, i) => ({
-                character: initialCharacters[i] || 1,
-                text: "",
-            }))
-        );
-        setSelectedIndex(null); // har safar count o'zgarsa tozalansin
-    }, [count, initialCharacters]);
+        setVariants(prevVariants => {
+            let updated = [...prevVariants];
+
+            if (count > prevVariants.length) {
+                const diff = count - prevVariants.length;
+                for (let i = 0; i < diff; i++) {
+                    updated.push({
+                        id: crypto.randomUUID(),
+                        character: initialCharacters[updated.length] || 1,
+                        text: "",
+                    });
+                }
+            } else if (count < prevVariants.length) {
+                updated = updated.slice(0, count);
+            }
+
+            return updated;
+        });
+    }, [count, initialCharacters.length]);
+
+
+
 
     const handleTextChange = (index, value) => {
         const updated = [...variants];
@@ -23,27 +40,72 @@ const CorrectAnsweTextarea = ({ count = 3, initialCharacters = [], width }) => {
     };
 
     const handleCheckboxChange = (index) => {
-        setSelectedIndex(index); // faqat bitta variant tanlanadi
+        setSelectedIndex(index === selectedIndex ? null : index);
+    };
+
+    const handleDelete = (index) => {
+        const updated = [...variants];
+        updated.splice(index, 1);
+        setVariants(updated);
+
+        if (selectedIndex === index) {
+            setSelectedIndex(null);
+        } else if (selectedIndex > index) {
+            setSelectedIndex(selectedIndex - 1);
+        }
+
+        setCount(prev => Math.max(prev - 1, 0));
+    };
+
+    const handleAdd = () => {
+        if (variants.length >= 6) return;
+
+        setVariants(prev => [
+            ...prev,
+            {
+                id: crypto.randomUUID(),
+                character: 1,
+                text: "",
+            },
+        ]);
+
+        setCount(prev => Math.min(prev + 1, 6));
     };
 
     const handleSubmit = () => {
+        const result = variants.map((variant, idx) => ({
+            ...variant,
+            correct: idx === selectedIndex,
+        }));
+
         console.log("Jo‘natiladigan ma’lumotlar:", {
-            variants,
-            correctIndex: selectedIndex,
+            coloredButton: onColoredButton,
+            variants: result,
         });
     };
 
+
     return (
-        <div style={{ width: width || "460px" }} className={styles.container}>
-            <div className={styles.wrapper}>
+        <div style={{ width: width || "613px", height: height || "612px" }} className={styles.container}>
+            <h3 className={styles.mainTitle}>Напишите текста ответов и выберите правильный ответ <span className="redText">*</span></h3>
+            <div style={{ display: "flex", marginBottom: "15px" }}>
+                <p className={styles.subtitle}>Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть.</p>
+                <button onClick={handleAdd} className={styles.addButton}><AddIcon /> Добавить</button>
+            </div>
+            {
+                coloredButton && <div className={styles.coloredButton}>
+                    <p>Цветные кнопки</p>
+                    <SwitchButton onClick={() => setOnColoredButton(!onColoredButton)} isRight={true} on={onColoredButton} />
+                </div>
+            }
+            <div style={{ height: contentHeight || "423px" }} className={styles.wrapper}>
                 {variants.map((variant, index) => (
                     <div
-                        className={`${styles.card} ${selectedIndex === index ? styles.active : ""
-                            }`}
-                        key={index}
+                        className={`${styles.card}`}
+                        key={variant.id}
                     >
                         <h4 className={styles.title}>Вариант № {index + 1}</h4>
-                        <button className={styles.close} onClick={() => { }}>×</button>
+                        <button className={styles.close} onClick={() => handleDelete(index)}>×</button>
 
                         <p className={styles.answerLabel}>Текст ответа</p>
                         <textarea
@@ -53,10 +115,9 @@ const CorrectAnsweTextarea = ({ count = 3, initialCharacters = [], width }) => {
                             onChange={(e) => handleTextChange(index, e.target.value)}
                         />
 
-                        <div className={styles.correctAnswer}>
-
+                        <div className={`${styles.correctAnswer} ${selectedIndex === index ? styles.active : ""}`}>
                             <label style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-                                <input
+                                <input className={styles.input}
                                     type="checkbox"
                                     checked={selectedIndex === index}
                                     onChange={() => handleCheckboxChange(index)}

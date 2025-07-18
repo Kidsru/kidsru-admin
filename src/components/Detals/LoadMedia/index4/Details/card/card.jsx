@@ -11,7 +11,11 @@ function FastLoadImg({
   card,
   title,
   textarea,
+  checkbox,
+  checked,
+  onCheckboxChange,
   textareaContent,
+  onTextareaChange,
   src = null,
   onRemove,
 }) {
@@ -19,13 +23,11 @@ function FastLoadImg({
     img,
     isActive,
     dragActive,
-    showSubmit,
     fileInputRef,
     handleFileChange,
     handleEdit,
     handleDelete,
     handleDownload,
-    handleSubmitClick,
     handleDrop,
     handleDragOver,
     handleDragLeave,
@@ -37,6 +39,7 @@ function FastLoadImg({
         <CloseIcon />
       </button>
       <h4 className={styles.title}>{title}</h4>
+
       <div
         className={styles.img_wrapper}
         onDragOver={handleDragOver}
@@ -50,10 +53,7 @@ function FastLoadImg({
             }`}
             src={img.url}
             alt="Аватар"
-            style={{
-              width: `${width}`,
-              height: `${width}`,
-            }}
+            style={{ width: `${width}`, height: `${width}` }}
           />
         ) : (
           <label
@@ -75,6 +75,7 @@ function FastLoadImg({
           style={{ display: "none" }}
         />
       </div>
+
       <div className={styles.edior_wrapper}>
         <EditorButton
           type="edit"
@@ -95,13 +96,36 @@ function FastLoadImg({
           onClick={handleDelete}
         />
       </div>
-      {textarea && (
+
+      {textarea && textareaContent && (
         <div className={styles.textarea}>
-          <h4>{textareaContent[0].title}</h4>
-          <textarea placeholder={textareaContent[0].placeholder}>
-            {textareaContent[0].value}
-          </textarea>
+          <h4>{"Текст ответа"}</h4>
+          <textarea
+            placeholder={"Добрый вечер"}
+            value={textareaContent.value || ""}
+            onChange={(e) => onTextareaChange?.(e.target.value)}
+          />
         </div>
+      )}
+      {checkbox && (
+        <label
+          className={`${styles.check_wrapper} ${
+            checked ? styles.check_active : ""
+          }`}
+        >
+          <div className={styles.check}>
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={checked}
+              onChange={onCheckboxChange}
+            />
+          </div>
+          <div className={styles.check_text}>
+            <h4>Правильный ответ</h4>
+            <p>Можно выбрать только один вариант</p>
+          </div>
+        </label>
       )}
     </div>
   );
