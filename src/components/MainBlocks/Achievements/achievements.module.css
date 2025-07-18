@@ -1,3 +1,12 @@
+.wrapper {
+    width: fit-content;
+    height: fit-content;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #D4D4D4;
+    border-radius: 20px;
+}
+
 .LessonMapForm {
     border: 1px solid #d4d4d4;
     width: 1100px;
@@ -7,7 +16,7 @@
     align-items: center;
     justify-content: space-evenly;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 20px;
     margin: 30px 0;
 }
 
@@ -124,4 +133,5 @@
 .flex {
     display: flex;
     justify-content: space-between;
+    gap: 30px;
 }

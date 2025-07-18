@@ -7,7 +7,7 @@ import Table from "../../Table/table";
 import styles from "./achievements.module.css";
 import Button from "../../Detals/SubmitButton/button";
 import Index3 from "../../Detals/LoadMedia/index3/index";
-import achievementsImg from "../../../assets/img/achievements.png"
+import achievementsImg from "../../../assets/img/achievements.png";
 
 const data = [
   {
@@ -219,10 +219,13 @@ const AddWordsPage = () => {
           </div>
         </div>
       </div>
-      <div style={{ minWidth: "1100px", padding: "30px" }} className="wrapper">
+      <div
+        style={{ minWidth: "1100px", padding: "30px", borderRadius: "20px" }}
+        className="wrapper"
+      >
         <h3 className="title2">Конструктора слов</h3>
         <div className={styles.flex}>
-          <div style={{ width: "263px", height: "538px" }}>
+          <div>
             <Index3
               title={"Загрузите иконку"}
               subtitle={`Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ.`}
@@ -232,14 +235,16 @@ const AddWordsPage = () => {
               imgheight={"215px"}
               gap={"21.34px"}
               textarea={false}
-              textareaTitle={"Custom title"}
-              textareaPlaceholder={"Type your text..."}
-              textareaValue={"Hech narsa yozilmagan! (Hazil)"}
             />
           </div>
           <div>
-            <div className="wrapper" style={{ padding: "24px" }}>
-              <h4 className={styles.title}>Напишите название достижения *</h4>
+            <div
+              className="wrapper"
+              style={{ padding: "24px", borderRadius: "15px" }}
+            >
+              <h4 className={styles.title}>
+                Напишите название достижения <span className="redText">*</span>
+              </h4>
               <p className={styles.subtitle}>
                 Пожалуйста, проверьте правильность написания слов и знаки
                 препинания, если они есть.
@@ -257,9 +262,15 @@ const AddWordsPage = () => {
             </div>
             <div
               className="wrapper"
-              style={{ padding: "24px", marginTop: "30px" }}
+              style={{
+                padding: "24px",
+                marginTop: "30px",
+                borderRadius: "15px",
+              }}
             >
-              <h4 className={styles.title}>Напишите описание *</h4>
+              <h4 className={styles.title}>
+                Напишите описание <span className="redText">*</span>
+              </h4>
               <p className={styles.subtitle}>
                 Пожалуйста, проверьте правильность написания слов и знаки
                 препинания, если они есть.

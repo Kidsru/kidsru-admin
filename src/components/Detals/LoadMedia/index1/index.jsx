@@ -66,9 +66,9 @@ function FastLoadImg({ onImageChange, src = null }) {
         </div>
 
         <div className={styles.edior_wrapper}>
-          <EditorButton type="edit" active={isActive} text onClick={handleEdit} />
-          <EditorButton type="download" active={isActive} text onClick={handleDownload} />
-          <EditorButton type="delete" active={isActive} text onClick={handleDelete} />
+          <EditorButton type="edit" active={isActive} text={true} onClick={handleEdit} />
+          <EditorButton type="download" active={isActive} text={true} onClick={handleDownload} />
+          <EditorButton type="delete" active={isActive} text={true} onClick={handleDelete} />
         </div>
       </div>
 

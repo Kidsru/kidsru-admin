@@ -1,28 +1,37 @@
 import React from "react";
-import Index3 from "../Detals/LoadMedia/index3/index";
-import Index2 from "../Detals/LoadMedia/index2/index";
+import Index4 from "../Detals/LoadMedia/index4/index";
 import Video from "../Detals/LoadMedia/index2/details/videoPlayer/videoPlayer";
 function Testing() {
   return (
     <div>
-      <Index3
-        title={"Загрузите иконку"}
+      <Index4
+        title={"Загрузите картинки или анимацию"}
         subtitle={`Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ.`}
-        src={"https://avatars.githubusercontent.com/u/152501142?v=4"}
-        width={"263px"}
-        imgWidth={"215px"}
-        imgheight={"215px"}
-        gap={"21.34px"}
+        src={[
+          "https://avatars.githubusercontent.com/u/152501142?v=4",
+          "https://avatars.githubusercontent.com/u/152501142?v=4",
+        ]}
+        content={[
+          {
+            wrapper: { width: "462px" },
+            content: { height: "323px" },
+            card: { width: "174px" },
+            img: { width: "150px",},
+          },
+        ]}
+        checkbox={false}
         textarea={false}
-        textareaTitle={"Custom title"}
-        textareaPlaceholder={"Type your text..."}
-        textareaValue={"Hech narsa yozilmagan! (Hazil)"}
+        cardTitle={[{ title: "Картинка без надписи" }, { title: "Картинка с надписью" }]}
+        textareaContent={[
+          { title: "Title 1", placeholder: "Placeholder 1", value: "Value 1" },
+          { title: "Title 2", placeholder: "Placeholder 2", value: "Value 2" },
+        ]}
       />
       <br />
-      <Video
+      {/* <Video
         src={"https://random-video-two.vercel.app/cdn_video.mp4"}
         poster={"https://avatars.githubusercontent.com/u/152501142?v=4"}
-      />
+      /> */}
     </div>
   );
 }

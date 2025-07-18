@@ -10,10 +10,26 @@ const MainComponent = ({ types, game }) => {
   const [selectedTypeName, setSelectedTypeName] = useState("");
   const [module, setModule] = useState(1);
   const [block, setBlock] = useState(1);
+  const [lesson, setLesson] = useState(game?.lesson);
+  const [isImage, setIsImage] = useState([]);
+  const [isVideo, setIsVideo] = useState([]);
+  const [isVideoFormat, setIsVideoFormat] = useState([]);
+  const [gameType, setGameType] = useState(
+    Number(selectedType?.split("")[selectedType.length - 1]) + 1
+  );
   const [questionCounts, setQuestionCounts] = useState({});
 
   useEffect(() => {
+    if (selectedType) {
+      setGameType(Number(selectedType.split("")[selectedType.length - 1]) + 1);
+    }
+  }, [selectedType]);
+
+  useEffect(() => {
     if (types?.length > 0) {
+      setIsVideo([types[0].video.one, types[0].video.two]);
+      setIsImage([types[0].img, types[0].img]); 
+      setIsVideoFormat([types[0].video.formatOne, types[0].video.formatTwo]);
       setSelectedType(types[0].type);
       setSelectedTypeName(types[0].name);
       setQuestionCounts((prev) => ({
@@ -24,6 +40,9 @@ const MainComponent = ({ types, game }) => {
   }, [types]);
 
   const handleTypeChange = (type) => {
+    setIsVideo([type.video.one, type.video.two]);
+    setIsImage([type.img, type.img]);
+    setIsVideoFormat([type.video.formatOne, type.video.formatTwo]);
     setSelectedType(type.type);
     setSelectedTypeName(type.name);
     setQuestionCounts((prev) => ({
@@ -40,7 +59,7 @@ const MainComponent = ({ types, game }) => {
       [selectedType]: count,
     }));
   };
-
+  console.log(isVideo[0], isVideo[1]);
   return (
     <div>
       <div className={styles.wrapper}>
@@ -90,11 +109,11 @@ const MainComponent = ({ types, game }) => {
             </select>
           </div>
           <div>
-            <label htmlFor={styles.blockSelect}>УРОК:</label>
+            <label htmlFor={styles.lessonSelect}>УРОК:</label>
             <select
-              id={styles.blockSelect}
-              value={block}
-              onChange={(e) => setBlock(Number(e.target.value))}
+              id={styles.lessonSelect}
+              value={lesson}
+              onChange={(e) => setLesson(Number(e.target.value))}
               style={{ backgroundImage: `url(${bg})` }}
             >
               <option value="1">1</option>
@@ -103,16 +122,19 @@ const MainComponent = ({ types, game }) => {
             </select>
           </div>
           <div>
-            <label htmlFor={styles.blockSelect}>ИГРА:</label>
+            <label htmlFor={styles.gameSelect}>ИГРА:</label>
             <select
-              id={styles.blockSelect}
-              value={block}
-              onChange={(e) => setBlock(Number(e.target.value))}
+              id={styles.gameSelect}
+              value={gameType}
+              onChange={(e) => setGameType(Number(e.target.value))}
               style={{ backgroundImage: `url(${bg})` }}
             >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
             </select>
           </div>
         </div>
@@ -166,7 +188,15 @@ const MainComponent = ({ types, game }) => {
               className={styles.flex}
               style={{ width: "489px", height: "652px", marginTop: "50px" }}
             >
-              <LoadMedia_Video />
+              <LoadMedia_Video
+                key={
+                  isVideo[0] + isVideo[1] + isVideoFormat[0] + isVideoFormat[1]
+                }
+                video_1={isVideo[0]}
+                format_1={isVideoFormat[0]}
+                video_2={isVideo[1]}
+                format_2={isVideoFormat[1]}
+              />
             </div>
             <div className={styles.textareaWrapper}>
               <h4 className={styles.subtitle}>Реплика из видео</h4>
@@ -180,43 +210,43 @@ const MainComponent = ({ types, game }) => {
         <div style={{ marginTop: "30px" }} className={styles.ContentWrapper}>
           <h3 className={styles.subtitle}>Количество вопросов</h3>
           <div className={styles.questionCount}>
-            {(selectedType === "1.2" ? [2, 4, 6, 8] : [1, 2, 3, 4, 5, 6]).map((item) => (
-              <button
-                onClick={() => setQuestionCount(item)}
-                key={item}
-                className={`${currentQuestionCount === item ? styles.active : ""
+            {(selectedType === "1.2" ? [2, 4, 6, 8] : [1, 2, 3, 4, 5, 6]).map(
+              (item) => (
+                <button
+                  onClick={() => setQuestionCount(item)}
+                  key={item}
+                  className={`${
+                    currentQuestionCount === item ? styles.active : ""
                   }`}
-              >
-                {item}
-              </button>
-            ))}
+                >
+                  {item}
+                </button>
+              )
+            )}
           </div>
         </div>
         <div className={styles.saveButton}>
           <SaveButton />
         </div>
       </div>
-      {(selectedType !== "1.2" && selectedType !== "1.3") && (
+      {selectedType !== "1.2" &&
+        selectedType !== "1.3" &&
         Array.from({ length: currentQuestionCount }).map((_, index) => (
-          <Question type={selectedType} question={index} key={index} />
-        ))
-      )}
+          <Question type={selectedType} question={index} key={index} img={isImage}/>
+        ))}
 
-      {
-        (selectedType === "1.2") && (
-          <Question type={selectedType} number={currentQuestionCount} />
-        )
-      }
+      {selectedType === "1.2" && (
+        <Question type={selectedType} number={currentQuestionCount} img={isImage}/>
+      )}
       {selectedType === "1.3" && (
         <>
-          <Question key="main-block" isMainBlock={true} type={selectedType} />
+          <Question key="main-block" isMainBlock={true} type={selectedType} img={isImage}/>
 
           {Array.from({ length: currentQuestionCount }).map((_, index) => (
-            <Question key={index} question={index} type={selectedType} />
+            <Question key={index} question={index} type={selectedType} img={isImage}/>
           ))}
         </>
       )}
-
     </div>
   );
 };

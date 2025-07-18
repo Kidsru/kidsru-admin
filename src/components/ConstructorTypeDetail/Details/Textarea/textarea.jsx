@@ -12,7 +12,7 @@ const Textarea = ({ width, mainTitle, title, subtitle, value, height, onClick })
 
     return (
         <div className={styles.wrapper} style={{ width: width || "551px", padding: "24px" }}>
-            <h4 className={styles.mainTitle}>{mainTitle}</h4>
+            <h4 className={styles.mainTitle}>{mainTitle} <span className="redText">*</span></h4>
             <p className={styles.subtitle}>{subtitle}</p>
             <div>
                 <h4 className={styles.title}>{title}</h4>

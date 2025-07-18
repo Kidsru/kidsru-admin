@@ -29,7 +29,7 @@ const AnswerVariants = ({ count = 1 }) => {
 
   return (
     <div className={styles.wrapper}>
-      <h3 className={styles.mainTitle}>Напишите текста ответов *</h3>
+      <h3 className={styles.mainTitle}>Напишите текста ответов <span className="redText">*</span></h3>
       <p className={styles.subtitle}>
         Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть.
       </p>
