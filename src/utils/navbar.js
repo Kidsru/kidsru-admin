@@ -74,7 +74,7 @@ export const navbar = [
   {
     id: randomId(),
     title: "Users",
-    path: "/users",
+    path: "/user",
     element: <User_user />,
     private: false,
     hidden: false,
@@ -90,7 +90,7 @@ export const navbar = [
   {
     id: randomId(),
     title: "Users - Questionnaire",
-    path: "/users/questionnaire",
+    path: "/user/questionnaire",
     element: <User_questionnaire />,
     private: false,
     hidden: false,

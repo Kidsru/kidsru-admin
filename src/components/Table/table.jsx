@@ -16,6 +16,8 @@ import DownloadBtn from '../Detals/DownloadBtn/downloadBtn'
 import SwitchButton from '../Detals/SwitchBtn/switchBtn'
 import MentorBtn from '../Detals/MentorBtn/MentorBtn'
 import styles from "./table.module.css"
+import {ReactComponent as Arrow1} from "../../assets/icon/table-left.svg"
+import {ReactComponent as Arrow2} from "../../assets/icon/table-bottom.svg"
 
 const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, onDelete, onEdit, addButton, handleClick, hideView, achievements }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +29,6 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
 
-    // Recursive barcha user va childlarni olish uchun yordamchi funksiya
     const getAllUserIds = (users) => {
         let ids = [];
         users.forEach(user => {
@@ -104,7 +105,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
                             <div style={{ paddingLeft: "10px" }} className={styles.accordionItem}>
                                 {hasChildren && (
                                     <button onClick={() => toggleRow(user.id)} className={styles.expandBtn}>
-                                        {isExpanded ? '▼' : '▶'}
+                                        {isExpanded ? <Arrow2 /> : <Arrow1/>}
                                     </button>
                                 )}
                                 {user.name}
@@ -116,7 +117,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
                         <div style={{ paddingLeft: "10px" }} className={styles.accordionItem}>
                             {hasChildren && (
                                 <button onClick={() => toggleRow(user.id)} className={styles.expandBtn}>
-                                    {isExpanded ? '▼' : '▶'}
+                                    {isExpanded ?  <Arrow2 /> : <Arrow1/>}
                                 </button>
                             )}
                             {user.name}
@@ -141,7 +142,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
                                 <div style={{ paddingLeft: "10px" }} className={styles.accordionItem}>
                                     {Array.isArray(user.children) && user.children.length > 0 ? (
                                         <button onClick={() => toggleRow(user.id)} className={styles.expandBtn}>
-                                            {expandedRows[user.id] ? '▼' : '▶'}
+                                            {expandedRows[user.id] ? <Arrow2 /> : <Arrow1 />}
                                         </button>
                                     ) : null}
                                     {user.modul || user.name}

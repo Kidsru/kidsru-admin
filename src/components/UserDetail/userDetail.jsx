@@ -125,7 +125,7 @@ const UserDetail = () => {
 
     const [courseInputValue, setCourseInputValue] = useState("");
     const [paymentInputValue, setPaymentInputValue] = useState("");
-    useTitle("userDetail");
+    useTitle("User Info");
 
 
     const filterNestedData = (items, search) => {

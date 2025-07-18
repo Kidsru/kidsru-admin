@@ -101,7 +101,15 @@ function Main() {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.form_items}>
         <div className={styles.form_img_wrapper}>
-          <LoadImg onImageChange={setProfileImage} src={Avatar} />
+          <LoadImg
+            onImageChange={setProfileImage}
+            src={Avatar}
+            size={{ wrapper: "466px", image: "280px", gap: "18.5px" }}
+            title={"Загрузите картинку или анимацию"}
+            subtitle={
+              "Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ."
+            }
+          />
         </div>
         <div className={styles.form_input_wrapper}>
           {inputs.map((input) => (

@@ -7,7 +7,7 @@ import Table from "../../Table/table";
 import styles from "./achievements.module.css";
 import Button from "../../Detals/SubmitButton/button";
 import Index3 from "../../Detals/LoadMedia/index3/index";
-import achievementsImg from "../../../assets/img/achievements.png"
+import achievementsImg from "../../../assets/img/achievements.png";
 
 const data = [
   {
@@ -171,7 +171,7 @@ const AddWordsPage = () => {
         <h3>Заполните поля ниже</h3>
         <div className={styles.Selects}>
           <div>
-            <label htmlFor={styles.moduleSelect}>МОДУЛЬ:</label>
+            <label htmlFor={styles.moduleSelect}>МОДУЛЬ</label>
             <select
               id={styles.moduleSelect}
               value={module}
@@ -186,7 +186,7 @@ const AddWordsPage = () => {
             </select>
           </div>
           <div>
-            <label htmlFor={styles.blockSelect}>БЛОК:</label>
+            <label htmlFor={styles.blockSelect}>БЛОК</label>
             <select
               id={styles.blockSelect}
               value={block}
@@ -202,7 +202,7 @@ const AddWordsPage = () => {
           </div>
           <div className={styles.SelectorLast}>
             <div>
-              <label htmlFor={styles.lessonSelect}>УРОК:</label>
+              <label htmlFor={styles.lessonSelect}>УРОК</label>
               <select
                 id={styles.lessonSelect}
                 value={lesson}
@@ -219,9 +219,13 @@ const AddWordsPage = () => {
           </div>
         </div>
       </div>
-      <div style={{ minWidth: "1100px", padding: "30px", borderRadius:"20px" }} className="wrapper">
+      <div
+        style={{ minWidth: "1100px", padding: "30px", borderRadius: "20px" }}
+        className="wrapper"
+      >
         <h3 className="title2">Конструктора слов</h3>
         <div className={styles.flex}>
+          <div>
             <Index3
               title={"Загрузите иконку"}
               subtitle={`Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ.`}
@@ -230,14 +234,36 @@ const AddWordsPage = () => {
               imgWidth={"215px"}
               imgheight={"215px"}
               gap={"21.34px"}
-              textarea={false}
-              textareaTitle={"Custom title"}
-              textareaPlaceholder={"Type your text..."}
-              textareaValue={"Hech narsa yozilmagan! (Hazil)"}
             />
+            <div style={{marginTop:"30px"}}>
+              <h3 className={styles.selectTitle}>Выберите количество игр</h3>
+              <div className={styles.Selects}>
+                <div style={{width:"fit-content"}}>
+                  <label htmlFor={styles.moduleSelect}>ИГР</label>
+                  <select
+                    id={styles.moduleSelect}
+                    value={module}
+                    onChange={(e) => setModule(Number(e.target.value))}
+                    style={{ backgroundImage: `url(${bg})` }}
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
           <div>
-            <div className="wrapper" style={{ padding: "24px", borderRadius:"15px" }}>
-              <h4 className={styles.title}>Напишите название достижения <span className="redText">*</span></h4>
+            <div
+              className="wrapper"
+              style={{ padding: "24px", borderRadius: "15px" }}
+            >
+              <h4 className={styles.title}>
+                Напишите название достижения <span className="redText">*</span>
+              </h4>
               <p className={styles.subtitle}>
                 Пожалуйста, проверьте правильность написания слов и знаки
                 препинания, если они есть.
@@ -255,9 +281,15 @@ const AddWordsPage = () => {
             </div>
             <div
               className="wrapper"
-              style={{ padding: "24px", marginTop: "30px", borderRadius:"15px" }}
+              style={{
+                padding: "24px",
+                marginTop: "30px",
+                borderRadius: "15px",
+              }}
             >
-              <h4 className={styles.title}>Напишите описание <span className="redText">*</span></h4>
+              <h4 className={styles.title}>
+                Напишите описание <span className="redText">*</span>
+              </h4>
               <p className={styles.subtitle}>
                 Пожалуйста, проверьте правильность написания слов и знаки
                 препинания, если они есть.

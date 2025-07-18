@@ -36,6 +36,13 @@
     height: 52px;
 }
 
+.selectTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
 .Selects > div > label {
     border: 1px solid #d4d4d4;
     padding: 15px 25px;

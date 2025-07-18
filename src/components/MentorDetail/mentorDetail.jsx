@@ -4,7 +4,7 @@ import MentorProfilText from '../mentorsProfileDetail/MentorProfilText/MentorPro
 import Filter from '../Filter/filter';
 import Table from '../Table/table';
 import { useState } from 'react';
-
+import useTitle from "../../hooks/useTitle";
 const MentorDetail = () => {
     const users = [
         {
@@ -164,6 +164,8 @@ const MentorDetail = () => {
             progress: 50,
         },
     ];
+
+      useTitle("Add Mentor")
 
     const [inputValue, setInputValue] = useState("");
 

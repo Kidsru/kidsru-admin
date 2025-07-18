@@ -4,7 +4,7 @@ import EditorButton from "../../EditorButton/editorButton.jsx";
 import { ReactComponent as UploadIcon } from "../../../../assets/icon/upload.svg";
 import { useFastLoadImg } from "./useFastLoadImg.js";
 
-function FastLoadImg({ onImageChange, size, src = null }) {
+function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
   const {
     img,
     isActive,
@@ -28,12 +28,9 @@ function FastLoadImg({ onImageChange, size, src = null }) {
     >
       <div className={styles.title_wrapper}>
         <h4 className={styles.title}>
-          Загрузите фотографию профиля <span>*</span>
+          {title} <span>*</span>
         </h4>
-        <p className={styles.subtitle}>
-          Пожалуйста, загрузите файл в формате jpeg, png и убедитесь, что размер
-          файла не превышает 5 МБ.
-        </p>
+        <p className={styles.subtitle}>{subtitle}</p>
       </div>
 
       <div className={styles.img_edior}>

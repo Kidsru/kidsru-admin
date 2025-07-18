@@ -55,7 +55,7 @@ const Sidebar = ({ resize }) => {
           </NavLink>
 
           <NavLink
-            to="/users"
+            to="/user"
             className={({ isActive }) =>
               `${styles.menuItem} ${isActive ? styles.active : ""}`
             }
@@ -67,7 +67,7 @@ const Sidebar = ({ resize }) => {
           {openUsers && (
             <div className={styles.subList}>
               <NavLink
-                to="/users/questionnaire"
+                to="/user/questionnaire"
                 className={({ isActive }) =>
                   `${styles.subItem} ${isActive ? styles.active : ""}`
                 }

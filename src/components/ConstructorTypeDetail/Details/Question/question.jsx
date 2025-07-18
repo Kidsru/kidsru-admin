@@ -166,6 +166,10 @@ const Question = ({
                 {isMainBlock ? (
                   <div style={{ width: "645px", height: "664px" }}>
                     <Index1
+                      title={"Загрузите картинку или анимацию"}
+                      subtitle={
+                        "Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ."
+                      }
                       size={{ wrapper: "645px", image: "461px", gap: "22" }}
                     />
                   </div>
@@ -813,7 +817,15 @@ const Question = ({
                       }}
                     >
                       <Index1
-                        size={{ wrapper: "600px", image: "416px", gap: "44.5px" }}
+                        title={"Загрузите картинку или анимацию"}
+                        subtitle={
+                          "Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ."
+                        }
+                        size={{
+                          wrapper: "600px",
+                          image: "416px",
+                          gap: "44.5px",
+                        }}
                       />
                     </div>
                     <div>
@@ -867,11 +879,18 @@ const Question = ({
                     <div
                       style={{
                         width: "400px",
-                        height: "681px",
-                        border: "1px solid black",
                       }}
                     >
-                      TLC
+                      <Index3
+                        title={"Загрузите картинку или анимацию"}
+                        subtitle={`Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ.`}
+                        src={""}
+                        width={"400px"}
+                        imgWidth={"352px"}
+                        imgheight={"352px"}
+                        gap={"30px"}
+                        textarea={false}
+                      />
                     </div>
                     <CorrectAnsweTextarea
                       coloredButton={true}
@@ -962,11 +981,15 @@ const Question = ({
                     <div
                       style={{
                         width: "595px",
-                        height: "616px",
-                        border: "1px solid black",
                       }}
                     >
-                      TLC
+                      <Index1
+                        size={{ wrapper: "595px", image: "411px", gap: "23" }}
+                        title={"Загрузите картинку или анимацию"}
+                        subtitle={
+                          "Пожалуйста, загрузите файл в формате jpeg, png или mp4, webM и убедитесь, что размер файла не превышает 5 МБ."
+                        }
+                      />
                     </div>
                     <div>
                       <div
