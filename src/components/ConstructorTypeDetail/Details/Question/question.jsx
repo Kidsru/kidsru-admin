@@ -5,6 +5,7 @@ import SaveButton from "../../../Detals/SaveButton/saveButton";
 import Textarea from "../Textarea/textarea";
 import AnswerVariants from "../AnswerVariants/AnswerVariants";
 import VariantList from "../VariantList/variantList";
+import Index1 from "../../../Detals/LoadMedia/index1/index";
 import Index3 from "../../../Detals/LoadMedia/index3/index";
 import Index4 from "../../../Detals/LoadMedia/index4/index";
 
@@ -152,7 +153,11 @@ const Question = ({ question, number, type, img, isMainBlock }) => {
             <div>
               <div>
                 {isMainBlock ? (
-                  <div style={{ width: "645px", height: "664px" }}>TLC</div>
+                  <div style={{ width: "645px", height: "664px" }}>
+                    <Index1
+                      size={{ wrapper: "645px", image: "461px", gap: "22" }}
+                    />
+                  </div>
                 ) : (
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}

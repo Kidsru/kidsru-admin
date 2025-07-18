@@ -101,7 +101,11 @@ function Main() {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.form_items}>
         <div className={styles.form_img_wrapper}>
-          <LoadImg onImageChange={setProfileImage} src={Avatar} />
+          <LoadImg
+            onImageChange={setProfileImage}
+            src={Avatar}
+            size={{ wrapper: "466px", image: "280px", gap: "180.5" }}
+          />
         </div>
         <div className={styles.form_input_wrapper}>
           {inputs.map((input) => (

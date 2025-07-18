@@ -21,7 +21,7 @@ function FastLoadImg({
   const [dragActive, setDragActive] = useState(false);
 
   const handleAddCard = () => {
-    if (!checkbox && cards.length >= 2) return;
+    if (!options && cards.length >= 2) return;
     setCards((prev) => [...prev, { src: null, fromProps: false }]);
   };
 
@@ -67,9 +67,9 @@ function FastLoadImg({
     setCards((prev) => [...prev, { src: url, fromProps: false }]);
   };
 
-  const isLimitReached = !checkbox && cards.length >= 2;
+  const isLimitReached = !options && cards.length >= 2;
 
-  const shouldShowSubmit = checkbox ? cards.length > 0 : cards.length > 1;
+  const shouldShowSubmit = options ? cards.length > 0 : cards.length > 1;
 
   return (
     <div

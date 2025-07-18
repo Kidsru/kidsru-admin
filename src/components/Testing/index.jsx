@@ -10,18 +10,23 @@ function Testing() {
         src={[
           "https://avatars.githubusercontent.com/u/152501142?v=4",
           "https://avatars.githubusercontent.com/u/152501142?v=4",
+          "https://avatars.githubusercontent.com/u/152501142?v=4",
+          "https://avatars.githubusercontent.com/u/152501142?v=4",
         ]}
         content={[
           {
-            wrapper: { width: "462px" },
-            content: { height: "323px" },
-            card: { width: "174px" },
-            img: { width: "150px",},
+            wrapper: { width: "1040px" },
+            content: { height: "675px" },
+            card: { width: "379px" },
+            img: { width: "200px" },
           },
         ]}
-        checkbox={false}
-        textarea={false}
-        cardTitle={[{ title: "Картинка без надписи" }, { title: "Картинка с надписью" }]}
+        checkbox={true}
+        textarea={true}
+        cardTitle={[
+          { title: "Картинка без надписи" },
+          { title: "Картинка с надписью" },
+        ]}
         textareaContent={[
           { title: "Title 1", placeholder: "Placeholder 1", value: "Value 1" },
           { title: "Title 2", placeholder: "Placeholder 2", value: "Value 2" },

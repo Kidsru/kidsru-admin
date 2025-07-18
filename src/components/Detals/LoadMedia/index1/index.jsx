@@ -4,7 +4,7 @@ import EditorButton from "../../EditorButton/editorButton.jsx";
 import { ReactComponent as UploadIcon } from "../../../../assets/icon/upload.svg";
 import { useFastLoadImg } from "./useFastLoadImg.js";
 
-function FastLoadImg({ onImageChange, src = null }) {
+function FastLoadImg({ onImageChange, size, src = null }) {
   const {
     img,
     isActive,
@@ -22,7 +22,10 @@ function FastLoadImg({ onImageChange, src = null }) {
   } = useFastLoadImg(src, onImageChange);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={{ width: size.wrapper, gap: size.gap }}
+    >
       <div className={styles.title_wrapper}>
         <h4 className={styles.title}>
           Загрузите фотографию профиля <span>*</span>
@@ -35,6 +38,7 @@ function FastLoadImg({ onImageChange, src = null }) {
 
       <div className={styles.img_edior}>
         <div
+          style={{ width: size.image, height: size.image }}
           className={styles.img_wrapper}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -42,14 +46,20 @@ function FastLoadImg({ onImageChange, src = null }) {
         >
           {img?.url ? (
             <img
-              className={`${styles.img_pw} ${dragActive ? styles.drag_active : ""}`}
+              style={{ width: size.image, height: size.image }}
+              className={`${styles.img_pw} ${
+                dragActive ? styles.drag_active : ""
+              }`}
               src={img.url}
               alt="Аватар"
             />
           ) : (
             <label
+              style={{ width: size.image, height: size.image }}
               onClick={handleEdit}
-              className={`${styles.upload_wrapper} ${dragActive ? styles.drag_active : ""}`}
+              className={`${styles.upload_wrapper} ${
+                dragActive ? styles.drag_active : ""
+              }`}
             >
               <UploadIcon className={styles.upload_icon} />
               <p className={styles.upload_text}>Перетащите файл или выберите</p>
@@ -65,10 +75,25 @@ function FastLoadImg({ onImageChange, src = null }) {
           />
         </div>
 
-        <div className={styles.edior_wrapper}>
-          <EditorButton type="edit" active={isActive} text={true} onClick={handleEdit} />
-          <EditorButton type="download" active={isActive} text={true} onClick={handleDownload} />
-          <EditorButton type="delete" active={isActive} text={true} onClick={handleDelete} />
+        <div className={styles.edior_wrapper} style={{ height: size.image }}>
+          <EditorButton
+            type="edit"
+            active={isActive}
+            text={true}
+            onClick={handleEdit}
+          />
+          <EditorButton
+            type="download"
+            active={isActive}
+            text={true}
+            onClick={handleDownload}
+          />
+          <EditorButton
+            type="delete"
+            active={isActive}
+            text={true}
+            onClick={handleDelete}
+          />
         </div>
       </div>
 
