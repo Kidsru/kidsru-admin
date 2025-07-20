@@ -14,25 +14,51 @@ import React, { Suspense } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
-function TitleSetter() {
-  const location = useLocation();
-  let title = "";
+// Cookie dan access tokenni olish funksiyasi
+function getAccessTokenFromCookie() {
+  const name = "access_token=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const cookies = decodedCookie.split(";");
 
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+    if (cookie.startsWith(name)) {
+      return cookie.substring(name.length);
+    }
+  }
+
+  return null;
+}
+
+// Title o'zgartiruvchi va redirect qiluvchi komponent
+function TitleSetterAndAuthGuard() {
+  const location = useLocation();
+  const token = getAccessTokenFromCookie();
+
+  // Sahifa sarlavhasini o'rnatish
+  let title = "";
   if (location.pathname !== "/") {
     const current = navbar.find((item) => item.path === location.pathname);
     title = current?.title || "404 - Page Not Found";
   }
-
   useTitle(title);
+
+  if (!token && location.pathname !== "/auth") {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (token && location.pathname === "/auth") {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return null;
 }
 
-// Suspense wrapper ichida fallback loader bo‘ladi
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <TitleSetter />
+      <TitleSetterAndAuthGuard />
       <Suspense
         fallback={
           <>
@@ -49,9 +75,7 @@ function App() {
                 <Route
                   key={index}
                   path={item.path}
-                  element={
-                    <LazyWrapper>{item.element}</LazyWrapper>
-                  }
+                  element={<LazyWrapper>{item.element}</LazyWrapper>}
                 />
               ))}
             <Route index element={<Navigate to="/auth" replace />} />
@@ -63,9 +87,7 @@ function App() {
               <Route
                 key={index}
                 path={item.path}
-                element={
-                  <LazyWrapper>{item.element}</LazyWrapper>
-                }
+                element={<LazyWrapper>{item.element}</LazyWrapper>}
               />
             ))}
         </Routes>

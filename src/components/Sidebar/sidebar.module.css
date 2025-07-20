@@ -166,21 +166,29 @@ a {
 .logout {
   margin-top: 50px;
   color: #e33326;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: transparent;
+  transition: all 0.3s ease;
 }
 
-.logout .icon {
-  path {
-    fill: #e33326;
-  }
+.logout .icon path {
+  fill: #e33326;
+  transition: fill 0.3s ease;
 }
 
 .logout:hover {
-  background-color: transparent;
+  background-color: #ffe5e0;
   color: #e33326;
 }
 
-.logout:hover .icon {
-  path {
-    fill: #e33326;
-  }
+.logout:hover .icon path {
+  fill: #e33326;
 }
+

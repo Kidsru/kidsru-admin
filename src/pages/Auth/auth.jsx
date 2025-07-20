@@ -6,6 +6,9 @@ import { IoEyeOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import styles from "./auth.module.css";
 
+import { endpoints } from "../../services/api.js";
+import { apiConnector } from "../../services/apiconnector";
+
 function Auth() {
   const navigate = useNavigate();
 
@@ -13,23 +16,45 @@ function Auth() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const toggleVisibility = () => setVisible(!visible);
   const clearUsername = () => setUsername("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    const correctUsername = "admin";
-    const correctPassword = "12345678";
-
-    if (username !== correctUsername) {
-      setError("Такой пользователь не найден");
-    } else if (password !== correctPassword) {
-      setError("Неверный пароль");
-    } else {
-      setError("");
-      navigate("/dashboard");
+    try {
+      const response = await apiConnector(
+        "POST",
+        endpoints.LOGIN_API,
+        {
+          phone: username,
+          password: password,
+        },
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      const data = response.data;
+      if (response.status === 201 && data?.access_token) {
+        document.cookie = `access_token=${data.access_token}; path=/; max-age=86400`;
+        navigate("/dashboard");
+      } else {
+        setError("Ошибка авторизации");
+      }
+    } catch (err) {
+      if (err?.response?.status === 404) {
+        setError("Такой пользователь не найден");
+      } else if (err?.response?.status === 409) {
+        setError("Неверный пароль");
+      } else {
+        setError("Сервер недоступен");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,15 +113,16 @@ function Auth() {
                 </button>
               </label>
             </div>
-            {error ? (
-              <p className={styles.error_text}>{error}</p>
-            ) : (
-              <p className={styles.error_text}>&nbsp;</p>
-            )}
+
+            <p className={styles.error_text}>{error ? error : "\u00A0"}</p>
 
             <div className={`${styles.form_row} ${styles.form_submit_wrapper}`}>
-              <button className={styles.form_submit} type="submit">
-                Войти
+              <button
+                className={styles.form_submit}
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Загрузка..." : "Войти"}
               </button>
             </div>
           </div>

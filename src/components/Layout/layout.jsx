@@ -76,7 +76,7 @@ const getInitialResize = () => {
 
       <div className={styles.content}>
         <NavBar resize={thisResize} />
-        <div style={{ marginTop: "85px", padding: "30px" }}>
+        <div style={{ marginTop: "85px", padding: "30px"}}>
           <Outlet />
         </div>
       </div>

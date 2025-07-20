@@ -22,6 +22,14 @@ const Sidebar = ({ resize }) => {
   const [openBlocks, setOpenBlocks] = useState(false);
   const [openConstructor, setOpenConstructor] = useState(false);
 
+  const navigate = useNavigate()
+
+  function logout(navigate) {
+    document.cookie = "access_token=; path=/; max-age=0";
+    navigate("/auth");
+    window.location.reload()
+  }
+
   const arrow = (isOpen, toggle) =>
     isOpen ? (
       <IoIosArrowDown
@@ -190,7 +198,10 @@ const Sidebar = ({ resize }) => {
           </NavLink>
         </div>
 
-        <div className={`${styles.menuItem} ${styles.logout}`}>
+        <div
+          onClick={() => logout(navigate)}
+          className={`${styles.menuItem} ${styles.logout}`}
+        >
           <RxExit className={styles.icon} />
           <p className={styles.menuText}>Выйти</p>
         </div>

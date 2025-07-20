@@ -8,7 +8,6 @@ import Main from "./details/Main/main.jsx";
 function Dashboard() {
   const location = useLocation();
 
-  // Avto-redirect agar `/settings` da bo‘lsa
   if (location.pathname === "/settings" || location.pathname === "/settings/") {
     return <Navigate to="/settings/main" replace />;
   }

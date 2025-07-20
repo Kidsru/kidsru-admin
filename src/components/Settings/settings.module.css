@@ -1,11 +1,12 @@
 .container {
-  min-width: 550px;
+  width: 1200px;
   min-height: 84vh;
   height: max-content;
   display: flex;
   justify-content: left;
   align-items: start;
   padding-bottom: 60px;
+  padding-right: 50px;
   box-sizing: border-box;
 }
 
