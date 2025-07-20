@@ -75,7 +75,7 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
             <div style={{ width: contentWidth || "424px" }} className={styles.wrapper}>
                 {variants.map((variant, index) => (
                     <div className={styles.card} key={index}>
-                        <h4 className={styles.title}>Вариант № {index + 1}</h4>
+                        <h4 className={styles.title}>{typeFive ? "Пара слов" : "Вариант"} № {index + 1}</h4>
                         <button className={styles.close} onClick={() => handleRemoveVariant(index)}>×</button>
                         <p className={styles.question}>Реплики какого персонажа?</p>
                         <div className={styles.options}>

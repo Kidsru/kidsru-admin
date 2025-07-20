@@ -16,18 +16,50 @@ import DownloadBtn from '../Detals/DownloadBtn/downloadBtn'
 import SwitchButton from '../Detals/SwitchBtn/switchBtn'
 import MentorBtn from '../Detals/MentorBtn/MentorBtn'
 import styles from "./table.module.css"
-import {ReactComponent as Arrow1} from "../../assets/icon/table-left.svg"
-import {ReactComponent as Arrow2} from "../../assets/icon/table-bottom.svg"
+import { ReactComponent as Arrow1 } from "../../assets/icon/table-left.svg"
+import { ReactComponent as Arrow2 } from "../../assets/icon/table-bottom.svg"
+import { useSearchParams } from 'react-router-dom'
 
-const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, onDelete, onEdit, addButton, handleClick, hideView, achievements }) => {
+const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, itemsPerPage, onView, onDelete, onEdit, addButton, handleClick, hideView, achievements }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [expandedRows, setExpandedRows] = useState({});
     const [allChecked, setAllChecked] = useState(false);
     const [checkedRows, setCheckedRows] = useState({});
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const [searchParams] = useSearchParams();
+    const status = searchParams.get(filterKey);
+
+    function filterByStatus(data, filterKey, statusValue) {
+        return data
+            .map((item) => {
+                const children = item.children || [];
+
+                const filteredChildren = filterByStatus(children, filterKey, statusValue);
+
+                const isMatch = item[filterKey] === statusValue;
+
+                if (isMatch || filteredChildren.length > 0) {
+                    return {
+                        ...item,
+                        children: filteredChildren.length > 0 ? filteredChildren : [],
+                    };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
+    }
+
+
+    const filteredData = status
+        ? filterByStatus(data, filterKey, status)
+        : data;
+
+
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
+    const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
     const getAllUserIds = (users) => {
         let ids = [];
@@ -72,7 +104,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
         return (
             <>
                 <tr key={user.id}>
-                    <td style={{height: "100%", display: "flex", justifyContent: "center", alignItems: "center",}}>
+                    <td style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", }}>
                         <input
                             type="checkbox"
                             checked={checkedRows[user.id] || false}
@@ -105,7 +137,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
                             <div style={{ paddingLeft: "10px" }} className={styles.accordionItem}>
                                 {hasChildren && (
                                     <button onClick={() => toggleRow(user.id)} className={styles.expandBtn}>
-                                        {isExpanded ? <Arrow2 /> : <Arrow1/>}
+                                        {isExpanded ? <Arrow2 /> : <Arrow1 />}
                                     </button>
                                 )}
                                 {user.name}
@@ -117,7 +149,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
                         <div style={{ paddingLeft: "10px" }} className={styles.accordionItem}>
                             {hasChildren && (
                                 <button onClick={() => toggleRow(user.id)} className={styles.expandBtn}>
-                                    {isExpanded ?  <Arrow2 /> : <Arrow1/>}
+                                    {isExpanded ? <Arrow2 /> : <Arrow1 />}
                                 </button>
                             )}
                             {user.name}
@@ -297,7 +329,7 @@ const Table = ({ buttonText, questionnaire, thead, data, itemsPerPage, onView, o
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center",}}><input type="checkbox" onChange={(e) => toggleCheck(e)} /></th>
+                        <th style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", }}><input type="checkbox" onChange={(e) => toggleCheck(e)} /></th>
                         {
                             thead.map(item => (
                                 <th key={item}>

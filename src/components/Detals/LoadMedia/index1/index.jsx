@@ -24,7 +24,7 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
   return (
     <div
       className={styles.wrapper}
-      style={{ width: size.wrapper, gap: size.gap }}
+      style={{ width: size?.wrapper, gap: size?.gap }}
     >
       <div className={styles.title_wrapper}>
         <h4 className={styles.title}>
@@ -35,7 +35,7 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
 
       <div className={styles.img_edior}>
         <div
-          style={{ width: size.image, height: size.image }}
+          style={{ width: size?.image, height: size?.image }}
           className={styles.img_wrapper}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -43,7 +43,7 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
         >
           {img?.url ? (
             <img
-              style={{ width: size.image, height: size.image }}
+              style={{ width: size?.image, height: size?.image }}
               className={`${styles.img_pw} ${
                 dragActive ? styles.drag_active : ""
               }`}
@@ -52,7 +52,7 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
             />
           ) : (
             <label
-              style={{ width: size.image, height: size.image }}
+              style={{ width: size?.image, height: size?.image }}
               onClick={handleEdit}
               className={`${styles.upload_wrapper} ${
                 dragActive ? styles.drag_active : ""
@@ -72,7 +72,7 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
           />
         </div>
 
-        <div className={styles.edior_wrapper} style={{ height: size.image }}>
+        <div className={styles.edior_wrapper} style={{ height: size?.image }}>
           <EditorButton
             type="edit"
             active={isActive}

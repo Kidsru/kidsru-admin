@@ -89,7 +89,7 @@ const Filter = ({
                         ) : (
                             filters.map(([key, value]) => (
                                 <div className={styles.tag} key={key}>
-                                    {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
+                                    {value}
                                     <span className={styles.close} onClick={() => removeFilter(key)}>×</span>
                                 </div>
                             ))

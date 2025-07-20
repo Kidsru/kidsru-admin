@@ -142,16 +142,16 @@ function Index() {
     },
   ];
 
- const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-const finalFilteredUsers = users.filter((user) => {
-  const lower = inputValue.toLowerCase();
-  return (
-    user.name.toLowerCase().includes(lower) ||
-    user.phone.toLowerCase().includes(lower) ||
-    user.id.toString().includes(lower)
-  );
-});
+  const finalFilteredUsers = users.filter((user) => {
+    const lower = inputValue.toLowerCase();
+    return (
+      user.name.toLowerCase().includes(lower) ||
+      user.phone.toLowerCase().includes(lower) ||
+      user.id.toString().includes(lower)
+    );
+  });
 
   const navigate = useNavigate();
 
