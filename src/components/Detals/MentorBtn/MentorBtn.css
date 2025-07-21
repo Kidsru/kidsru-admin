@@ -1,0 +1,13 @@
+.MentorBtn{
+    border: 1px solid #396AFF;
+    color: #396AFF;
+    padding: 10px;
+    font-weight: 300;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 14px;
+    display: flex;
+    margin: 0 auto;
+    gap:  10px;
+    cursor: pointer;
+}

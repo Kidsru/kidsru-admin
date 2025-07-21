@@ -1,0 +1,21 @@
+.variantCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 256px;
+    height: 438px;
+    background-color: #fff;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+    position: relative;
+
+}
+
+
+.variantCard>img{
+    width: 200px;
+    height: 200px;
+    border:1px solid #396AFF;
+    border-radius: 8px;
+}

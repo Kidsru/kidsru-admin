@@ -1,0 +1,89 @@
+.AchievementsCart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 80px;
+  width: 476px;
+}
+
+.Achievements {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 508px;
+  height: fit-content;
+  border: 1px solid #E0E0E0;
+  background-color: white;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.AchievementsCart img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.AchievmentsCartText {
+  width: 384px;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.wrpMenu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.WrpProgresBar > .proG {
+  width: 350px !important;
+}
+
+.wrpMenu > button {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+}
+
+.wrpMenu > h4 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.WrpProgresBar {
+  color: gray;
+  height: 40px;
+}
+
+.WrpProgresBar >div> span {
+  color: black;
+}
+
+.WrpProgresBar>div{
+    margin-bottom: 10px;
+}
+
+
+
+.alert {
+  display: flex;
+  width: 100%;
+  padding: 4px;
+  background-color: #eadbd9;
+  color: #fe5a4a;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 5px 10px;
+   
+}
+
+.alert>p{
+    margin-left: 10px;
+}

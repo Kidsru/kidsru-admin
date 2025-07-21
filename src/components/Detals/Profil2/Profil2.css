@@ -1,0 +1,60 @@
+.Profil2_wrp {
+    min-width: 642px;
+    max-width: 642px;
+    height: 303px;
+    padding: 50px 30px 30px;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 8px;
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: white;
+    border: 1px solid #D4D4D4;
+    border-radius: 20px;
+}
+
+.Profil_text {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Profil_text>h4 {
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    font-style: Medium;
+}
+
+.Profil_text>h4>span {
+    width: 40%;
+    color: #838383;
+}
+
+.Profil2_wrp>div>button {
+    width: 144px;
+    height: 48px;
+    color: white;
+    background-color: #396AFF;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.Profil2_wrp>.wrpBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Pencil {
+    font-size: 24px;
+}

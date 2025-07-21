@@ -1,0 +1,190 @@
+.wrapper {
+  width: 263px;
+  padding: 24px;
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20;
+}
+
+.title_wrapper {
+  width: 100%;
+  height: 112px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.title {
+  width: 100%;
+  height: max-content;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #333333;
+}
+.title span {
+  color: #fb2047;
+}
+.subtitle {
+  width: 100%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #838383;
+  font-family: sans-serif;
+}
+
+.submit_wrapper {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+}
+
+.img_edior {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 21.34px;
+}
+
+.img_wrapper {
+  width: 215px;
+  height: 215px;
+  overflow: hidden;
+}
+
+.edior_wrapper {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  border: 1px solid #dedede;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.edior_item:first-child {
+  border-right: 1px solid #dedede;
+}
+
+.edior_item:last-child {
+  border-left: 1px solid #dedede;
+}
+
+.edior_item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img_pw {
+  width: 215px;
+  height: 215px;
+  border: 1px solid #cdd0dc;
+  border-radius: 8px;
+}
+
+.upload_wrapper {
+  width: 215px;
+  height: 215px;
+  background-color: #f6f7fe;
+  border: 1px solid #396aff;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  transition: all 0.1s linear;
+}
+
+.drag_active {
+  border: 3px dashed #007bff;
+  background-color: #e6f0ff;
+}
+
+.upload_icon {
+  width: 90px;
+  height: 90px;
+}
+
+.upload_text {
+  width: 165px;
+  height: max-content;
+  min-height: 32px;
+  font-weight: 500;
+  font-size: 18.98px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.upload_card {
+  border: 1px solid #396aff;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  color: #396aff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.textarea {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.textarea > h4 {
+  width: 100%;
+  height: max-content;
+  min-height: 18px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  overflow: hidden;
+  text-wrap: wrap;
+}
+
+.textarea > textarea {
+  width: 100%;
+  height: 73px;
+  min-height: 73px;
+  max-height: 273px;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 8px 11px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: 0%;
+}
+
+.textarea > textarea:focus {
+  outline: none;
+  border: 1px solid #007bff;
+  transition: all 0.2s ease-in-out;
+}

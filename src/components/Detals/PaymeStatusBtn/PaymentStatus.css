@@ -1,0 +1,55 @@
+.btn {
+  border: none;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 5px;
+  align-items: center;
+  padding: 5px 10px;
+  width: fit-content;
+  height: 34px;
+  border-radius: 8px;
+}
+
+.dotGreen {
+  background-color: #56ba28;
+  
+}
+
+.green {
+  background-color: #ecfce5;
+  color: #56ba28;
+}
+
+.red{
+  background-color:#FDC6C6;
+  color: #FF1F25;
+}
+.dotRed{
+  background-color: #FF1F25;
+
+}
+
+.dot{
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dotGrey{
+  background-color: #495057;
+}
+
+.grey{
+  color: #495057;
+  background-color: #bebcbc;
+}
+
+
+.dotBlue{
+  background-color: #3276E8;
+}
+
+.blue{
+  color: #3276E8;
+  background-color: #c6d4eb;
+}

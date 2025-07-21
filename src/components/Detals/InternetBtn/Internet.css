@@ -1,0 +1,11 @@
+.Internet{
+    width: 163px;
+    height: 56px;
+    padding-left:10px ;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    font-size: 14px;
+    gap: 10px;
+}

@@ -1,0 +1,41 @@
+.wrapper{
+    height: fit-content;
+    border: 1px solid #D4D4D4;
+    border-radius: 15px;
+}
+
+.mainTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 28px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333333;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #838383;
+    margin-top: 4px;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 86px;
+    max-height: 250px;
+    border: 1px solid #CDD0DC;
+    padding: 8px 11px;
+    border-radius: 6px;
+    outline: none;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #838383;
+}

@@ -1,0 +1,95 @@
+.LessonMapForm {
+    border: 1px solid #d4d4d4;
+    width: 1100px;
+    height: 238px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    border-radius: 8px;
+    margin: 30px 0;
+}
+
+.Selects {
+    width: 90%;
+    height: 134px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.Selects > div {
+    width: 242px;
+    font-size: 20px;
+    display: flex;
+    gap: 5px;
+    height: 52px;
+}
+
+.Selects > div > label {
+    border: 1px solid #d4d4d4;
+    padding: 15px 25px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.Selects > div > select {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 40% 100%;
+    padding: 15px 40px 15px 15px;
+    border: 1px solid #d4d4d4;
+    text-align: left;
+    width: 90px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 0px 5px 5px 0px;
+    color: #396AFF;
+    outline: none;
+}
+
+.SelectorLast {
+    height: 134px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SelectorLast > div > label {
+    width: 144px;
+    height: 52px;
+    border: 1px solid #d4d4d4;
+    padding: 12px 25px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.SelectorLast > div > select {
+    height: 52px;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 40% 100%;
+    padding: 15px 40px 15px 15px;
+    border: 1px solid #d4d4d4;
+    text-align: left;
+    width: 90px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 0px 5px 5px 0px;
+    color: #396AFF;
+    outline: none;
+}
+
+.SelectorLast > div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 5px;
+}
+
+.LessonMapForm > h3 {
+    font-size: 24px;
+    font-weight: 700;
+}

@@ -1,0 +1,110 @@
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    font-style: Bold;
+    color: #1F1F1F;
+    margin-bottom: 28px;
+}
+
+.wrapper {
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    padding: 15px;
+}
+ .flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+ }
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+}
+
+.table thead th {
+    font-size: 12px;
+    font-weight: 500;
+    font-style: Medium;
+    line-height: 20px;
+    color: #838383;
+    background-color: #FAFAFA;
+    padding: 10px;
+    border: 1px solid #DDDDDD;
+    line-height: 14px;
+}
+
+.table td {
+    min-width: 50px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #DDDDDD;
+    color: #333333;
+    font-style: Regular;
+}
+
+.reasonContainer {
+    min-width: 296px;
+    max-width: 296px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.developmentContainer {
+    min-width: 206px;
+    max-width: 206px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.coloredText {
+    padding: 5px 10px;
+    background-color: #EDF7EE;
+    color: #56BA28;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.coloredText.ink {
+    background-color: #E1D4FF;
+    color: #8432E8;
+}
+
+.coloredText.red {
+    background-color: #FDC6C6;
+    color: #FF1F25;
+}
+
+.coloredText.pumpkin {
+    background-color: #FFE4D4;
+    color: #E87E32;
+}
+
+.coloredText.black {
+    background-color: #F5F5F5;
+    color: #000000;
+}
+
+.coloredText.blue {
+    background-color: #E4E4E4;
+    color: #333333;
+}
+
+.coloredText.pink {
+    background-color: #F6CDED;
+    color: #CE3099;
+}
+
+.coloredText.brown {
+    background-color: #F6CCA7;
+    color: #784614;
+}
+

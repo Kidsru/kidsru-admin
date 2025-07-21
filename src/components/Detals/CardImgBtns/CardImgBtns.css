@@ -1,0 +1,25 @@
+.CardImgBtns{
+    width: 150px;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.CardImgBtns>button{
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    border-radius:8px ;
+    background-color: #E3EEFC;
+    
+    color:#396AFF;
+}
+.CardImgBtnsIconDelet{
+    color:#E33326!important;
+    background-color: #FCEBE9!important;
+}
+
+.CardImgBtns>button:hover{
+    opacity: 0.8;
+}

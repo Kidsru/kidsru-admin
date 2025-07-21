@@ -1,0 +1,23 @@
+.SelectAnswerFormVariantCard2{
+    border: 1px solid #E0E0E0;
+    max-width: 374px;
+    height: 374px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    position: relative;
+}
+
+.SelectAnswerFormVariantCard2>h3{
+    text-align: center;
+    font-weight: 400;
+}
+.SelectAnswerFormVariantCard2>div>h3{
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom:10px ;
+}

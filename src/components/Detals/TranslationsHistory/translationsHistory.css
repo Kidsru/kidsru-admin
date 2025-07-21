@@ -1,0 +1,106 @@
+.TranslationsHistory {
+  width: 1100px;
+  height: 630px;
+  border: 1px solid #d4d4d4;
+  background-color: white;
+  padding: 24px 24px 78px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.TranslationsHistory>h3>span{
+  color: #FB2047;
+}
+
+.wrpTranslat{
+    border: 1px solid #d4d4d4;
+    width: 489px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 8px;
+    padding: 12px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.wrpTranslat>button{
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    border-radius: 50%;
+    border: none;
+    background-color: #636F84;
+    color: white;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.wrpLangs{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    height: 134px;
+}
+
+.wrpLangs>.lang{
+    width: 215px;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.wrpLangs>.lang>textarea{
+    height: 111px;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    padding: 5px;
+    /* resize: none; */
+}
+
+.wrpLangs>button{
+    background-color: transparent;
+    border: none;
+    width: 24px;
+    height: 24px;
+    color: #396AFF;
+    font-size: 20px;
+}
+
+.lang>h4{
+    font-size: 18px;
+}
+
+.overFlow{
+    overflow: auto;
+    width: 1052px;
+    height: 473px;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.TranslationsHistory>.wrpBtn{
+    width: 100%;
+    text-align: right;
+    margin-top: 15px;
+}
+
+.TranslationsHistory>.wrpBtn>button{
+    border: none;
+    background-color: #E3EEFC;
+    color: #396AFF;
+    padding: 10px;
+    border-radius: 8px;
+}

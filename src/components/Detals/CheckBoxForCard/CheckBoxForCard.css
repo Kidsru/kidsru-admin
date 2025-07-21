@@ -1,0 +1,35 @@
+.CheckBoxForCard{
+    max-width: 350px;
+    height: 70px;
+    display: flex;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.wrpCheckBox{
+    width: 175.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 14px;
+    box-sizing: border-box;
+    flex-flow: row wrap;
+}
+
+.wrpCheckBox>input{
+    min-width: 18px!important;
+    height: 18px!important;
+}
+
+.wrpCheckBox>.wrpText{
+  
+   font-size: 14px ;
+   font-weight: 400;
+}
+
+.wrpCheckBox>.wrpText>p{
+    margin-top: 8px;
+    font-size: 11px;
+    color: #838383;
+}   

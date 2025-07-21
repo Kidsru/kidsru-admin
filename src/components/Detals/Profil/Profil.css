@@ -1,0 +1,57 @@
+.wrp_profil {
+    min-width: 426px;
+    max-width: 426px;
+    height: 303px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #D4D4D4;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+}
+
+.wrp_profil h1 {
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 28px;
+    color: #222222;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+.wrp_profil>img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.wrp_Items {
+    display: flex;
+    justify-content: space-around;
+    width: 366px;
+}
+
+.wrp_Items .box {
+    width: 111px;
+    height: 88px;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.wrp_Items>div>span {
+    color: #717171;
+    font-size: 16px;
+}
+
+.wrp_Items>div>h3 {
+    margin: 0;
+}

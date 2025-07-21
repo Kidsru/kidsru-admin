@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.title {
+  width: 100%;
+  font-size: 36px;
+  font-weight: 700;
+  font-style: Bold;
+  color: #1F1F1F;
+  margin-bottom: 28px;
+}
+
+.title2 {
+  width: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: Bold;
+  color: #1F1F1F;
+  margin-bottom: 16px;
+}
+
+.wrapper {
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.redText {
+  color: #FB2047;
+}

@@ -1,0 +1,62 @@
+.SelectAnswerFormVariantCard {
+  width: 379px;
+  height: 454px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  border: 1px solid #DEDEDE;
+  padding: 12px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 8px;
+  position: relative;
+ 
+}
+
+.SelectAnswerFormVariantCard > .wrpImgAndBtn {
+  width: 355px;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.wrpImgAndBtn > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  border: 1px solid #396aff;
+}
+
+.wrpImgAndBtn > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 95%;
+  height: 100%;
+}
+
+.btnTextSelect {
+ border-radius: 8px;
+ padding: 15px;
+ box-sizing: border-box;
+ border: none;
+ background-color: #E3EEFC;
+ color: #396AFF;
+ font-weight: bold;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 10px;
+}
+
+
+
+
+.SelectAnswerFormVariantCard>h3{
+    text-align: center;
+}
+
+.btnTextSelect:hover{
+    opacity: 0.7;
+}
