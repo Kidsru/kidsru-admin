@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IMaskInput } from "react-imask";
 import { ReactComponent as AuthIcon } from "../../assets/icon/auth_img.svg";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
@@ -21,23 +22,28 @@ function Auth() {
   const toggleVisibility = () => setVisible(!visible);
   const clearUsername = () => setUsername("");
 
+  const normalizePhone = (value) => value.replace(/\D/g, "");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    const normalizedPhone = normalizePhone(username);
 
     try {
       const response = await apiConnector(
         "POST",
         endpoints.LOGIN_API,
         {
-          phone: username,
+          phone: normalizedPhone,
           password: password,
         },
         {
           "Content-Type": "application/json",
         }
       );
+
       const data = response.data;
       if (response.status === 201 && data?.access_token) {
         document.cookie = `access_token=${data.access_token}; path=/; max-age=86400`;
@@ -68,18 +74,19 @@ function Auth() {
               Пожалуйста заполните поля, чтобы войти в свой аккаунт
             </p>
           </div>
+
           <div className={styles.form_grid}>
             <div className={styles.form_row}>
               <label className={styles.input_wrapper}>
                 <p className={styles.input_title}>Номер телефона</p>
-                <input
-                  name="username"
-                  type="text"
+                <IMaskInput
+                  mask="+{998} (00) 000 00 00"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  placeholder="+998 (99) 999-99-99"
+                  onAccept={(value) => setUsername(value)}
+                  disabled={loading}
+                  placeholder="+998 (__) ___ __ __"
                   className={styles.input}
+                  required
                 />
                 <button
                   type="button"
@@ -89,6 +96,7 @@ function Auth() {
                   <MdOutlineCancel className={styles.icon} />
                 </button>
               </label>
+
               <label className={styles.input_wrapper}>
                 <p className={styles.input_title}>Пароль</p>
                 <input
@@ -114,7 +122,7 @@ function Auth() {
               </label>
             </div>
 
-            <p className={styles.error_text}>{error ? error : "\u00A0"}</p>
+            <p className={styles.error_text}>{error || "\u00A0"}</p>
 
             <div className={`${styles.form_row} ${styles.form_submit_wrapper}`}>
               <button
@@ -127,6 +135,7 @@ function Auth() {
             </div>
           </div>
         </form>
+
         <div className={styles.auth_icon_wrapper}>
           <AuthIcon className={styles.auth_icon} />
         </div>

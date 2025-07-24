@@ -65,22 +65,22 @@ const Question = ({
 
       {isOpen && (
         <div className={styles.content}>
-          {type === "1.0" && <Type1_0 />}
-          {type === "1.1" && <Type1_1 />}
-          {type === "1.2" && <Type1_2 number={number} />}
-          {type === "1.3" && <Type1_3 isMainBlock={isMainBlock} />}
-          {type === "1.4" && <Type1_4 />}
-          {type === "1.5" && <Type1_5 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
-          {type === "2.0" && <Type2_0 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} />}
-          {type === "2.1" && <Type2_1 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} />}
-          {type === "2.2" && <Type2_2 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} />}
-          {type === "2.3" && <Type2_3 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
-          {type === "2.4" && <Type2_4 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
-          {type === "3.0" && <Type3_0 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} isMainBlock={isMainBlock} setType3Questions={setType3Questions} type={type} />}
-          {type === "3.1" && <Type3_1 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} />}
-          {type === "3.2" && <Type3_2 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} /> }
-          {type === "4.0" && <Type4_0 characterCount={characterCount} setCharacterCount={setCharacterCount} /> }
-          {type === "5.0" && <Type5_0 characterCount={characterCount} setCharacterCount={setCharacterCount} /> }
+          {type === "1" && <Type1_0 />}
+          {type === "1_1" && <Type1_1 />}
+          {type === "1_2" && <Type1_2 number={number} />}
+          {type === "1_3" && <Type1_3 isMainBlock={isMainBlock} />}
+          {type === "1_4" && <Type1_4 />}
+          {type === "1_5" && <Type1_5 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
+          {type === "2" && <Type2_0 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} />}
+          {type === "2_1" && <Type2_1 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} />}
+          {type === "2_2" && <Type2_2 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} />}
+          {type === "2_3" && <Type2_3 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
+          {type === "2_4" && <Type2_4 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
+          {type === "3" && <Type3_0 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} isMainBlock={isMainBlock} setType3Questions={setType3Questions} type={type} />}
+          {type === "3_1" && <Type3_1 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} />}
+          {type === "3_2" && <Type3_2 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} /> }
+          {type === "4" && <Type4_0 characterCount={characterCount} setCharacterCount={setCharacterCount} /> }
+          {type === "5" && <Type5_0 characterCount={characterCount} setCharacterCount={setCharacterCount} /> }
         </div>
       )}
     </div>

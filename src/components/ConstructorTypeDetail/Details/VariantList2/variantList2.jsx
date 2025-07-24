@@ -3,9 +3,9 @@ import Button from "../../../Detals/SubmitButton/button";
 import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg";
 import styles from "./variantList2.module.css";
 
-const VariantList2 = ({ count = 1, initialCharacters = [], width, contentWidth, mainTitle, subtitle, textareaTitle }) => {
+const VariantList2 = ({ count = 1, initialCharacters = [], width, contentWidth, mainTitle, subtitle, textareaTitle, setValue }) => {
     const [variants, setVariants] = useState([]);
-    const [selectedIndex, setSelectedIndex] = useState(null); 
+    const [selectedIndex, setSelectedIndex] = useState(0); 
 
     useEffect(() => {
         setVariants(
@@ -14,7 +14,7 @@ const VariantList2 = ({ count = 1, initialCharacters = [], width, contentWidth, 
                 text: "",
             }))
         );
-    }, [count, initialCharacters]);
+    }, []);
 
     const handleCharacterChange = (index, value) => {
         const updated = [...variants];
@@ -35,7 +35,7 @@ const VariantList2 = ({ count = 1, initialCharacters = [], width, contentWidth, 
         }));
         setVariants(updatedVariants);
 
-        console.log("Yakuniy variantlar:", updatedVariants);
+        setValue(updatedVariants)
     };
 
     const handleRemoveVariant = (index) => {

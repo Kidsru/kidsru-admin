@@ -4,8 +4,8 @@ import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg"
 import SwitchButton from "../../../Detals/SwitchBtn/switchBtn";
 import styles from "./correctAnsweTextarea.module.css";
 
-const CorrectAnsweTextarea = ({ coloredButton, count = 3, setCount, initialCharacters = [], width, height, contentHeight }) => {
-    const [selectedIndex, setSelectedIndex] = useState(null);
+const CorrectAnsweTextarea = ({ coloredButton, count = 3, setCount, initialCharacters = [], width, height, contentHeight, setValue }) => {
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const [variants, setVariants] = useState([]);
     const [onColoredButton, setOnColoredButton] = useState(false)
 
@@ -16,13 +16,18 @@ const CorrectAnsweTextarea = ({ coloredButton, count = 3, setCount, initialChara
             if (count > prevVariants.length) {
                 const diff = count - prevVariants.length;
                 for (let i = 0; i < diff; i++) {
-                    updated.push({
+                    const newItem = {
                         id: crypto.randomUUID(),
-                        character: initialCharacters[updated.length] || 1,
                         text: "",
-                    });
+                    };
+
+                    if (initialCharacters && initialCharacters.length > 0) {
+                        newItem.character = initialCharacters[updated.length];
+                    }
+                    updated.push(newItem);
                 }
-            } else if (count < prevVariants.length) {
+            }
+            else if (count < prevVariants.length) {
                 updated = updated.slice(0, count);
             }
 
@@ -58,19 +63,21 @@ const CorrectAnsweTextarea = ({ coloredButton, count = 3, setCount, initialChara
     };
 
     const handleAdd = () => {
-        if (variants.length >= 6) return;
+    if (variants.length >= 6) return;
 
-        setVariants(prev => [
-            ...prev,
-            {
-                id: crypto.randomUUID(),
-                character: 1,
-                text: "",
-            },
-        ]);
-
-        setCount(prev => Math.min(prev + 1, 6));
+    const newItem = {
+        id: crypto.randomUUID(),
+        text: "",
     };
+
+    if (initialCharacters && initialCharacters.length > variants.length) {
+        newItem.character = initialCharacters[variants.length];
+    }
+
+    setVariants(prev => [...prev, newItem]);
+    setCount(prev => Math.min(prev + 1, 6));
+};
+
 
     const handleSubmit = () => {
         const result = variants.map((variant, idx) => ({
@@ -78,11 +85,16 @@ const CorrectAnsweTextarea = ({ coloredButton, count = 3, setCount, initialChara
             correct: idx === selectedIndex,
         }));
 
-        console.log("Jo‘natiladigan ma’lumotlar:", {
+        const finalData = {
             coloredButton: onColoredButton,
             variants: result,
-        });
+        };
+
+        if (setValue) {
+            setValue(finalData);
+        }
     };
+
 
 
     return (

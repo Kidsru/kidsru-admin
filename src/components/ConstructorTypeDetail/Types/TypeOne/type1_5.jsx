@@ -1,9 +1,22 @@
+import { useState } from "react";
 import Index3 from "../../../Detals/LoadMedia/index3/index";
 import SaveButton from "../../../Detals/SaveButton/saveButton";
 import VariantList from "../../Details/VariantList/variantList";
 import styles from "../question.module.css";
 
 const Type1_5 = ({characterCount, setCharacterCount}) => {
+  const [character1, setCharacter1] = useState("");
+  const [character2, setCharacter2] = useState("");
+
+  const handleButtonClick = () => {
+    if (character1 && character2) {
+      console.log("character1:", character1);
+      console.log("charater2:", character2);
+    }else {
+      alert("Вы не нажали кнопку «Готово».")
+    }
+  }
+
   return (
     <div>
       <div className={styles.questionCount}>
@@ -71,17 +84,19 @@ const Type1_5 = ({characterCount, setCharacterCount}) => {
 
       <div className={styles.flex}>
         <VariantList
+        setValue={setCharacter1}
           count={characterCount}
           initialCharacters={Array(characterCount).fill(1)}
         />
         <VariantList
+          setValue={setCharacter2}
           count={characterCount}
           initialCharacters={Array(characterCount).fill(2)}
         />
       </div>
 
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

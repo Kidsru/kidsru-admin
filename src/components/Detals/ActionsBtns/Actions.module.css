@@ -19,3 +19,99 @@
     color: red;
     border: 1px solid red;
 }
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modalContent {
+  width: 330px;
+  height: 260px;
+  background-color: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 35px;
+  position: relative;
+}
+
+.imgWrapper {
+  width: 40px;
+  height: 40px;
+  background-color: #FCE3E2;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.imgWrapper img {
+  width: 20px;
+}
+
+.modalTitle {
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 3px;
+  text-align: center;
+}
+
+.modalText {
+  font-size: 14px;
+  color: #6B7280;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.modalButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modalButtons button {
+  width: 100%;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #EE4444;
+  border: 1px solid #D0686D;
+  color: white;
+}
+.cancelButton {
+  background-color: white;
+  border: 1px solid #dddddd;
+  color: black;
+}
+
+.cancel {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  border: 1px solid #dddddd;
+  cursor: pointer;
+}

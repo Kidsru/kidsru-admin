@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import { types as staticTypes } from "./data";
 import bg from "../../assets/img/tooltip-container (1).png";
@@ -7,26 +7,29 @@ import SaveButton from "../Detals/SaveButton/saveButton";
 import Question from "./Types/question";
 import LoadMedia_Video from "../Detals/LoadMedia/index2/index";
 import styles from "./main.module.css";
+import GetGame from "./getGame";
+// import { useEncryptor } from "../../hooks/useEncryptor";
 
 function Main() {
   const [type, setType] = useState(null);
   const [questionsNumber, setQuestionsNumber] = useState(1);
   const { id } = useParams();
   const navigate = useNavigate();
-
-
+  const [selectedTypeId, setSelectedTypeId] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedTypeName, setSelectedTypeName] = useState("");
   const [module, setModule] = useState(1);
   const [block, setBlock] = useState(1);
   const [lesson, setLesson] = useState(type?.lesson);
-  const [isVideo, setIsVideo] = useState([]);
-  const [isVideoFormat, setIsVideoFormat] = useState([]);
   const [gameType, setGameType] = useState(
     Number(selectedType?.split("")[selectedType.length - 1]) + 1
   );
   const [questionCounts, setQuestionCounts] = useState({});
-  const [type3Questions, setType3Questions] = useState(1)
+  const [type3Questions, setType3Questions] = useState(1);
+  // const { encryptId, decryptId } = useEncryptor();
+
+  const [get, setGet] = useState(true);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     if (type?.lesson !== undefined) {
@@ -41,21 +44,32 @@ function Main() {
   }, [selectedType]);
 
   useEffect(() => {
-    if (type?.children?.length > 0) {
-      setIsVideo([type?.children[0].video.one, type?.children[0].video.two]);
-      setIsVideoFormat([type?.children[0].video.formatOne, type?.children[0].video.formatTwo]);
-      setSelectedType(type?.children[0].type);
-      setSelectedTypeName(type?.children[0].name);
+    let foundType = null;
+    let foundChild = null;
+
+    for (const parent of staticTypes) {
+      const child = parent.children.find((child) => child.type === id);
+      if (child) {
+        foundType = parent;
+        foundChild = child;
+        break;
+      }
+    }
+
+    if (foundType && foundChild) {
+      setType(foundType);
+      setSelectedType(foundChild.type);
+      setSelectedTypeName(foundChild.name);
       setQuestionCounts((prev) => ({
         ...prev,
-        [type?.children[0].type]: prev[type?.children[0].type] || 1,
+        [foundChild.type]: prev[foundChild.type] || 1,
       }));
+    } else {
+      navigate("/constructor");
     }
-  }, [type?.children]);
+  }, [id, navigate]);
 
   const handleTypeChange = (type) => {
-    setIsVideo([type.video.one, type.video.two]);
-    setIsVideoFormat([type.video.formatOne, type.video.formatTwo]);
     setSelectedType(type.type);
     setSelectedTypeName(type.name);
     setQuestionCounts((prev) => ({
@@ -73,20 +87,45 @@ function Main() {
     }));
   };
 
-
   useEffect(() => {
-    const currentType = staticTypes.find((t) => t.id === id);
-    if (currentType) {
-      setType(currentType);
+    let foundType = null;
+
+    for (const parent of staticTypes) {
+      const child = parent.children.find((child) => child.type === id);
+      if (child) {
+        foundType = parent;
+        break;
+      }
+    }
+
+    if (foundType) {
+      setType(foundType);
     } else {
       navigate("/constructor");
     }
   }, [id, navigate]);
 
-  useTitle(type?.title);
+  useEffect(() => {
+    if (selectedType) {
+      navigate(`/constructor/type/${selectedType}`, { replace: true });
+    }
+  }, [selectedType]);
+
+  useEffect(() => {
+    setGet(true);
+  }, [selectedType]);
+
+  console.log(data);
+  console.log(`game_${selectedType}`);
 
   return (
     <div>
+      <GetGame
+        get={get}
+        type={`game_${selectedType}`}
+        setGet={setGet}
+        setData={setData}
+      />
       <h1>{type?.name}</h1>
       <div>
         <div className={styles.wrapper}>
@@ -94,13 +133,15 @@ function Main() {
           <div className={styles.types}>
             {type?.children?.map((type, index) => (
               <div className={styles.type} key={index}>
-                <input
-                  type="radio"
-                  name="type"
-                  checked={selectedType === type.type}
-                  onChange={() => handleTypeChange(type)}
-                />
-                <p>{type.name}</p>
+                <label>
+                  <input
+                    type="radio"
+                    name="type"
+                    checked={selectedType === type.type}
+                    onChange={() => handleTypeChange(type)}
+                  />
+                  {type.name}
+                </label>
               </div>
             ))}
           </div>
@@ -155,7 +196,10 @@ function Main() {
               <select
                 id={styles.gameSelect}
                 value={gameType}
-                onChange={(e) => setGameType(Number(e.target.value))}
+                onChange={(e) => {
+                  setGameType(Number(e.target.value));
+                  setSelectedType(lesson + "." + Number(e.target.value - 1));
+                }}
                 style={{ backgroundImage: `url(${bg})` }}
               >
                 <option value="1">1</option>
@@ -218,13 +262,11 @@ function Main() {
                 style={{ width: "489px", height: "652px", marginTop: "50px" }}
               >
                 <LoadMedia_Video
-                  key={
-                    isVideo[0] + isVideo[1] + isVideoFormat[0] + isVideoFormat[1]
-                  }
-                  video_1={isVideo[0]}
-                  format_1={isVideoFormat[0]}
-                  video_2={isVideo[1]}
-                  format_2={isVideoFormat[1]}
+                  key={id}
+                  video_1={""}
+                  format_1={""}
+                  video_2={""}
+                  format_2={""}
                 />
               </div>
               <div className={styles.textareaWrapper}>
@@ -244,8 +286,9 @@ function Main() {
                   <button
                     onClick={() => setQuestionCount(item)}
                     key={item}
-                    className={`${currentQuestionCount === item ? styles.active : ""
-                      }`}
+                    className={`${
+                      currentQuestionCount === item ? styles.active : ""
+                    }`}
                   >
                     {item}
                   </button>
@@ -287,15 +330,18 @@ function Main() {
               setType3Questions={setType3Questions}
               type3Questions={type3Questions}
             />
-            {Array.from({ length: currentQuestionCount }).map((_, mainBlockIndex) =>
-              Array.from({ length: type3Questions }).map((_, variantIndex) => (
-                <Question
-                  key={`${mainBlockIndex}_${variantIndex}`}
-                  type={selectedType}
-                  mainBlockIndex={mainBlockIndex + 1}
-                  variantIndex={variantIndex + 1}
-                />
-              ))
+            {Array.from({ length: currentQuestionCount }).map(
+              (_, mainBlockIndex) =>
+                Array.from({ length: type3Questions }).map(
+                  (_, variantIndex) => (
+                    <Question
+                      key={`${mainBlockIndex}_${variantIndex}`}
+                      type={selectedType}
+                      mainBlockIndex={mainBlockIndex + 1}
+                      variantIndex={variantIndex + 1}
+                    />
+                  )
+                )
             )}
           </>
         )}
@@ -316,7 +362,6 @@ function Main() {
             ))}
           </>
         )}
-
       </div>
     </div>
   );

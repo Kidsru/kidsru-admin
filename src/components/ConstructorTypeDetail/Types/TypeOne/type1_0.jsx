@@ -2,8 +2,21 @@ import SaveButton from "../../../Detals/SaveButton/saveButton";
 import Textarea from "../../Details/Textarea/textarea";
 import Index4 from "../../../Detals/LoadMedia/index4/index";
 import styles from "../question.module.css";
+import { useState } from "react";
 
 const Type1_0 = () => {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const handleButtonClick = () => {
+    if (question && answer) {
+      console.log("Question:", question);
+      console.log("Answer:", answer);
+    }else {
+      alert("Вы не нажали кнопку «Готово».")
+    }
+  }
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -51,7 +64,8 @@ const Type1_0 = () => {
           }}
         >
           <Textarea
-            mainTitle={"Напишите текст ответа"}
+            setValue={setQuestion}
+            mainTitle={"Напишите текст вопроса / действия"}
             subtitle={
               "Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть."
             }
@@ -59,7 +73,8 @@ const Type1_0 = () => {
             value={"Как правильно поздороваться с учителем?"}
           />
           <Textarea
-            mainTitle={"Напишите текст вопроса / действия"}
+            setValue={setAnswer}
+            mainTitle={"Напишите текст ответа"}
             subtitle={
               "Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть."
             }
@@ -69,7 +84,7 @@ const Type1_0 = () => {
         </div>
       </div>
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

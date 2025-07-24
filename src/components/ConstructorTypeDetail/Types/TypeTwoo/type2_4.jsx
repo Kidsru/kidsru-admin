@@ -1,10 +1,25 @@
+import { useState } from "react";
 import Index3 from "../../../Detals/LoadMedia/index3/index";
 import SaveButton from "../../../Detals/SaveButton/saveButton";
 import VariantList from "../../Details/VariantList/variantList";
 import VariantList2 from "../../Details/VariantList2/variantList2";
 import styles from "../question.module.css";
 
-const Type2_4 = ({characterCount, setCharacterCount}) => {
+const Type2_4 = ({ characterCount, setCharacterCount }) => {
+  const [questions, setQuestions] = useState()
+  const [variants1, setVariants1] = useState()
+  const [variants2, setVariants2] = useState()
+
+  const handleButtonClick = () => {
+    if (questions && variants1 && variants2) {
+      console.log("Question:", questions);
+      console.log("variant1:", variants1);
+      console.log("variant2:", variants2);
+    } else {
+      alert("Вы не нажали кнопку «Готово».")
+    }
+  }
+
   return (
     <div>
       <div
@@ -81,15 +96,17 @@ const Type2_4 = ({characterCount, setCharacterCount}) => {
         />
       </div>
       <VariantList
+        setValue={setQuestions}
         height={""}
         textareaTitle={"Текст реплик"}
         width={"1041px"}
         contentWidth={"993px"}
-        count={characterCount}
+        count={2}
         initialCharacters={Array(characterCount).fill(1)}
       />
       <div className={styles.flex}>
         <VariantList2
+          setValue={setVariants1}
           mainTitle={
             "Напишите текста вариантов ответов 1 реплики для персонажа ② и выберите правильный ответ"
           }
@@ -100,6 +117,7 @@ const Type2_4 = ({characterCount, setCharacterCount}) => {
           initialCharacters={Array(characterCount).fill(2)}
         />
         <VariantList2
+        setValue={setVariants2}
           mainTitle={
             "Напишите текста вариантов ответов 2 реплики для персонажа ② и выберите правильный ответ *"
           }
@@ -111,7 +129,7 @@ const Type2_4 = ({characterCount, setCharacterCount}) => {
         />
       </div>
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

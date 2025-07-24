@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Index3 from "../../../Detals/LoadMedia/index3/index";
 import Index4 from "../../../Detals/LoadMedia/index4/index";
 import SaveButton from "../../../Detals/SaveButton/saveButton";
@@ -5,26 +6,40 @@ import Textarea from '../../Details/Textarea/textarea'
 import styles from "../question.module.css";
 
 const Type1_4 = () => {
+  const [question1, setQuestion1] = useState("");
+  const [question2, setQuestion2] = useState("");
+
+    const handleButtonClick = () => {
+    if (question1 && question2) {
+      console.log("Question:", question1);
+      console.log("question2:", question2);
+    }else {
+      alert("Вы не нажали кнопку «Готово».")
+    }
+  }
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Textarea
+          setValue={setQuestion1}
           width={"505px"}
-          mainTitle={"Напишите текст ответа"}
-          subtitle={
-            "Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть."
-          }
-          title={"Текст вопроса / действия"}
-          value={"Как правильно поздороваться с учителем?"}
-        />
-        <Textarea
-          width={"505px"}
-          mainTitle={"Напишите текст вопроса / действия"}
+          mainTitle={"Задайте первый вопрос"}
           subtitle={
             "Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть."
           }
           title={"Текст ответа"}
-          value={"Здравствуйте"}
+          value={"Какого цвета корпус футболки?"}
+        />
+        <Textarea
+          setValue={setQuestion2}
+          width={"505px"}
+          mainTitle={"Задайте второй вопрос"}
+          subtitle={
+            "Пожалуйста, проверьте правильность написания слов и знаки препинания, если они есть."
+          }
+          title={"Текст ответа"}
+          value={"Какого цвета рукава футболки?"}
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -83,7 +98,7 @@ const Type1_4 = () => {
         </div>
       </div>
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

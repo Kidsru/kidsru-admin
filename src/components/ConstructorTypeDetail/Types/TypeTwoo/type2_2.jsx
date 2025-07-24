@@ -3,11 +3,25 @@ import Index4 from "../../../Detals/LoadMedia/index4/index";
 import CorrectAnsweTextarea from '../../Details/CorrectAnswerTextArea/CorrectAnsweTextarea.module';
 import SaveButton from '../../../Detals/SaveButton/saveButton';
 import styles from "../question.module.css";
+import { useState } from 'react';
 
-const Type2_2 = ({characterCount, setCharacterCount, question, number}) => {
+const Type2_2 = ({ characterCount, setCharacterCount, question, number }) => {
+  const [questionText, setQuestionText] = useState("");
+  const [variants, setVariants] = useState([])
+
+  const handleButtonClick = () => {
+    if (questionText && variants) {
+      console.log("Question:", questionText);
+      console.log("Variants:", variants);
+    } else {
+      alert("Вы не нажали кнопку «Готово».")
+    }
+  }
+
   return (
     <div>
       <Textarea
+        setValue={setQuestionText}
         width={"1040px"}
         mainTitle={"Загрузите озвучку и текст вопроса / действия"}
         subtitle={
@@ -71,6 +85,7 @@ const Type2_2 = ({characterCount, setCharacterCount, question, number}) => {
           </div>
         </div>
         <CorrectAnsweTextarea
+          setValue={setVariants}
           contentHeight={"619px"}
           width={"545px"}
           height={"828px"}
@@ -80,7 +95,7 @@ const Type2_2 = ({characterCount, setCharacterCount, question, number}) => {
         />
       </div>
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

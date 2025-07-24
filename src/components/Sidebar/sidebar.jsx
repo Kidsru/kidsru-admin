@@ -16,11 +16,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./sidebar.module.css";
 import ConstructorMap from "./constructorMap/index.jsx";
 
+
 const Sidebar = ({ resize }) => {
-  const [openUsers, setOpenUsers] = useState(false);
-  const [openCourse, setOpenCourse] = useState(false);
-  const [openBlocks, setOpenBlocks] = useState(false);
-  const [openConstructor, setOpenConstructor] = useState(false);
+  const [openUsers, setOpenUsers] = useState(true);  
+  const [openCourse, setOpenCourse] = useState(true);
+  const [openBlocks, setOpenBlocks] = useState(true);
+  const [openConstructor, setOpenConstructor] = useState(true);
 
   const navigate = useNavigate()
 
@@ -29,19 +30,6 @@ const Sidebar = ({ resize }) => {
     navigate("/auth");
     window.location.reload()
   }
-
-  const arrow = (isOpen, toggle) =>
-    isOpen ? (
-      <IoIosArrowDown
-        onClick={(e) => (e.preventDefault(), toggle(false))}
-        className={styles.arrowIcon}
-      />
-    ) : (
-      <IoIosArrowForward
-        onClick={(e) => (e.preventDefault(), toggle(true))}
-        className={styles.arrowIcon}
-      />
-    );
 
   return (
     <div className={styles.sidebarWrapper} style={{ width: `${resize}px` }}>
@@ -64,13 +52,20 @@ const Sidebar = ({ resize }) => {
 
           <NavLink
             to="/user"
+            onClick={(e) => {
+              setOpenUsers((prev) => !prev);
+            }}
             className={({ isActive }) =>
               `${styles.menuItem} ${isActive ? styles.active : ""}`
             }
           >
             <FaUserFriends className={styles.icon} />
             <p className={styles.menuText}>Пользователи</p>
-            {arrow(openUsers, setOpenUsers)}
+            {openUsers ? (
+              <IoIosArrowDown className={styles.arrowIcon} />
+            ) : (
+              <IoIosArrowForward className={styles.arrowIcon} />
+            )}
           </NavLink>
           {openUsers && (
             <div className={styles.subList}>
@@ -98,13 +93,20 @@ const Sidebar = ({ resize }) => {
 
           <NavLink
             to="/course"
+            onClick={(e) => {
+              setOpenCourse((prev) => !prev);
+            }}
             className={({ isActive }) =>
               `${styles.menuItem} ${isActive ? styles.active : ""}`
             }
           >
             <FaElementor className={styles.icon} />
             <p className={styles.menuText}>Курс</p>
-            {arrow(openCourse, setOpenCourse)}
+            {openCourse ? (
+              <IoIosArrowDown className={styles.arrowIcon} />
+            ) : (
+              <IoIosArrowForward className={styles.arrowIcon} />
+            )}
           </NavLink>
           {openCourse && (
             <div className={styles.subList}>
@@ -121,10 +123,10 @@ const Sidebar = ({ resize }) => {
                     {item === "module"
                       ? "Модуль"
                       : item === "block"
-                      ? "Блок"
-                      : item === "lesson"
-                      ? "Урок"
-                      : "Игра"}
+                        ? "Блок"
+                        : item === "lesson"
+                          ? "Урок"
+                          : "Игра"}
                   </p>
                 </NavLink>
               ))}
@@ -133,13 +135,20 @@ const Sidebar = ({ resize }) => {
 
           <NavLink
             to="/mainBlocks"
+            onClick={(e) => {
+              setOpenBlocks((prev) => !prev);
+            }}
             className={({ isActive }) =>
               `${styles.menuItem} ${isActive ? styles.active : ""}`
             }
           >
             <GiBrickWall className={styles.icon} />
             <p className={styles.menuText}>Основные блоки</p>
-            {arrow(openBlocks, setOpenBlocks)}
+            {openBlocks ? (
+              <IoIosArrowDown className={styles.arrowIcon} />
+            ) : (
+              <IoIosArrowForward className={styles.arrowIcon} />
+            )}
           </NavLink>
           {openBlocks && (
             <div className={styles.subList}>
@@ -164,15 +173,21 @@ const Sidebar = ({ resize }) => {
 
           <NavLink
             to="/constructor"
+            onClick={(e) => {
+              setOpenConstructor((prev) => !prev);
+            }}
             className={({ isActive }) =>
               `${styles.menuItem} ${isActive ? styles.active : ""}`
             }
           >
             <PiSquaresFourFill className={styles.icon} />
             <p className={styles.menuText}>Конструктор</p>
-            {arrow(openConstructor, setOpenConstructor)}
+            {openConstructor ? (
+              <IoIosArrowDown className={styles.arrowIcon} />
+            ) : (
+              <IoIosArrowForward className={styles.arrowIcon} />
+            )}
           </NavLink>
-
           {openConstructor && <ConstructorMap />}
         </div>
 

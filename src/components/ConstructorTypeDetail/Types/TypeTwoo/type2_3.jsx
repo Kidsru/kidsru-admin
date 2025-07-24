@@ -2,8 +2,19 @@ import Textarea from '../../Details/Textarea/textarea'
 import Index4 from "../../../Detals/LoadMedia/index4/index";
 import SaveButton from '../../../Detals/SaveButton/saveButton';
 import styles from "../question.module.css";
+import { useState } from 'react';
 
 const Type2_3 = ({characterCount, setCharacterCount}) => {
+  const [question, setQuestion] = useState("")
+
+   const handleButtonClick = () => {
+        if (question) {
+            console.log("Question:", question);
+        } else {
+            alert("Вы не нажали кнопку «Готово».")
+        }
+    }
+
   return (
     <div>
       <div style={{ marginBottom: "30px" }} className={styles.flex}>
@@ -30,6 +41,7 @@ const Type2_3 = ({characterCount, setCharacterCount}) => {
           </div>
         </div>
         <Textarea
+        setValue={setQuestion}
           width={"505px"}
           mainTitle={"Загрузите озвучку и текст вопроса / действия"}
           subtitle={
@@ -86,7 +98,7 @@ const Type2_3 = ({characterCount, setCharacterCount}) => {
         />
       </div>
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

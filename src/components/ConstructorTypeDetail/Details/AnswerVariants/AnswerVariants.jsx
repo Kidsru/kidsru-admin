@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg";
 import Button from "../../../Detals/SubmitButton/button";
 
-const AnswerVariants = ({ count = 1, subtitle, typeFour, max = 8, setCharacterCount }) => {
+const AnswerVariants = ({ count = 1, subtitle, typeFour, max = 8, setCharacterCount, setValue }) => {
   const [variants, setVariants] = useState(() =>
     Array.from({ length: count }, (_, i) => ({ id: i + 1, text: "" }))
   );
@@ -51,7 +51,7 @@ const AnswerVariants = ({ count = 1, subtitle, typeFour, max = 8, setCharacterCo
   };
 
   const handleSubmit = () => {
-    console.log(variants);
+    if (setValue) setValue(variants);
   };
 
   return (

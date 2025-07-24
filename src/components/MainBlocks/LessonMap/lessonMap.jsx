@@ -30,40 +30,42 @@ const LessonMap = () => {
         <h4 className={styles.title}>Типы карты уроков</h4>
         <div className={styles.types}>
           <div className={styles.type}>
-            <input
+            <label><input
               type="radio"
               name="type"
               checked={selectedType === 1}
               onChange={() => setSelectedType(1)}
-            />
-            <p>Тип 1. Первый блок (Блок 1; Уроки 1-3; кнопка “Перейти”)</p>
+            /> Тип 1. Первый блок (Блок 1; Уроки 1-3; кнопка “Перейти”)</label>
           </div>
           <div className={styles.type}>
-            <input
-              type="radio"
-              name="type"
-              checked={selectedType === 2}
-              onChange={() => setSelectedType(2)}
-            />
-            <p>Тип 2. Второй - универсальный (кнопка “Вернуться”; 3 Урока; кнопка “Перейти”)</p>
+            <label>
+              <input
+                type="radio"
+                name="type"
+                checked={selectedType === 2}
+                onChange={() => setSelectedType(2)}
+              />
+              Тип 2. Второй - универсальный (кнопка “Вернуться”; 3 Урока; кнопка “Перейти”)</label>
           </div>
           <div className={styles.type}>
-            <input
-              type="radio"
-              name="type"
-              checked={selectedType === 3}
-              onChange={() => setSelectedType(3)}
-            />
-            <p>Тип 3. Следующие блоки (кнопка “Вернуться”; Блок №; 3 Урока; кнопка “Перейти”)</p>
+            <label>
+              <input
+                type="radio"
+                name="type"
+                checked={selectedType === 3}
+                onChange={() => setSelectedType(3)}
+              />
+              Тип 3. Следующие блоки (кнопка “Вернуться”; Блок №; 3 Урока; кнопка “Перейти”)</label>
           </div>
           <div className={styles.type}>
-            <input
-              type="radio"
-              name="type"
-              checked={selectedType === 4}
-              onChange={() => setSelectedType(4)}
-            />
-            <p>Тип 4. Контрольная работа (кнопка “Вернуться”; Контрольная работа; 1 Урок - 5 игр; кнопка “Перейти”)</p>
+            <label>
+              <input
+                type="radio"
+                name="type"
+                checked={selectedType === 4}
+                onChange={() => setSelectedType(4)}
+              />
+              Тип 4. Контрольная работа (кнопка “Вернуться”; Контрольная работа; 1 Урок - 5 игр; кнопка “Перейти”)</label>
           </div>
         </div>
       </div>

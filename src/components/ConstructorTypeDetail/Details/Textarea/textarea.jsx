@@ -2,11 +2,13 @@ import { useState } from "react";
 import Button from "../../../Detals/SubmitButton/button";
 import styles from "./textarea.module.css";
 
-const Textarea = ({ width, mainTitle, title, subtitle, value, height, onClick }) => {
+const Textarea = ({ width, mainTitle, title, subtitle, value, height, onClick, setValue }) => {
     const [isDisabled, setIsDisabled] = useState(false);
+    const [text, setText] = useState(value || "");
 
     const handleClick = () => {
         setIsDisabled(true);
+        if (setValue) setValue(text); 
         if (onClick) onClick();
     };
 
@@ -19,7 +21,8 @@ const Textarea = ({ width, mainTitle, title, subtitle, value, height, onClick })
                 <textarea
                     style={{ height: height || "86px" }}
                     className={styles.textarea}
-                    defaultValue={value}
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                 ></textarea>
                 <div style={{ textAlign: "right" }}>
                     <Button

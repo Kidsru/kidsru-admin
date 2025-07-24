@@ -2,8 +2,20 @@ import Textarea from '../../Details/Textarea/textarea'
 import AnswerVariants from '../../Details/AnswerVariants/AnswerVariants'
 import SaveButton from '../../../Detals/SaveButton/saveButton'
 import styles from "../question.module.css";
+import { useState } from 'react';
 
 const Type1_2 = ({number}) => {
+  const [answerVariants, setAnswerVariants] = useState([])
+
+    const handleButtonClick = () => {
+    if (answerVariants.length) {
+      console.log(answerVariants);
+      
+    } else {
+      alert("Вы не нажали кнопку «Готово».")
+    }
+  }
+
   return (
     <div>
       <div>
@@ -16,10 +28,10 @@ const Type1_2 = ({number}) => {
           title={"Текст вопроса / действия"}
           value={"Повторите слово или фразу в микрофон"}
         />
-        <AnswerVariants count={number} />
+        <AnswerVariants setValue={setAnswerVariants} count={number} />
       </div>
       <div className={styles.saveButton}>
-        <SaveButton text={"Сохранить"} hideIcon={true} />
+        <SaveButton onClick={handleButtonClick} text={"Сохранить"} hideIcon={true} />
       </div>
     </div>
   )

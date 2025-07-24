@@ -3,7 +3,7 @@ import Button from "../../../Detals/SubmitButton/button";
 import { ReactComponent as AddIcon } from "../../../../assets/icon/add.svg";
 import styles from "./variantList.module.css";
 
-const VariantList = ({ count = 1, initialCharacters = [], width, height, contentWidth, mainTitle, subtitle, textareaTitle, typeFive }) => {
+const VariantList = ({ count = 1, initialCharacters = [], width, height, contentWidth, mainTitle, subtitle, textareaTitle, typeFive, setValue }) => {
 
     const [variants, setVariants] = useState([]);
 
@@ -14,7 +14,7 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
                 text: "",
             }))
         );
-    }, [count, initialCharacters]);
+    }, []);
 
     const handleCharacterChange = (index, value) => {
         const updated = [...variants];
@@ -35,11 +35,12 @@ const VariantList = ({ count = 1, initialCharacters = [], width, height, content
                     [variant.character === 1 ? "Левый ряд" : "Правый ряд"]: variant.text
                 };
             });
-            console.log("Jo‘natiladigan ma’lumotlar:", formatted);
+            if (setValue) setValue(formatted);
         } else {
-            console.log("Jo‘natiladigan ma’lumotlar:", variants);
+            if (setValue) setValue(variants);
         }
     };
+
 
 
     const handleRemoveVariant = (index) => {
