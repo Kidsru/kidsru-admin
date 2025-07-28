@@ -5,6 +5,23 @@ import Button from "../../../Detals/SubmitButton/button.jsx";
 import Input from "../../details/Input/input.jsx";
 import LoadImg from "../../../Detals/LoadMedia/index1/index.jsx";
 import Avatar from "../../../../assets/img/user.jpg";
+import { endpoints } from "../../../../services/api.js";
+import { apiConnector } from "../../../../services/apiconnector";
+
+function getAccessTokenFromCookie() {
+  const name = "access_token=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const cookies = decodedCookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+    if (cookie.startsWith(name)) {
+      return cookie.substring(name.length);
+    }
+  }
+
+  return null;
+}
 
 function Main() {
   const navigate = useNavigate();
@@ -15,6 +32,8 @@ function Main() {
     password: "",
     confirmPassword: "",
   });
+
+  const token = getAccessTokenFromCookie();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,24 +65,34 @@ function Main() {
       return;
     }
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("fullName", fullName);
-    formDataToSend.append("phone", phone);
-    formDataToSend.append("password", password);
-    formDataToSend.append("confirmPassword", confirmPassword);
-    formDataToSend.append("profileImage", profileImage.file);
-
     try {
-      const response = await fetch("/backand-api", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      await apiConnector(
+        "PUT",
+        endpoints.ADMIN_EDIT,
+        {
+          full_name: fullName,
+          phone: phone,
+          avatar: "", 
+        },
+        {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Произошла ошибка сервера");
-      }
+      await apiConnector(
+        "PUT",
+        endpoints.ADMIN_UPDATE_PASSWORD,
+        {
+          old_password: "1234",
+          password: password,
+        },
+        {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      );
 
-      const data = await response.json();
       alert("Успешно отправлено!");
     } catch (error) {
       alert("Ошибка: " + error.message);

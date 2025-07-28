@@ -11,6 +11,7 @@ import AchievementsCart from "../Detals/AchievementsCart/AchievementsCart";
 import Filter from "../Filter/filter";
 import { useState } from "react";
 import useTitle from "../../hooks/useTitle";
+import Calendar from "../Detals/Calendar/main";
 
 const UserDetail = () => {
     const { id } = useParams()
@@ -174,7 +175,7 @@ const UserDetail = () => {
                 <Profil />
                 <Profil2 />
             </div>
-            <div className={styles.wrapper}>
+            <div style={{maxWidth:"1098px"}} className={styles.wrapper}>
                 <h3 className="title2">Опросник</h3>
                 <table className={styles.table}>
                     <thead>
@@ -225,7 +226,7 @@ const UserDetail = () => {
                         data={filteredCourses}
                     /></div>
             </div>
-            <div style={{ maxWidth: "1115px", marginTop: "10px", padding: "30px" }} className={styles.wrapper} >
+            <div style={{ maxWidth: "1100px", marginTop: "10px", padding: "30px", borderRadius:"20px" }} className={styles.wrapper} >
                 <h3 className="title2">Достижения</h3>
                 <div className={styles.flex}>
                     {
@@ -234,6 +235,15 @@ const UserDetail = () => {
                         ))
                     }
                 </div>
+            </div>
+            <div style={{marginTop:"46px"}}>
+                <Calendar
+                    active={[
+                        { year: "2025", month: "07", day: [21, 22, 25, 26] },
+                        { year: "2025", month: "08", day: [10, 22, 28, 29] },
+                    ]}
+                    activeDates={["2025-04-25", "2025-04-26"]}
+                />
             </div>
             <div style={{ marginTop: "46px" }}>
                 <h3 className="title2">История платежей</h3>

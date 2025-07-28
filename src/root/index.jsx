@@ -14,7 +14,6 @@ import React, { Suspense } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
-// Cookie dan access tokenni olish funksiyasi
 function getAccessTokenFromCookie() {
   const name = "access_token=";
   const decodedCookie = decodeURIComponent(document.cookie);
@@ -30,12 +29,10 @@ function getAccessTokenFromCookie() {
   return null;
 }
 
-// Title o'zgartiruvchi va redirect qiluvchi komponent
 function TitleSetterAndAuthGuard() {
   const location = useLocation();
   const token = getAccessTokenFromCookie();
 
-  // Sahifa sarlavhasini o'rnatish
   let title = "";
   if (location.pathname !== "/") {
     const current = navbar.find((item) => item.path === location.pathname);

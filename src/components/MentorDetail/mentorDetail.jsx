@@ -14,6 +14,8 @@ const MentorDetail = () => {
             status: "Оплачен",
             statusColor: "green",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "1 → 2",
             lessonsLeft: 1,
             beforePerformance: 20,
@@ -27,6 +29,8 @@ const MentorDetail = () => {
             status: "В ожидании",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 2,
             beforePerformance: 20,
@@ -40,6 +44,8 @@ const MentorDetail = () => {
             status: "Просрочен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 10,
             beforePerformance: 20,
@@ -53,6 +59,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -66,6 +74,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -79,6 +89,8 @@ const MentorDetail = () => {
             status: "Просрочен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -92,6 +104,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -105,6 +119,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -118,6 +134,8 @@ const MentorDetail = () => {
             status: "Оплачен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -131,6 +149,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -144,6 +164,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -157,6 +179,8 @@ const MentorDetail = () => {
             status: "Задолжен",
             statusColor: "blue",
             lastVisit: "06 апреля 2025",
+            last_processing_date : "06 апреля 2025",
+            comment: "",
             lessonProgress: "2 → 4",
             lessonsLeft: 3,
             beforePerformance: 20,
@@ -165,7 +189,7 @@ const MentorDetail = () => {
         },
     ];
 
-      useTitle("Add Mentor")
+    useTitle("Add Mentor")
 
     const [inputValue, setInputValue] = useState("");
 
@@ -181,7 +205,7 @@ const MentorDetail = () => {
     const navigate = useNavigate();
 
     const handleView = (user) => {
-        navigate(`/user/${user.id}`);
+
     };
 
     const handleDelete = (user) => {
@@ -209,7 +233,7 @@ const MentorDetail = () => {
                         options: ["Оплачен", "В ожидании", "Просрочен", "Задолжен"],
                     }}
                 />
-                <Table itemsPerPage={10} thead={["id", "Имя и Фамилия", "Номер телефона", "Статус оплаты", "Последний раз заходил", "Последний Урок → Игра", "Осталось уроков в модуле", "Успеваемость пользователя до обработки", "Успеваемость пользователя после обработки", "Действия"]} data={filteredData} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
+                <Table itemsPerPage={10} thead={["id", "Имя и Фамилия", "Номер телефона", "Статус оплаты", "Последний раз заходил", "Последний Урок → Игра", "Осталось уроков в модуле", "Успеваемость пользователя до обработки", "Успеваемость пользователя после обработки", "Дата последней обработки", "Комментарий", "Действия"]} data={filteredData} onView={handleView} onDelete={handleDelete} onEdit={handleEdit} />
             </div>
         </div>
     )

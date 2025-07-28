@@ -20,7 +20,7 @@ import { ReactComponent as Arrow1 } from "../../assets/icon/table-left.svg"
 import { ReactComponent as Arrow2 } from "../../assets/icon/table-bottom.svg"
 import { useSearchParams } from 'react-router-dom'
 
-const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, itemsPerPage, onView, onDelete, onEdit, addButton, handleClick, hideView, achievements }) => {
+const Table = ({ filterKey = "status", buttonText, questionnaire, thead, data, itemsPerPage, onView, onDelete, onEdit, addButton, handleClick, hideView, achievements }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [expandedRows, setExpandedRows] = useState({});
     const [allChecked, setAllChecked] = useState(false);
@@ -55,11 +55,24 @@ const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, it
         ? filterByStatus(data, filterKey, status)
         : data;
 
-
-
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
+
+    function formatDateToRussian(dateString) {
+        const months = [
+            "января", "февраля", "марта", "апреля", "мая", "июня",
+            "июля", "августа", "сентября", "октября", "ноября", "декабря"
+        ];
+
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        return `${day} ${month} ${year}`;
+    }
+
 
     const getAllUserIds = (users) => {
         let ids = [];
@@ -217,7 +230,7 @@ const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, it
                         thead.includes("Квитанция") && <td style={{ minWidth: "171px" }}><DownloadBtn /></td>
                     }
                     {
-                        thead.includes("Последний раз заходил") && <td style={{ minWidth: "171px" }}>{user.lastVisit}</td>
+                        thead.includes("Последний раз заходил") && <td style={{ minWidth: "171px" }}>{user.last_login_at ? formatDateToRussian(user.last_login_at) : user.lastVisit}</td>
                     }
                     {
                         thead.includes("Последний Урок → Игра") && <td style={{ minWidth: "133px", textAlign: "center" }}>{user.lessonProgress}</td>
@@ -293,6 +306,12 @@ const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, it
                     {
                         thead.includes("Время на занятия") && <td style={{ minWidth: "163px", textAlign: "center" }}>{user.time}</td>
                     }
+                    {
+                        thead.includes("Дата последней обработки") && <td style={{ minWidth: "146px"}}>{user.last_processing_date}</td>
+                    }
+                    {
+                        thead.includes("Комментарий") && <td style={{ minWidth: "220px"}}>{user.comment}</td>
+                    }
                     {achievements && (thead.includes("Модуль") && (
                         <td style={{ textAlign: "center", minWidth: "100px" }}> <p className={styles.gameCount}>{user.module}</p> </td>
                     ))}
@@ -308,7 +327,7 @@ const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, it
                                 <td style={{ minWidth: "161px" }}>
                                     <Actions
                                         onView={() => onView?.(user)}
-                                        onDelete={() => onDelete?.(user)}
+                                        onDelete={() => onDelete?.(user.id)}
                                         onEdit={() => onEdit?.(user)}
                                         hideView={hideView}
                                     />
@@ -351,7 +370,7 @@ const Table = ({filterKey = "status", buttonText, questionnaire, thead, data, it
                     currentPage={currentPage}
                     onPageChange={setCurrentPage}
                 />
-                <button className={styles.addButton}><FaPlus /> Новый</button>
+                {/* <button className={styles.addButton}><FaPlus /> Новый</button> */}
             </div>
         </div>
     );

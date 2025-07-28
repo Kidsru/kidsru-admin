@@ -6,7 +6,6 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import styles from "./auth.module.css";
-
 import { endpoints } from "../../services/api.js";
 import { apiConnector } from "../../services/apiconnector";
 
@@ -18,7 +17,6 @@ function Auth() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const toggleVisibility = () => setVisible(!visible);
   const clearUsername = () => setUsername("");
 
@@ -39,9 +37,6 @@ function Auth() {
           phone: normalizedPhone,
           password: password,
         },
-        {
-          "Content-Type": "application/json",
-        }
       );
 
       const data = response.data;

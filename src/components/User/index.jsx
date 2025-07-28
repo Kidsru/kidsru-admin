@@ -4,147 +4,55 @@ import styles from "./user.module.css"
 import Table from "../Table/table";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Filter from "../Filter/filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { apiConnector } from "../../services/apiconnector";
+import { endpoints } from "../../services/api";
+
+function getAccessTokenFromCookie() {
+  const name = "access_token=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const cookies = decodedCookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+    if (cookie.startsWith(name)) {
+      return cookie.substring(name.length);
+    }
+  }
+
+  return null;
+}
 
 function Index() {
-  const users = [
-    {
-      id: 1,
-      name: "Тимур Умаров",
-      phone: "+998 (99) 999-99-99",
-      status: "Оплачен",
-      statusColor: "green",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "1 → 2",
-      lessonsLeft: 1,
-      progress: 25,
-    },
-    {
-      id: 2,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "В ожидании",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 2,
-      progress: 50,
-    },
-    {
-      id: 3,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Просрочен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 10,
-      progress: 50,
-    },
-    {
-      id: 4,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 5,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 6,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Просрочен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 7,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 8,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 9,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 10,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 11,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-    {
-      id: 12,
-      name: "Карина Кошева",
-      phone: "+998 (99) 999-99-99",
-      status: "Задолжен",
-      statusColor: "blue",
-      lastVisit: "06 апреля 2025",
-      lessonProgress: "2 → 4",
-      lessonsLeft: 3,
-      progress: 50,
-    },
-  ];
+  const [users, setUsers] = useState([]);
+  const token = getAccessTokenFromCookie();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await apiConnector(
+          "GET",
+          endpoints.GET_USERS_API,
+          null,
+          {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        );
+
+        console.log("Foydalanuvchilar:", response.data.data);
+        setUsers(response.data.data);
+      } catch (error) {
+        console.error("Xatolik:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const [inputValue, setInputValue] = useState("");
 
-  const finalFilteredUsers = users.filter((user) => {
+  const finalFilteredUsers = users?.filter((user) => {
     const lower = inputValue.toLowerCase();
     return (
       user.name.toLowerCase().includes(lower) ||
@@ -159,8 +67,8 @@ function Index() {
     navigate(`/user/${user.id}`);
   };
 
-  const handleDelete = (user) => {
-
+  const handleDelete = (id) => {
+    console.log(id, "ID")    
   };
 
   const handleEdit = (user) => {
