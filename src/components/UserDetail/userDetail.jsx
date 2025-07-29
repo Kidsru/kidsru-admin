@@ -242,7 +242,7 @@ const UserDetail = () => {
                         { year: "2025", month: "07", day: [21, 22, 25, 26] },
                         { year: "2025", month: "08", day: [10, 22, 28, 29] },
                     ]}
-                    activeDates={["2025-04-25", "2025-04-26"]}
+                    activeDates={["2025-04-25", "2025-04-26", "2025-04-27"]}
                 />
             </div>
             <div style={{ marginTop: "46px" }}>

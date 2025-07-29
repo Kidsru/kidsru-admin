@@ -1,15 +1,5 @@
 import { useState } from "react";
 import { ReactComponent as Arrow } from "../../../assets/icon/buttonArrow2.svg";
-import SaveButton from "../../Detals/SaveButton/saveButton";
-import Textarea from "../Details/Textarea/textarea";
-import AnswerVariants from "../Details/AnswerVariants/AnswerVariants";
-import VariantList from "../Details/VariantList/variantList";
-import Index1 from "../../Detals/LoadMedia/index1/index";
-import Index3 from "../../Detals/LoadMedia/index3/index";
-import Index4 from "../../Detals/LoadMedia/index4/index";
-import CorrectAnsweTextarea from "../Details/CorrectAnswerTextArea/CorrectAnsweTextarea.module";
-import VariantList2 from "../Details/VariantList2/variantList2";
-import React from "react";
 import Type1_0 from "./TypeOne/type1_0";
 import styles from "./question.module.css";
 import Type1_1 from "./TypeOne/type1_1";
@@ -29,12 +19,13 @@ import Type4_0 from "./TypeFour/type4_0";
 import Type5_0 from "./TypeFive/type5_0";
 
 const Question = ({
+  test,
+  isMainBlock,
   question,
   number,
   type,
   img,
   setType3Questions,
-  isMainBlock,
   mainBlockIndex,
   variantIndex,
 }) => {
@@ -44,6 +35,9 @@ const Question = ({
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
+
+    console.log(isMainBlock);
+
 
   return (
     <div className={styles.wrapper}>
@@ -78,9 +72,9 @@ const Question = ({
           {type === "2_4" && <Type2_4 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
           {type === "3" && <Type3_0 characterCount={characterCount} setCharacterCount={setCharacterCount} question={question} number={number} isMainBlock={isMainBlock} setType3Questions={setType3Questions} type={type} />}
           {type === "3_1" && <Type3_1 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} />}
-          {type === "3_2" && <Type3_2 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} /> }
-          {type === "4" && <Type4_0 characterCount={characterCount} setCharacterCount={setCharacterCount} /> }
-          {type === "5" && <Type5_0 characterCount={characterCount} setCharacterCount={setCharacterCount} /> }
+          {type === "3_2" && <Type3_2 characterCount={characterCount} setCharacterCount={setCharacterCount} isMainBlock={isMainBlock} />}
+          {type === "4" && <Type4_0 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
+          {type === "5" && <Type5_0 characterCount={characterCount} setCharacterCount={setCharacterCount} />}
         </div>
       )}
     </div>

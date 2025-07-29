@@ -1,6 +1,7 @@
 .wrapper {
   width: 621px;
-  height: 420px;
+  min-height: 420px;
+  height: initial;
   border-radius: 20px;
   border: 1px solid #d4d4d4;
   background-color: #FFFFFF;

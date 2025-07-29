@@ -115,8 +115,8 @@ function Main() {
     setGet(true);
   }, [selectedType]);
 
-  console.log(data);
-  console.log(`game_${selectedType}`);
+  // console.log(data);
+  // console.log(`game_${selectedType}`);
 
   return (
     <div>
@@ -300,19 +300,19 @@ function Main() {
             <SaveButton />
           </div>
         </div>
-        {selectedType !== "1.2" &&
-          selectedType !== "1.3" &&
-          selectedType !== "3.0" &&
-          selectedType !== "3.1" &&
-          selectedType !== "3.2" &&
+        {selectedType !== "1_2" &&
+          selectedType !== "1_3" &&
+          selectedType !== "3" &&
+          selectedType !== "3_1" &&
+          selectedType !== "3_2" &&
           Array.from({ length: currentQuestionCount }).map((_, index) => (
             <Question type={selectedType} question={index} key={index} />
           ))}
 
-        {selectedType === "1.2" && (
+        {selectedType === "1_2" && (
           <Question type={selectedType} number={currentQuestionCount} />
         )}
-        {selectedType === "1.3" && (
+        {selectedType === "1_3" && (
           <>
             <Question key="main-block" isMainBlock={true} type={selectedType} />
             {Array.from({ length: currentQuestionCount }).map((_, index) => (
@@ -321,7 +321,7 @@ function Main() {
           </>
         )}
 
-        {selectedType === "3.0" && (
+        {selectedType === "3" && (
           <>
             <Question
               key="main-block"
@@ -346,7 +346,7 @@ function Main() {
           </>
         )}
 
-        {selectedType === "3.1" && (
+        {selectedType === "3_1" && (
           <>
             <Question key="main-block" isMainBlock={true} type={selectedType} />
             {Array.from({ length: currentQuestionCount }).map((_, index) => (
@@ -354,7 +354,7 @@ function Main() {
             ))}
           </>
         )}
-        {selectedType === "3.2" && (
+        {selectedType === "3_2" && (
           <>
             <Question key="main-block" isMainBlock={true} type={selectedType} />
             {Array.from({ length: currentQuestionCount }).map((_, index) => (

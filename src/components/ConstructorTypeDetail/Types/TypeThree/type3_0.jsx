@@ -6,6 +6,8 @@ import Textarea from "../../Details/Textarea/textarea";
 import styles from "../question.module.css";
 
 const Type3_0 = ({characterCount, setCharacterCount, question, number, isMainBlock, setType3Questions, type}) => {
+    console.log(isMainBlock);
+    
     return (
         <div>
             <div>
@@ -61,6 +63,7 @@ const Type3_0 = ({characterCount, setCharacterCount, question, number, isMainBlo
                                 </div>
                             )}
                             <Textarea
+
                                 width={"413px"}
                                 height={"227px"}
                                 mainTitle={
