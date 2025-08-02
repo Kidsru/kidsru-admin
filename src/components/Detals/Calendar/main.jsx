@@ -6,7 +6,7 @@ function main({active, activeDates}) {
   return (
     <div className={styles.wrapper}>
       <Index_1 active={active} />
-      <Index_2 activeDates={activeDates} />
+      <Index_2 weekStatus={activeDates} />
     </div>
   );
 }

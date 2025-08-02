@@ -9,24 +9,46 @@ import InternetBtnGood from '../Detals/InternetBtn/InternetBtnGood'
 import Table from "../Table/table";
 import AchievementsCart from "../Detals/AchievementsCart/AchievementsCart";
 import Filter from "../Filter/filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import Calendar from "../Detals/Calendar/main";
+import axios from "axios";
 
 const UserDetail = () => {
     const { id } = useParams()
-    const user = {
-        id: 12,
-        name: "Карина Кошева",
-        mentor: 10,
-        phone: "+998 (99) 999-99-99",
-        status: "Задолжен",
-        statusColor: "blue",
-        reason: ["Свободная коммуникация", "Слушать музыку", "Читать книги"],
-        knowledge: "Понимаю немного",
-        development: ["Говорить", "Читать", "Грамматика"],
-        time: "20 минут"
-    }
+    const [user, setUser] = useState({});
+    console.log(user);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get(`https://api.kidsru.uz/v1/user/show/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+                setUser(response.data);
+                console.log(response.data); // foydalanuvchini konsolga chiqarish
+            } catch (error) {
+                console.error("❌ Xatolik yuz berdi:", error.response?.data || error.message);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    // const user = {
+    //     id: 12,
+    //     name: "Карина Кошева",
+    //     mentor: 10,
+    //     phone: "+998 (99) 999-99-99",
+    //     status: "Задолжен",
+    //     statusColor: "blue",
+    //     reason: ["Свободная коммуникация", "Слушать музыку", "Читать книги"],
+    //     knowledge: "Понимаю немного",
+    //     development: ["Говорить", "Читать", "Грамматика"],
+    //     time: "20 минут"
+    // }
 
     const data = [
         {
@@ -172,10 +194,10 @@ const UserDetail = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>Пользователи</h1>
             <div style={{ display: "flex", gap: "30px", marginBottom: "70px" }}>
-                <Profil />
-                <Profil2 />
+                <Profil name={user.name} day={user.day} lessons={user.lessons} word={user.word}  />
+                <Profil2 age={user.age} phone={user.phone} createdDate={user.first_login_at} />
             </div>
-            <div style={{maxWidth:"1098px"}} className={styles.wrapper}>
+            <div style={{ minWidth: "1098px" }} className={styles.wrapper}>
                 <h3 className="title2">Опросник</h3>
                 <table className={styles.table}>
                     <thead>
@@ -189,21 +211,21 @@ const UserDetail = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{user.id}</td>
+                            <td>{user?.id}</td>
                             <td><div className={styles.reasonContainer}>
-                                {user.reason.map((item, index) => (
+                                {user?.reason?.map((item, index) => (
                                     <p key={index} className={`${styles.coloredText} ${item === "Смотреть видео" ? styles.ink : item === "Слушать музыку" ? styles.red : item === "Читать книги" ? styles.pumpkin : item === "Писать и понимать" ? styles.black : item === "Изучать новые слова" ? styles.blue : ""}`}>{item}</p>
                                 ))}
                             </div></td>
-                            <td style={{ minWidth: "250px" }}>{user.knowledge === "Не знаю" ? <InternetBtnZero /> : user.knowledge === "Отлично владею" ? <InternetBtnGood /> : user.knowledge === "Знаю хорошо" ? <InternetBtnNormal /> : user.knowledge === "Понимаю немного" ? <InternetBtnSlow /> : ""}</td>
+                            <td style={{ minWidth: "250px" }}>{user?.knowledge === "Не знаю" ? <InternetBtnZero /> : user?.knowledge === "Отлично владею" ? <InternetBtnGood /> : user?.knowledge === "Знаю хорошо" ? <InternetBtnNormal /> : user?.knowledge === "Понимаю немного" ? <InternetBtnSlow /> : ""}</td>
                             <td style={{ textAlign: "center", minWidth: "263px" }}>
                                 <div className={styles.developmentContainer}>
-                                    {user.development.map((item, index) => (
+                                    {user?.development?.map((item, index) => (
                                         <p key={index} className={`${styles.coloredText} ${item === "Грамматика" ? styles.ink : item === "Писать" ? styles.red : item === "Читать" ? styles.brown : item === "Слушать" ? styles.pink : ""}`}>{item}</p>
                                     ))}
                                 </div>
                             </td>
-                            <td style={{ textAlign: "center", minWidth: "195px" }}>{user.time}</td>
+                            <td style={{ textAlign: "center", minWidth: "195px" }}>{user?.time}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -226,7 +248,7 @@ const UserDetail = () => {
                         data={filteredCourses}
                     /></div>
             </div>
-            <div style={{ maxWidth: "1100px", marginTop: "10px", padding: "30px", borderRadius:"20px" }} className={styles.wrapper} >
+            <div style={{ maxWidth: "1100px", marginTop: "10px", padding: "30px", borderRadius: "20px" }} className={styles.wrapper} >
                 <h3 className="title2">Достижения</h3>
                 <div className={styles.flex}>
                     {
@@ -236,13 +258,10 @@ const UserDetail = () => {
                     }
                 </div>
             </div>
-            <div style={{marginTop:"46px"}}>
+            <div style={{ marginTop: "46px" }}>
                 <Calendar
-                    active={[
-                        { year: "2025", month: "07", day: [21, 22, 25, 26] },
-                        { year: "2025", month: "08", day: [10, 22, 28, 29] },
-                    ]}
-                    activeDates={["2025-04-25", "2025-04-26", "2025-04-27"]}
+                    active={user.activeDays}
+                    activeDates={user.streakData}
                 />
             </div>
             <div style={{ marginTop: "46px" }}>

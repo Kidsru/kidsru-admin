@@ -40,7 +40,6 @@ function Index() {
           }
         );
 
-        console.log("Foydalanuvchilar:", response.data.data);
         setUsers(response.data.data);
       } catch (error) {
         console.error("Xatolik:", error);

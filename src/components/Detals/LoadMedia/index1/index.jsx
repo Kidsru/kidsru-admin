@@ -19,6 +19,7 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
     handleDrop,
     handleDragOver,
     handleDragLeave,
+    loading,
   } = useFastLoadImg(src, onImageChange);
 
   return (
@@ -94,9 +95,14 @@ function FastLoadImg({ onImageChange, size, title, src, subtitle = null }) {
         </div>
       </div>
 
-      {showSubmit && (
+      {showSubmit && img?.url && (
         <div className={styles.submit_wrapper}>
-          <Button text="Готово" type="button" onClick={handleSubmitClick} />
+          <Button
+            text={loading ? "Загрузка..." : "Готово"}
+            type="button"
+            onClick={handleSubmitClick}
+            disabled={loading}
+          />
         </div>
       )}
     </div>

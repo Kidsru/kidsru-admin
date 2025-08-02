@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "./main.module.css";
 import Button from "../../../Detals/SubmitButton/button.jsx";
 import Input from "../../details/Input/input.jsx";
-import LoadImg from "../../../Detals/LoadMedia/index1/index.jsx";
-import Avatar from "../../../../assets/img/user.jpg";
+import FastLoadImg from "../../../Detals/LoadMedia/index1/index.jsx"; // FastLoadImg ni to'g'ri yo'ldan chaqiring
 import { endpoints } from "../../../../services/api.js";
 import { apiConnector } from "../../../../services/apiconnector";
 
+// 🍪 Cookie dan token olish funksiyasi
 function getAccessTokenFromCookie() {
   const name = "access_token=";
   const decodedCookie = decodeURIComponent(document.cookie);
@@ -25,25 +25,41 @@ function getAccessTokenFromCookie() {
 
 function Main() {
   const navigate = useNavigate();
-  const [profileImage, setProfileImage] = useState(null);
+  const token = getAccessTokenFromCookie();
+
+  const [profileImage, setProfileImage] = useState(null); // API ga yuboriladigan rasm
+  const [uploadedImg, setUploadedImg] = useState(null); // Frontendda ko'rsatiladigan rasm
+
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
+    oldPassword: "",
     password: "",
     confirmPassword: "",
   });
 
-  const token = getAccessTokenFromCookie();
+  // 🖼️ Rasm yuklanganda
+  const handleImageChange = (result) => {
+    console.log(
+      "✅ Qaytgan rasm:",
+      endpoints.GET_MEDIA_UPLOADS + result.filename
+    );
+    setUploadedImg(endpoints.GET_MEDIA_UPLOADS + result.filename);
+    setProfileImage(result);
+  };
 
+  // ✏️ Inputlar uchun handler
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // ✅ Submit funksiyasi
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { fullName, phone, password, confirmPassword } = formData;
+    const { fullName, phone, oldPassword, password, confirmPassword } =
+      formData;
 
     if (
       !fullName.trim() ||
@@ -60,19 +76,20 @@ function Main() {
       return;
     }
 
-    if (!profileImage || !profileImage.file) {
+    if (!profileImage?.url) {
       alert("Пожалуйста, загрузите изображение профиля!");
       return;
     }
 
     try {
+      // 👤 Profil ma’lumotlarini yuborish
       await apiConnector(
         "PUT",
         endpoints.ADMIN_EDIT,
         {
           full_name: fullName,
           phone: phone,
-          avatar: "", 
+          avatar: endpoints.GET_MEDIA_UPLOADS + profileImage.filename,
         },
         {
           Authorization: `Bearer ${token}`,
@@ -80,11 +97,12 @@ function Main() {
         }
       );
 
+      // 🔐 Parolni yangilash
       await apiConnector(
         "PUT",
         endpoints.ADMIN_UPDATE_PASSWORD,
         {
-          old_password: "1234",
+          old_password: oldPassword,
           password: password,
         },
         {
@@ -93,12 +111,13 @@ function Main() {
         }
       );
 
-      alert("Успешно отправлено!");
+      alert("✅ Ma'lumotlar muvaffaqiyatli yangilandi!");
     } catch (error) {
-      alert("Ошибка: " + error.message);
+      alert("❌ Xatolik yuz berdi: " + error.message);
     }
   };
 
+  // 📦 Input maydonlari
   const inputs = [
     {
       name: "fullName",
@@ -111,6 +130,12 @@ function Main() {
       text: "Номер телефона",
       type: "number",
       placeholder: "Введите номер телефона",
+    },
+    {
+      name: "oldPassword",
+      text: "Старый пароль",
+      type: "password",
+      placeholder: "∗∗∗∗∗∗∗∗",
     },
     {
       name: "password",
@@ -130,9 +155,10 @@ function Main() {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.form_items}>
         <div className={styles.form_img_wrapper}>
-          <LoadImg
-            onImageChange={setProfileImage}
-            src={Avatar}
+          <FastLoadImg
+            key={uploadedImg}
+            onImageChange={handleImageChange}
+            src={uploadedImg}
             size={{ wrapper: "466px", image: "280px", gap: "18.5px" }}
             title={"Загрузите картинку или анимацию"}
             subtitle={

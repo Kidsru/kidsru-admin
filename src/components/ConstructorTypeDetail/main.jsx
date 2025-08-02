@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import { types as staticTypes } from "./data";
 import bg from "../../assets/img/tooltip-container (1).png";
@@ -8,7 +8,7 @@ import Question from "./Types/question";
 import LoadMedia_Video from "../Detals/LoadMedia/index2/index";
 import styles from "./main.module.css";
 import GetGame from "./getGame";
-// import { useEncryptor } from "../../hooks/useEncryptor";
+import axios from "axios";
 
 function Main() {
   const [type, setType] = useState(null);
@@ -26,10 +26,18 @@ function Main() {
   );
   const [questionCounts, setQuestionCounts] = useState({});
   const [type3Questions, setType3Questions] = useState(1);
-  // const { encryptId, decryptId } = useEncryptor();
-
   const [get, setGet] = useState(true);
+  const [gameName, setGameName] = useState("");
+  const [gameDescription, setGameDescription] = useState("");
+  const [videoText, setVideoText] = useState("");
   const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setGameName("");
+    setGameDescription("");
+    setVideoText("");
+  }, [selectedType]);
+
 
   useEffect(() => {
     if (type?.lesson !== undefined) {
@@ -115,8 +123,47 @@ function Main() {
     setGet(true);
   }, [selectedType]);
 
-  // console.log(data);
-  // console.log(`game_${selectedType}`);
+  const token = localStorage.getItem("token");
+
+  const handleSave = async () => {
+    const result = {
+      type: `game_${selectedType}`,
+      module: `module_${module}`,
+      block: `block_${block}`,
+      lesson: `lesson_${lesson}`,
+      game: `play_${gameType}`,
+      lang: "uz",
+      name: gameName,
+      description: gameDescription,
+      title_video: videoText,
+      start_video: "",
+      end_video: "",
+      question_count: currentQuestionCount,
+      is_paid: true,
+      order: 0,
+      questions: [],
+    };
+
+    console.log("Jo‘natilayotgan ma'lumot:", result);
+
+
+    try {
+      const response = await axios.post(
+        "https://api.kidsru.uz/v1/game/create",
+        result,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("✅ Muvaffaqiyatli yuborildi:", response.data);
+      localStorage.setItem("gameId", response.data.id);
+    } catch (error) {
+      console.error("❌ Xatolik yuz berdi:", error.response?.data || error.message);
+    }
+  };
+
 
   return (
     <div>
@@ -158,9 +205,11 @@ function Main() {
                 onChange={(e) => setModule(Number(e.target.value))}
                 style={{ backgroundImage: `url(${bg})` }}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                {[1, 2, 3].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
@@ -171,9 +220,11 @@ function Main() {
                 onChange={(e) => setBlock(Number(e.target.value))}
                 style={{ backgroundImage: `url(${bg})` }}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                {[1, 2, 3].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
@@ -184,11 +235,11 @@ function Main() {
                 onChange={(e) => setLesson(Number(e.target.value))}
                 style={{ backgroundImage: `url(${bg})` }}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
@@ -198,20 +249,22 @@ function Main() {
                 value={gameType}
                 onChange={(e) => {
                   setGameType(Number(e.target.value));
-                  setSelectedType(lesson + "." + Number(e.target.value - 1));
+                  lesson === "1"
+                    ? setSelectedType(lesson)
+                    : setSelectedType(`${lesson}_${Number(e.target.value) - 1}`);
                 }}
                 style={{ backgroundImage: `url(${bg})` }}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
+                {[1, 2, 3, 4, 5, 6].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
         </div>
+
         <div className={styles.wrapper}>
           <h3 className="title2">{selectedTypeName}</h3>
           <div className={styles.flex}>
@@ -220,39 +273,18 @@ function Main() {
                 <h4 className={styles.subtitle}>Название игры по сценарию</h4>
                 <textarea
                   className={styles.nameTextarea}
-                  placeholder={`«Повторяй за мной» («Men bilan takrorlang»)`}
+                  placeholder="Повторяй за мной"
+                  value={gameName}
+                  onChange={(e) => setGameName(e.target.value)}
                 ></textarea>
               </div>
               <div className={styles.textareaWrapper}>
-                <h4 className={styles.subtitle}>Название игры по сценарию</h4>
+                <h4 className={styles.subtitle}>Механика задач</h4>
                 <textarea
                   className={styles.problemTextarea}
-                  placeholder={`Механика:
-На экране появляются 6 картинок, каждая символизирует одно из приветствий:
-
-«Здравствуйте» (например, иконка с двумя пожимаями руками)
-«Привет» (кто-то машет рукой)
-«Доброе утро» (солнышко)
-«Добрый день» (яркое дневное солнце)
-«Добрый вечер» (закат)
-«Доброй ночи» (луна и звёзды)
-Когда ребёнок нажимает на картинку или текст, звучит аудио с правильным произношением слова по-русски (например, «Здравствуйте!»).
-
-Внизу экрана есть кнопка-микрофон. Ребёнок нажимает и повторяет услышанное слово.
-
-Система распознаёт произношение. Если произношение достаточно чёткое – звучит позитивный “правильный” звук (голос одобрения, как в Duolingo). Если ребёнок ошибся – звучит другой, мягкий “ошибочный” звук, и Персонаж говорит:
-
-«Qayta urinib ko‘ring!» (Попробуй ещё раз!)
-
-За каждое правильно произнесённое приветствие ребёнок получает звезду                Итог:
-Когда все 6 приветствий произнесены, на экране появляется:
-
-«Ajoyib! Siz ruscha salomlashish so‘zlarini aniq aytdingiz!»
-
-Персонаж показывает анимацию «Молодец!» и дарит несколько звёзд.
-Затем всплывает кнопка «Дальше» (Keyingi o‘yin) для перехода к следующему этапу.
-
-`}
+                  placeholder="Описание игры..."
+                  value={gameDescription}
+                  onChange={(e) => setGameDescription(e.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -273,7 +305,9 @@ function Main() {
                 <h4 className={styles.subtitle}>Реплика из видео</h4>
                 <textarea
                   className={styles.videoTextarea}
-                  placeholder={`«Birinchi o‘yinimizda biz rus tilidagi salomlashish so‘zlarini o‘rganamiz. Ekrandagi rasmlarga e’tibor bering. Ular ustiga bosing, so‘zlarni rus tilida eshiting va men bilan birga mikrofonni bosib takrorlang. Agar to‘g‘ri aytsangiz – men sizga sovg‘a beraman!»`}
+                  placeholder=""
+                  value={videoText}
+                  onChange={(e) => setVideoText(e.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -281,14 +315,14 @@ function Main() {
           <div style={{ marginTop: "30px" }} className={styles.ContentWrapper}>
             <h3 className={styles.subtitle}>Количество вопросов</h3>
             <div className={styles.questionCount}>
-              {(selectedType === "1.2" ? [2, 4, 6, 8] : [1, 2, 3, 4, 5, 6]).map(
+              {(selectedType === "1_2" ? [2, 4, 6, 8] : [1, 2, 3, 4, 5, 6]).map(
                 (item) => (
                   <button
                     onClick={() => setQuestionCount(item)}
                     key={item}
-                    className={`${
+                    className={
                       currentQuestionCount === item ? styles.active : ""
-                    }`}
+                    }
                   >
                     {item}
                   </button>
@@ -297,7 +331,7 @@ function Main() {
             </div>
           </div>
           <div className={styles.saveButton}>
-            <SaveButton />
+            <SaveButton onClick={handleSave} />
           </div>
         </div>
         {selectedType !== "1_2" &&

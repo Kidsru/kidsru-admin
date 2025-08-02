@@ -30,18 +30,16 @@ function Auth() {
     const normalizedPhone = normalizePhone(username);
 
     try {
-      const response = await apiConnector(
-        "POST",
-        endpoints.LOGIN_API,
-        {
-          phone: normalizedPhone,
-          password: password,
-        },
-      );
+      const response = await apiConnector("POST", endpoints.LOGIN_API, {
+        phone: normalizedPhone,
+        password: password,
+      });
 
       const data = response.data;
       if (response.status === 201 && data?.access_token) {
-        document.cookie = `access_token=${data.access_token}; path=/; max-age=86400`;
+        document.cookie = `access_token=${data.access_token}; path=/; max-age=2592000; secure; samesite=strict`;
+        localStorage.setItem("ADMIN_ID", data.id);
+
         navigate("/dashboard");
       } else {
         setError("Ошибка авторизации");

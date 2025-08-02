@@ -3,19 +3,62 @@ import Textarea from "../../Details/Textarea/textarea";
 import Index4 from "../../../Detals/LoadMedia/index4/index";
 import styles from "../question.module.css";
 import { useState } from "react";
+import axios from "axios";
 
 const Type1_0 = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const token = localStorage.getItem("token");
+  const gameId = localStorage.getItem("gameId");
 
-  const handleButtonClick = () => {
-    if (question && answer) {
-      console.log("Question:", question);
-      console.log("Answer:", answer);
-    }else {
-      alert("Вы не нажали кнопку «Готово».")
+
+const handleButtonClick = async () => {
+  if (question && answer) {
+    const result = {
+      game_id: gameId,
+      text: question,
+      variants_count: 1,
+      characters_count: 0,
+      variants: [
+        {
+          text: answer,
+          is_correct: true,
+          image: "",
+          character_number: 0,
+          order: 0,
+          audio: "",
+        },
+      ],
+      images: [
+        {
+          text: "",
+          color: "",
+          image: "",
+        },
+      ],
+    };
+
+    try {
+      const response = await axios.post(
+        "https://api.kidsru.uz/v1/question/create",
+        result,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(" Muvaffaqiyatli yuborildi:", response.data);
+    } catch (error) {
+      console.error("Xatolik yuz berdi:", error.response?.data || error.message);
     }
+  } else {
+    alert("Вы не нажали кнопку «Готово».");
   }
+};
+
+
 
   return (
     <div>

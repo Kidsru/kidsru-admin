@@ -33,6 +33,8 @@ function TitleSetterAndAuthGuard() {
   const location = useLocation();
   const token = getAccessTokenFromCookie();
 
+  localStorage.setItem("token", token)
+
   let title = "";
   if (location.pathname !== "/") {
     const current = navbar.find((item) => item.path === location.pathname);

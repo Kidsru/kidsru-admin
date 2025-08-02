@@ -14,20 +14,18 @@ function Calendar({ active = [] }) {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
-  const activeDates = useMemo(() => {
-    const result = [];
-    active.forEach(({ year, month, day }) => {
-      day.forEach((d) => {
-        result.push(`${year}-${parseInt(month) - 1}-${d}`);
-      });
-    });
-    return result;
-  }, [active]);
+const activeDates = useMemo(() => {
+  return active.map((dateStr) => {
+    const date = new Date(dateStr);
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  });
+}, [active]);
 
-  const toggleDate = (day) => {
-    const dateKey = `${currentYear}-${currentMonth}-${day}`;
-    // optional: if you want click interaction, handle here
-  };
+const toggleDate = (day) => {
+  const dateKey = `${currentYear}-${currentMonth}-${day}`;
+  console.log("Clicked date:", dateKey);
+};
+
 
   const prevMonth = () => {
     if (currentMonth === 0) {

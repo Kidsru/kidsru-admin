@@ -36,16 +36,13 @@ const Question = ({
     setIsOpen(!isOpen);
   };
 
-    console.log(isMainBlock);
-
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <h2 className={styles.title}>
-          {type === "3.0" && mainBlockIndex && variantIndex
+          {type === "3" && mainBlockIndex && variantIndex
             ? `Вопрос №${mainBlockIndex}.${variantIndex}`
-            : (type !== "1.2")
+            : (type !== "1_2")
               ? (isMainBlock ? "Основной блок" : `Вопрос №${question + 1}`)
               : `Слова 1-${number}`}
         </h2>

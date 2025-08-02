@@ -1,7 +1,7 @@
 import styles from "./index.module.css";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { ReactComponent as ClockIcon } from "../../../../../assets/icon/clock.svg"
+import { ReactComponent as ClockIcon } from "../../../../../assets/icon/clock.svg";
 
 const daysOfWeek = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
@@ -13,14 +13,6 @@ function getStartOfWeek(date) {
   return monday;
 }
 
-function formatDateKey(date) {
-  const yyyy = date.getFullYear();
-  const mm = String(date.getMonth() + 1).padStart(2, "0");
-  const dd = String(date.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-}
-
-
 function formatDateDisplay(date) {
   const dd = String(date.getDate()).padStart(2, "0");
   const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -28,19 +20,9 @@ function formatDateDisplay(date) {
   return `${dd}.${mm}.${yyyy}`;
 }
 
-function parseKeyToDate(key) {
-  const [year, month, day] = key.split("-").map(Number);
-  return new Date(year, month - 1, day);
-}
-
-function Index({activeDates = []}) {
-  const lastActiveDate = activeDates.length > 0
-    ? parseKeyToDate(activeDates[activeDates.length - 1])
-    : new Date();
-
-  const [currentDate, setCurrentDate] = useState(getStartOfWeek(lastActiveDate));
-
-
+function Index({ weekStatus = [] }) {
+  const today = new Date();
+  const [currentDate, setCurrentDate] = useState(getStartOfWeek(today));
 
   const weekDates = Array.from({ length: 7 }, (_, i) => {
     const d = new Date(currentDate);
@@ -68,20 +50,22 @@ function Index({activeDates = []}) {
   const currentMonthName = monthNames[currentDate.getMonth()];
   const currentYear = currentDate.getFullYear();
 
-  const getFormattedRange = () => {
-    if (activeDates.length === 0) return null;
-    const [startKey, endKey] = [activeDates[0], activeDates[activeDates.length - 1]];
-    const [startY, startM, startD] = startKey.split("-").map(Number);
-    const [endY, endM, endD] = endKey.split("-").map(Number);
+  const completedDays = weekStatus.filter(day => day.done);
+  const lastCompletedIdx = weekStatus.map(d => d.done).lastIndexOf(true);
 
-    const startDate = new Date(startY, startM, startD);
-    const endDate = new Date(endY, endM, endD);
+  const getFormattedRange = () => {
+    if (completedDays.length === 0) return null;
+
+    const startDate = new Date(currentDate);
+    startDate.setDate(startDate.getDate() + weekStatus.findIndex(d => d.done));
+
+    const endDate = new Date(currentDate);
+    endDate.setDate(endDate.getDate() + lastCompletedIdx);
 
     return (
       <span className={styles.activeDates}>
         <ClockIcon /> {formatDateDisplay(startDate)} - {formatDateDisplay(endDate)}
       </span>
-
     );
   };
 
@@ -97,9 +81,8 @@ function Index({activeDates = []}) {
 
       <div className={styles.calendar}>
         {weekDates.map((date, idx) => {
-          const key = formatDateKey(date);
-          const isSelected = activeDates.includes(key);
-          const isLast = activeDates[activeDates.length - 1] === key;
+          const isSelected = weekStatus[idx]?.done;
+          const isLast = idx === lastCompletedIdx;
 
           return (
             <div
@@ -118,7 +101,7 @@ function Index({activeDates = []}) {
 
       <div className={styles.sessionInfo}>
         <div className={styles.dateRange}>{getFormattedRange()}</div>
-        <h3>{activeDates.length} дня подряд</h3>
+        <h3>{completedDays.length} дня подряд</h3>
         <p>Сессия каждодневного посещения занятий - в днях</p>
       </div>
     </div>

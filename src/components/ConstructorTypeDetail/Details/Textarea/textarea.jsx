@@ -21,7 +21,7 @@ const Textarea = ({ width, mainTitle, title, subtitle, value, height, onClick, s
                 <textarea
                     style={{ height: height || "86px" }}
                     className={styles.textarea}
-                    value={text}
+                    placeholder={text}
                     onChange={(e) => setText(e.target.value)}
                 ></textarea>
                 <div style={{ textAlign: "right" }}>

@@ -27,6 +27,7 @@ const Sidebar = ({ resize }) => {
 
   function logout(navigate) {
     document.cookie = "access_token=; path=/; max-age=0";
+    localStorage.clear()
     navigate("/auth");
     window.location.reload()
   }
